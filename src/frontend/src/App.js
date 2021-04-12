@@ -22,7 +22,7 @@ class App extends Component {
       <div className="App">
         <header className="App-header">
           {this.state.message}
-        <button onClick={() => this.clickMe("Arvid")}>Arvid</button>
+        <button onClick={() => this.clickMe("Hello world: Arvid")}>Arvid</button>
         </header>
       </div>
     );
