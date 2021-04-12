@@ -21,8 +21,9 @@ class App extends Component {
     return (
       <div className="App">
         <header className="App-header">
-          {this.state.message}
+        {this.state.message}
         <button onClick={() => this.clickMe("Hello world: Arvid")}>Arvid</button>
+        <button onClick={() => this.clickMe("Hello world: namn")}>namn</button>
         </header>
       </div>
     );
