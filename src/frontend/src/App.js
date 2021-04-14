@@ -24,6 +24,7 @@ class App extends Component {
         {this.state.message}
         <button onClick={() => this.clickMe("Hello world: 1")}>namn1</button>
         <button onClick={() => this.clickMe("Hello world: 2")}>namn2</button>
+        <button onClick={() => this.clickMe("Hello world: 3")}>Lisa</button>
         </header>
       </div>
     );
