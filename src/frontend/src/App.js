@@ -1,4 +1,3 @@
-import logo from './logo.svg';
 import './App.css';
 import React, { Component } from 'react';
 
@@ -21,6 +20,7 @@ class App extends Component {
     return (
       <div className="App">
         <header className="App-header">
+        <img src="/hamncafeet-logo.jpeg" alt="Hamncafeet logga" />
         {this.state.message}
         <button onClick={() => this.clickMe("Hello world: 1")}>namn1</button>
         <button onClick={() => this.clickMe("Hello world: 2")}>namn2</button>
