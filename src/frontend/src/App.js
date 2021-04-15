@@ -28,6 +28,7 @@ class App extends Component {
         <Button onClick={() => this.clickMe("Hello world: 3")}>Lisa</Button>
         <Button onClick={() => this.clickMe("Hello world: 4")}>Elias H</Button>
         <Button onClick={() => this.clickMe("Hello world: 5")}>Elias KC</Button>
+        <Button onClick={() => this.clickMe("Hello world: 6")}>Astrid</Button>
         </header>
       </div>
     );
