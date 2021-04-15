@@ -31,7 +31,7 @@ class App extends Component {
           <Button onClick={() => this.clickMe("Hello world: 3")}>Elias KC</Button>
           <Button onClick={() => this.clickMe("Hello world: 4")}>Astrid</Button>
           <Button onClick={() => this.clickMe("waddap")}>Erik</Button>
-          <Button onClick={() => this.clickMe("Hello world: 5")}>Ida :)</Button>
+          <Button onClick={() => this.clickMe("Jag la inte in knappen sist")}>Ida :)</Button>
         </div>
         </header>
       </div>
