@@ -1,6 +1,8 @@
 import logo from './logo.svg';
 import './App.css';
 import React, { Component } from 'react';
+import 'bootstrap/dist/css/bootstrap.min.css';
+import Button from 'react-bootstrap/Button';
 
 class App extends Component {
   constructor(props){
@@ -22,10 +24,9 @@ class App extends Component {
       <div className="App">
         <header className="App-header">
         {this.state.message}
-        <button onClick={() => this.clickMe("Hello world: 1")}>namn1</button>
-        <button onClick={() => this.clickMe("Hello world: 2")}>namn2</button>
-        <button onClick={() => this.clickMe("Hello world: 3")}>Lisa</button>
-        <button onClick={() => this.clickMe("Hello world: 4")}>Elias H</button>
+        <Button variant="primary" onClick={() => this.clickMe("Hello world: 2")}>Arvid</Button>
+        <Button variant="primary" onClick={() => this.clickMe("Hello world: 3")}>Lisa</Button>
+        <Button variant="primary" onClick={() => this.clickMe("Hello world: 4")}>Elias H</Button>
         </header>
       </div>
     );
