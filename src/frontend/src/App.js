@@ -1,5 +1,7 @@
 import './App.css';
 import React, { Component } from 'react';
+import 'bootstrap/dist/css/bootstrap.min.css';
+import Button from 'react-bootstrap/Button';
 
 class App extends Component {
   constructor(props){
