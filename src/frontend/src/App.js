@@ -22,7 +22,10 @@ class App extends Component {
     return (
       <div className="App">
         <header className="App-header">
-        <img src="/hamncafeet-logo.jpeg" alt="Hamncafeet logga" />
+        <a href='https://www.youtube.com/watch?v=dQw4w9WgXcQ'>
+          <img src="/hamncafeet-logo.jpeg" alt="Hamncafeet logga"/>
+        </a>
+       
         {this.state.message}
         <div>
           <Button onClick={() => this.clickMe("Hello world: 0")}>Arvid</Button>
