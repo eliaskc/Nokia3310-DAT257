@@ -16,4 +16,17 @@ WHERE BookedTables.guestP IS NULL
 OR (SELECT CURRENT_DATE + INTERVAL '2 hour') > BookedTables.bookingDate;
 
 
+
+
 -- Bookings 
+
+
+-- Occupied seats at certain time
+
+-- Shows tableID for all available timeslots 
+SELECT t.tableID
+FROM Tables AS t 
+    LEFT OUTER JOIN BookedTables AS b 
+    USING(tableID) 
+    WHERE b.guestP IS NULL
+    OR (SELECT CURRENT_DATE + INTERVAL '2 hour') > b.bookingDate;
