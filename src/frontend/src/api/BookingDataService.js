@@ -18,7 +18,7 @@ class BookingDataService {
     }
 
     updateBooking(id,booking) {
-        return axios.put(`http://localhost:8080/bookings/${id}`, todo);
+        return axios.put(`http://localhost:8080/bookings/${id}`, booking);
     }
 
     createBooking(booking) {
