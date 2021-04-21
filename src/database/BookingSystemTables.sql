@@ -26,7 +26,7 @@ CREATE TABLE Bookings (
 );
 
 CREATE TABLE BookedTables (
-    table INT REFERENCES Tables(tableID),
+    tableID INT REFERENCES Tables(tableID),
     bookingDate DATE ,
     bookingTime TIME ,
     guestP TEXT ,
