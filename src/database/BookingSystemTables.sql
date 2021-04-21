@@ -2,9 +2,9 @@ CREATE DATABASE hamncafet_bookings;
 
 CREATE TABLE Tables (
     tableID INT NOT NULL,
-    nrOfSeats INT = 2,
+    nrOfSeats INT NOT NULL,
     PRIMARY KEY(tableID),
-    CHECK nrOfSeats=2
+    CHECK (nrOfSeats=2)
 );
 
 CREATE TABLE GuestParties (
