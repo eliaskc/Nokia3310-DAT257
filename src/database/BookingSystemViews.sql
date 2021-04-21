@@ -23,7 +23,7 @@ OR (SELECT CURRENT_DATE + INTERVAL '2 hour') > BookedTables.bookingDate;
 
 -- Occupied seats at certain time
 
--- Shows tableID for all available timeslots 
+-- Shows tableID for all tables available for booking at 
 SELECT t.tableID
 FROM Tables AS t 
     LEFT OUTER JOIN BookedTables AS b 

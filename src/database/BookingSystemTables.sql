@@ -7,6 +7,14 @@ CREATE SCHEMA public;
 GRANT ALL ON SCHEMA public TO postgres;
 \set QUIET false
 
+--A table of all the allowed booking times for a given date
+CREATE TABLE BookingTimes (
+    bookingDate DATE NOT NULL,
+    startTime INT NOT NULL, --ev ändra detta sen så det är time
+    endTime INT NOT NULL
+    PRIMARY KEY (bookingDate, startTime)
+);
+
 CREATE TABLE Tables (
     tableID INT NOT NULL,
     nrOfSeats INT NOT NULL,
@@ -25,17 +33,18 @@ CREATE TABLE GuestParties (
 
 CREATE TABLE Bookings (
     date DATE NOT NULL,
-    time TIME NOT NULL,
+    time INT NOT NULL,
     bookingID TEXT NOT NULL,
     guestP TEXT REFERENCES GuestParties(email),
     PRIMARY KEY(date, time, guestP),
+    FOREIGN KEY (date, time) REFERENCES BookingTimes(bookingDate, startTime),
     UNIQUE(bookingID)
 );
 
 CREATE TABLE BookedTables (
     tableID INT REFERENCES Tables(tableID),
     bookingDate DATE ,
-    bookingTime TIME ,
+    bookingTime INT ,
     guestP TEXT ,
     FOREIGN KEY(bookingDate, bookingTime, guestP) 
         REFERENCES Bookings(date, time, guestP),
