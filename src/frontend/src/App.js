@@ -1,25 +1,45 @@
-import logo from './logo.svg';
 import './App.css';
+import React, { Component } from 'react';
+import 'bootstrap/dist/css/bootstrap.min.css';
+import Button from 'react-bootstrap/Button';
 
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
+class App extends Component {
+  constructor(props){
+    super(props);
+    this.state={
+      message : "Hello world"
+    }
+    this.clickMe = this.clickMe.bind(this);
+  }
+
+  clickMe(message){
+    this.setState({
+      message : message
+    });
+  }
+
+  render(){
+    return (
+      <div className="App">
+        <header className="App-header">
+        <a href='https://www.youtube.com/watch?v=dQw4w9WgXcQ'>
+          <img src="/hamncafeet-logo.jpeg" alt="Hamncafeet logga"/>
         </a>
-      </header>
-    </div>
-  );
+       
+        {this.state.message}
+        <div>
+          <Button onClick={() => this.clickMe("Hello world: 0")}>Arvid</Button>
+          <Button onClick={() => this.clickMe("Hello world: 1")}>Lisa</Button>
+          <Button onClick={() => this.clickMe("Hello world: 2")}>Elias H</Button>
+          <Button onClick={() => this.clickMe("Hello world: 3")}>Elias KC</Button>
+          <Button onClick={() => this.clickMe("Hello world: 4")}>Astrid</Button>
+          <Button onClick={() => this.clickMe("waddap")}>Erik</Button>
+          <Button onClick={() => this.clickMe("Jag la inte in knappen sist")}>Ida :)</Button>
+        </div>
+        </header>
+      </div>
+    );
+  }
 }
 
 export default App;
