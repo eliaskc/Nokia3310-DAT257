@@ -1,4 +1,11 @@
-CREATE DATABASE hamncafet_bookings;
+--CREATE DATABASE hamncafet_bookings;
+
+\set QUIET true
+SET client_min_messages TO WARNING; -- Less talk please.
+DROP SCHEMA public CASCADE;
+CREATE SCHEMA public;
+GRANT ALL ON SCHEMA public TO postgres;
+\set QUIET false
 
 CREATE TABLE Tables (
     tableID INT NOT NULL,
@@ -26,7 +33,7 @@ CREATE TABLE Bookings (
 );
 
 CREATE TABLE BookedTables (
-    table INT REFERENCES Tables(tableID),
+    tableID INT REFERENCES Tables(tableID),
     bookingDate DATE ,
     bookingTime TIME ,
     guestP TEXT ,

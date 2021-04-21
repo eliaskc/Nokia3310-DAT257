@@ -6,4 +6,10 @@ CREATE SCHEMA public;
 GRANT ALL ON SCHEMA public TO postgres;
 \set QUIET false
 
- \i /users/idalinnakallio/documents/GitHub/Nokia3310-DAT257/src/database/BookingSystemTables.sql
+
+--Pretend there 8 seats, 4 tables (2 seats per table)
+INSERT INTO Tables VALUES (1, 2);
+INSERT INTO Tables VALUES (2, 2);
+INSERT INTO Tables VALUES (3, 2);
+INSERT INTO Tables VALUES (4, 2);
+
