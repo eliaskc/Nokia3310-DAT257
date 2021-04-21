@@ -1,32 +1,34 @@
 
 
--- All timeslots (with isBooked column)
+-- All timeslots for all the tables
+CREATE VIEW TimeSlots AS
+    SELECT *, true AS isAvailable 
+    FROM Tables, BookingTimes
+    ORDER BY bookingDate, startTime;
 
-/*CREATE VIEW Timeslots AS 
-SELECT date, time, endTime AS TIMEADD(HOUR, 2), guestP, isBooked AS 'lol'
-FROM Bookings;
+-- Fetch all the availble timeslots. First selects all timeslots and removes all rows
+-- with booked timeslots for the tables, then removes the timeslots that have a booking
+-- coming up within 2 hours form the timeslot.
+CREATE VIEW AvailableTimeSlots AS
+    (SELECT tableID, bookingDate, startTime
+    FROM TimeSlots
+    EXCEPT (SELECT tableID, bookingDate, startTime
+        FROM BookedTables))
+    EXCEPT (SELECT tableID, bookingDate, startTime -200
+        FROM BookedTables);
+
+
+CREATE VIEW OccupiedTimeSlots AS
+    (SELECT tableID, bookingDate, startTime 
+    FROM TimeSlots
+    EXCEPT (SELECT*
+        FROM AvailableTimeSlots));
+
+/*
+-- Shows all available seats for a given time
+CREATE VIEW NrOfAvailableSeats AS
+    SELECT bookingDate, startTime, SUM(nrOfSeats) AS nrOfAvailableSeats
+    FROM AvailableTimeSlots 
+    GROUP BY bookingDate, startTime
+    ORDER BY bookingDate, startTime;
 */
-
-
--- Available Tables at specific date and time
-SELECT Tables.tableID
-FROM Tables 
-LEFT OUTER JOIN BookedTables USING(tableID)
-WHERE BookedTables.guestP IS NULL 
-OR (SELECT CURRENT_DATE + INTERVAL '2 hour') > BookedTables.bookingDate;
-
-
-
-
--- Bookings 
-
-
--- Occupied seats at certain time
-
--- Shows tableID for all tables available for booking at 
-SELECT t.tableID
-FROM Tables AS t 
-    LEFT OUTER JOIN BookedTables AS b 
-    USING(tableID) 
-    WHERE b.guestP IS NULL
-    OR (SELECT CURRENT_DATE + INTERVAL '2 hour') > b.bookingDate;
