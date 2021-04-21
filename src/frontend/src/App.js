@@ -1,33 +1,15 @@
 import './App.css';
 import React, {Component,useState,useEffect } from 'react';
 import 'bootstrap/dist/css/bootstrap.min.css';
-import Button from 'react-bootstrap/Button';
+import {BrowserRouter as Router, Route, Switch,Link} from 'react-router-dom'
+import BookingApp from './components/BookingApp'
 
 function App() {
-  const [message,setMessage] = useState("Hello world");
 
-  const clickMe = (message) => {
-    setMessage(message)
-  }
 
   return (
     <div className="App">
-      <header className="App-header">
-      <a href='https://www.youtube.com/watch?v=dQw4w9WgXcQ'>
-        <img src="/hamncafeet-logo.jpeg" alt="Hamncafeet logga"/>
-      </a>
-     
-      {message}
-      <div>
-        <Button onClick={() => clickMe("Hello world: 0")}>Arvid</Button>
-        <Button onClick={() => clickMe("Hello world: 1")}>Lisa</Button>
-        <Button onClick={() => clickMe("Hello world: 2")}>Elias H</Button>
-        <Button onClick={() => clickMe("Hello world: 3")}>Elias KC</Button>
-        <Button onClick={() => clickMe("Hello world: 4")}>Astrid</Button>
-        <Button onClick={() => clickMe("waddap")}>Erik</Button>
-        <Button onClick={() => clickMe("Jag la inte in knappen sist")}>Ida :)</Button>
-      </div>
-      </header>
+        <BookingApp/>
     </div>
   );
 }
