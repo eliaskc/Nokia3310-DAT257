@@ -1,45 +1,58 @@
+import React, { useState } from 'react';
 import './App.css';
-import React, { Component } from 'react';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import Button from 'react-bootstrap/Button';
+import { BrowserRouter, Link, Route, Switch } from 'react-router-dom';
 
-class App extends Component {
-  constructor(props){
-    super(props);
-    this.state={
-      message : "Hello world"
-    }
-    this.clickMe = this.clickMe.bind(this);
-  }
+import Calendar from './components/Calendar';
+import Timelist from './components/Timelist';
+import Guests from './components/Guests'
 
-  clickMe(message){
-    this.setState({
-      message : message
-    });
-  }
+function App() {
+  const [guests, setGuests] = useState(0);
+  const [date, setDate] = useState();
+  const [time, setTime] = useState('');
 
-  render(){
-    return (
-      <div className="App">
-        <header className="App-header">
-        <a href='https://www.youtube.com/watch?v=dQw4w9WgXcQ'>
-          <img src="/hamncafeet-logo.jpeg" alt="Hamncafeet logga"/>
-        </a>
-       
-        {this.state.message}
-        <div>
-          <Button onClick={() => this.clickMe("Hello world: 0")}>Arvid</Button>
-          <Button onClick={() => this.clickMe("Hello world: 1")}>Lisa</Button>
-          <Button onClick={() => this.clickMe("Hello world: 2")}>Elias H</Button>
-          <Button onClick={() => this.clickMe("Hello world: 3")}>Elias KC</Button>
-          <Button onClick={() => this.clickMe("Hello world: 4")}>Astrid</Button>
-          <Button onClick={() => this.clickMe("waddap")}>Erik</Button>
-          <Button onClick={() => this.clickMe("Jag la inte in knappen sist")}>Ida :)</Button>
-        </div>
-        </header>
+  function onConfirm() { 
+    console.log(guests)
+    console.log(date)
+    console.log(time)
+  };
+  
+  return (
+    <div className="App">
+      <header className="App-header">
+
+      <img src="/hamncafet_logo.jpg" alt="Hamncafét logga" className="main_logo"/>
+
+      <BrowserRouter>
+        <nav>
+          <ul>
+            <li> <Link to='/guests'>1</Link></li>
+            <li> <Link to='/date'>2</Link></li>
+            <li> <Link to='/timelist'>3</Link></li>
+          </ul>
+        </nav>
+        <Switch>
+          <Route path='/guests'>
+            <Guests guestProps={setGuests}/>
+          </Route>
+          <Route path='/date'>
+            <Calendar dateProps={setDate}/>
+          </Route>
+          <Route path='/timelist'>
+            <Timelist timeProps={setTime}/>
+          </Route>
+        </Switch>
+      </BrowserRouter>
+
+      <div className='confirm-btn'>
+        <Button onClick={onConfirm}>Confirm</Button>
       </div>
-    );
-  }
+
+      </header>
+    </div>
+  );
 }
 
 export default App;

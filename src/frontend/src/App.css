@@ -14,25 +14,47 @@
 }
 
 .App-header {
-  background-color: #282c34;
+  background-color: #ffffff;
   min-height: 100vh;
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
   font-size: calc(10px + 2vmin);
-  color: white;
+  color: rgb(0, 0, 0);
 }
 
 .App-link {
   color: #61dafb;
 }
 
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
+.react-calendar__tile {
+  height: 50px;
 }
+
+.react-calendar__month-view__weekdays__weekday abbr[title] {
+  font-size: 14px;
+  color: rgb(15, 70, 15);
+  text-decoration: none;
+}
+
+.react-calendar__tile--active {
+  background: #e70220;
+  color: white;
+}
+
+.react-calendar__tile--active:enabled:hover,
+.react-calendar__tile--active:enabled:focus {
+  background: #e70220;
+}
+
+.react-calendar__tile,
+.react-calendar__month-view__days__day {
+  font-size: 16px;
+}
+
+.main_logo {
+  height: 171px;
+  width: 500px;
+}
+
