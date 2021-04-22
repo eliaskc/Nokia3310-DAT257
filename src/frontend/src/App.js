@@ -6,7 +6,8 @@ import { BrowserRouter, Link, Route, Switch } from 'react-router-dom';
 
 import Calendar from './components/Calendar';
 import Timelist from './components/Timelist';
-import Guests from './components/Guests'
+import Guests from './components/Guests';
+import Confirm from './components/Confirm';
 
 function App() {
   const [guests, setGuests] = useState(0);
@@ -31,6 +32,7 @@ function App() {
             <li> <Link to='/guests'>1</Link></li>
             <li> <Link to='/date'>2</Link></li>
             <li> <Link to='/timelist'>3</Link></li>
+            <li> <Link to='/confirm'>4</Link></li>
           </ul>
         </nav>
         <Switch>
@@ -42,6 +44,9 @@ function App() {
           </Route>
           <Route path='/timelist'>
             <Timelist timeProps={setTime}/>
+          </Route>
+          <Route path='/confirm'>
+            <Confirm />
           </Route>
         </Switch>
       </BrowserRouter>
