@@ -1,10 +1,10 @@
-import React, {Component,useState,useEffect } from 'react';
+import React, {useState } from 'react';
 import Button from 'react-bootstrap/Button';
 
 function HomeComponent() {
     const [message,setMessage] = useState("Hello world");
 
-    const clickMe = (message) => {
+    const clickMe = (text) => {
       setMessage(message)
     }
 

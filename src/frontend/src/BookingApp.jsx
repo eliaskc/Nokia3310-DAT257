@@ -1,11 +1,13 @@
-import React, {Component,useState,useEffect } from 'react';
-import {BrowserRouter as Router, Route, Switch,Link} from 'react-router-dom'
-import BookingListComponent from './BookingListComponent'
-import HomeComponent from './HomeComponent'
+import React from 'react';
+import {BrowserRouter as Router, Route, Switch} from 'react-router-dom'
+import BookingListComponent from './components/BookingListComponent'
+import HomeComponent from './components/HomeComponent'
+import './BookingApp.css'
+import 'bootstrap/dist/css/bootstrap.min.css';
 
 function BookingApp() {
     return(
-        <div>
+        <div className='BookingApp'>
             <Router>
             <>  
                 <Switch>
