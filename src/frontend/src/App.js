@@ -11,7 +11,7 @@ import Confirm from './components/Confirm';
 
 function App() {
   const [guests, setGuests] = useState(0);
-  const [date, setDate] = useState();
+  const [date, setDate] = useState(new Date());
   const [time, setTime] = useState('');
   function onConfirm() { 
     console.log(guests)
@@ -44,7 +44,7 @@ function App() {
           <Route path='/timelist'>
             <Timelist timeProps={setTime}/>
           </Route>
-          <Route path='/confirm2'>
+          <Route path='/confirm'>
             <Confirm guestProps={guests} dateProps={date} timeProps={time}/>
           </Route>
         </Switch>
