@@ -13,7 +13,6 @@ function App() {
   const [guests, setGuests] = useState(0);
   const [date, setDate] = useState();
   const [time, setTime] = useState('');
-
   function onConfirm() { 
     console.log(guests)
     console.log(date)
@@ -45,8 +44,8 @@ function App() {
           <Route path='/timelist'>
             <Timelist timeProps={setTime}/>
           </Route>
-          <Route path='/confirm'>
-            <Confirm />
+          <Route path='/confirm2'>
+            <Confirm guestProps={guests} dateProps={date} timeProps={time}/>
           </Route>
         </Switch>
       </BrowserRouter>
