@@ -11,8 +11,7 @@ GRANT ALL ON SCHEMA public TO postgres;
 -- ev lägga till i schemat och det
 CREATE TABLE BookingTimes (
     bookingDate DATE NOT NULL,
-    startTime INT NOT NULL, --ev ändra detta sen så det är time
-    endTime INT NOT NULL,
+    startTime TIME NOT NULL, --ev ändra detta sen så det är time
     PRIMARY KEY (bookingDate, startTime)
 );
 
@@ -30,7 +29,7 @@ CREATE TABLE Bookings (
     guestTelNr TEXT NOT NULL,
     nrOfPeople INTEGER NOT NULL,
     bookingDate DATE NOT NULL,
-    startTime INT NOT NULL,
+    startTime TIME NOT NULL,
     PRIMARY KEY(bookingDate, startTime, guestEmail),
     FOREIGN KEY (bookingDate, startTime) REFERENCES BookingTimes(bookingDate, startTime)
 );
@@ -40,7 +39,7 @@ CREATE TABLE Bookings (
 CREATE TABLE BookedTables (
     tableID INT REFERENCES Tables(tableID),
     bookingDate DATE ,
-    startTime INT,
+    startTime TIME,
     guestEmail TEXT ,
     FOREIGN KEY(bookingDate, startTime, guestEmail) 
         REFERENCES Bookings(bookingDate, startTime, guestEmail),

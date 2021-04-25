@@ -9,25 +9,29 @@ CREATE VIEW TimeSlots AS
 -- All timeslots with connected bookings if there are any. 
 -- This is the view that is used for inserting a booking from the backend.
 CREATE VIEW AllTimeSlots AS
-    SELECT bookingDate, startTime, endTime, tableID, guestEmail, guestName, guestTelNr, nrOfPeople,
+    SELECT bookingDate, startTime, tableID, guestEmail, guestName, guestTelNr, nrOfPeople,
     CASE
         WHEN guestEmail IS NULL THEN true ELSE false
     END AS isAvailable
     FROM
     Timeslots LEFT OUTER JOIN BookedTables USING (startTime, bookingDate, tableID)
     LEFT OUTER JOIN Bookings USING (guestEmail, startTime, bookingDate)
-    ORDER BY tableID;
+    ORDER BY bookingDate, tableID, startTime;
 
 
 -- Fetch all the availble timeslots. First selects all timeslots and removes all rows
 -- with booked timeslots for the tables, then removes the timeslots that have a booking
--- coming up within 2 hours form the timeslot.
+-- that starts within 2 hours before the timeslot. The latest available timeslot to book
+-- before a another booking coming up is the one that is 1,5 hours before.
 CREATE VIEW AvailableTimeSlots AS
     SELECT tableID, bookingDate, startTime
     FROM AllTimeSlots 
-    WHERE isAvailable = true
-    EXCEPT (SELECT tableID, bookingDate, startTime -200
-        FROM BookedTables);
+    WHERE isAvailable = true AND startTime < '21:30:00'
+    EXCEPT (SELECT tableID, bookingDate, startTime - INTERVAL '90 minutes'
+        FROM BookedTables)
+    ORDER BY bookingDate, tableID, startTime;
+    
+    
 
 
 --OBS!!!!! När hämtar i backend så måste queryn hämta "WHERE nrOfPeople >= nrOfAvailableSeats"
