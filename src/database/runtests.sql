@@ -17,7 +17,6 @@ INSERT INTO BookingTimes VALUES (CURRENT_DATE, 2000, 2030);
 INSERT INTO BookingTimes VALUES (CURRENT_DATE, 2030, 2100);
 INSERT INTO BookingTimes VALUES (CURRENT_DATE, 2100, 2130);
 
-
 --Inserting bookings, each booking books 4 timeslots
 INSERT INTO Bookings VALUES ('ida', 'ida@live.com', '0761022440', 4, CURRENT_DATE, 1700);
 INSERT INTO Bookings VALUES ('ida', 'ida@live.com', '0761022440', 4, CURRENT_DATE, 1730);
@@ -53,3 +52,6 @@ INSERT INTO BookedTables VALUES (4, CURRENT_DATE, 1830, 'lisa@live.com');
 INSERT INTO BookedTables VALUES (4, CURRENT_DATE, 1900, 'lisa@live.com');
 
 --INSERT INTO BookedTables VALUES (1, CURRENT_DATE, 1730, 'lisa@live.com');
+
+
+INSERT INTO AllTimeSlots VALUES (CURRENT_DATE, 1700, 1900, 1, 'bajs@live', 'bajs',  90232, 2);
