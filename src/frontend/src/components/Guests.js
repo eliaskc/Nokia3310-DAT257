@@ -1,4 +1,4 @@
-import Button from 'react-bootstrap/Button';
+import Dropdown from 'react-dropdown';
 
 export default function Guests(props) {
     function displayAmount(n){
@@ -6,15 +6,18 @@ export default function Guests(props) {
         props.guestProps(n)
     }
 
+    const options = [
+        '1', '2', '3', '4', '5', '6', '7', '8'
+    ];
+
+    const defaultOption = options[0]
+
     return (
         <div>
             <h2><span>Number of guests</span></h2>
-            <Button onClick={() => displayAmount(1)}>1</Button>
-            <Button onClick={() => displayAmount(2)}>2</Button>
-            <Button onClick={() => displayAmount(3)}>3</Button>
-            <Button onClick={() => displayAmount(4)}>4</Button>
-            <Button onClick={() => displayAmount(5)}>5</Button>
-            <Button onClick={() => displayAmount(6)}>6</Button>
+            <div className='guestsDropdown'>
+                <Dropdown options={options} onChange={displayAmount} value={defaultOption}></Dropdown>
+            </div>
         </div>
     )
 }
