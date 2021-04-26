@@ -21,17 +21,17 @@ INSERT INTO BookingTimes VALUES (CURRENT_DATE, '22:00:00');
 INSERT INTO BookingTimes VALUES (CURRENT_DATE, '22:30:00');
 
 --Inserting bookings, each booking books 4 timeslots
-INSERT INTO Bookings VALUES ('ida', 'ida@live.com', '0761022440', 4, CURRENT_DATE, '17:00:00');
-INSERT INTO Bookings VALUES ('ida', 'ida@live.com', '0761022440', 4, CURRENT_DATE, '17:30:00');
-INSERT INTO Bookings VALUES ('ida', 'ida@live.com', '0761022440', 4, CURRENT_DATE, '18:00:00');
-INSERT INTO Bookings VALUES ('ida', 'ida@live.com', '0761022440', 4, CURRENT_DATE, '18:30:00');
+INSERT INTO Bookings VALUES ('Ida', 'ida@live.com', '0761022440', 4, CURRENT_DATE, '17:00:00');
+INSERT INTO Bookings VALUES ('Ida', 'ida@live.com', '0761022440', 4, CURRENT_DATE, '17:30:00');
+INSERT INTO Bookings VALUES ('Ida', 'ida@live.com', '0761022440', 4, CURRENT_DATE, '18:00:00');
+INSERT INTO Bookings VALUES ('Ida', 'ida@live.com', '0761022440', 4, CURRENT_DATE, '18:30:00');
 
-INSERT INTO Bookings VALUES ('lisa', 'lisa@live.com', '0761022442', 2, CURRENT_DATE, '17:30:00');
-INSERT INTO Bookings VALUES ('lisa', 'lisa@live.com', '0761022442', 2, CURRENT_DATE, '18:00:00');
-INSERT INTO Bookings VALUES ('lisa', 'lisa@live.com', '0761022442', 2, CURRENT_DATE, '18:30:00');
-INSERT INTO Bookings VALUES ('lisa', 'lisa@live.com', '0761022442', 2, CURRENT_DATE, '19:00:00');
+INSERT INTO Bookings VALUES ('Lisa', 'lisa@live.com', '0761022442', 2, CURRENT_DATE, '17:30:00');
+INSERT INTO Bookings VALUES ('Lisa', 'lisa@live.com', '0761022442', 2, CURRENT_DATE, '18:00:00');
+INSERT INTO Bookings VALUES ('Lisa', 'lisa@live.com', '0761022442', 2, CURRENT_DATE, '18:30:00');
+INSERT INTO Bookings VALUES ('Lisa', 'lisa@live.com', '0761022442', 2, CURRENT_DATE, '19:00:00');
 
-INSERT INTO Bookings VALUES ('astrid', 'astrid@live.com', '0761022441', 3, CURRENT_DATE, '18:00:00');
+INSERT INTO Bookings VALUES ('Astrid', 'astrid@live.com', '0761022441', 3, CURRENT_DATE, '18:00:00');
 
 --Inserting bookings of the specific tables. When a booking is inserted
 --for a specific start time, it also books all the timeslots for those tables
@@ -57,5 +57,5 @@ INSERT INTO BookedTables VALUES (4, CURRENT_DATE, '19:00:00', 'lisa@live.com');
 --INSERT INTO BookedTables VALUES (1, CURRENT_DATE, '17:30:00', 'lisa@live.com');
 
 
-INSERT INTO AllTimeSlots VALUES (CURRENT_DATE, '17:00:00', 1, 'bajs@live', 'bajs',  90232, 2);
-INSERT INTO AllTimeSlots VALUES (CURRENT_DATE, '21:00:00', 1, 'lol@live', 'lol',  90232, 2);
+INSERT INTO AllTimeSlots VALUES (CURRENT_DATE, '17:00:00', 1, 'dieter@live.com', 'Dieter',  0761022445, 2);
+INSERT INTO AllTimeSlots VALUES (CURRENT_DATE, '21:00:00', 1, 'elias@live', 'Elias',  0761099883, 2);

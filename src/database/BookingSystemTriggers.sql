@@ -28,7 +28,6 @@ CREATE OR REPLACE FUNCTION book() RETURNS trigger AS $book$
                 INSERT INTO BookedTables VALUES (tempTableID, NEW.bookingDate, NEW.startTime + INTERVAL '60 minutes', NEW.guestEmail);
                 INSERT INTO BookedTables VALUES (tempTableID, NEW.bookingDate, NEW.startTime + INTERVAL '30 minutes', NEW.guestEmail);
                 INSERT INTO BookedTables VALUES (tempTableID, NEW.bookingDate, NEW.startTime, NEW.guestEmail);
-                RAISE WARNING 'lol';
                 seatsLeft = seatsLeft-2;
             
             END IF;
