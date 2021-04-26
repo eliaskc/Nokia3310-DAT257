@@ -1,11 +1,11 @@
-import React from 'react';
-import ReactDOM from 'react-dom';
-import './index.css';
-import App from './App';
+import React from 'react'
+import ReactDOM from 'react-dom'
+import './index.sass'
+import BookingApp from './BookingApp'
 
 ReactDOM.render(
   <React.StrictMode>
-    <App />
+    <BookingApp />
   </React.StrictMode>,
   document.getElementById('root')
-);
+)
