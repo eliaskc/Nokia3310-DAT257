@@ -2,7 +2,7 @@ import React from 'react';
 import {BrowserRouter as Router, Route, Switch} from 'react-router-dom'
 import BookingListComponent from './components/BookingListComponent'
 import HomeComponent from './components/HomeComponent'
-import './BookingApp.css'
+import './BookingApp.sass'
 import 'bootstrap/dist/css/bootstrap.min.css';
 
 function BookingApp() {
