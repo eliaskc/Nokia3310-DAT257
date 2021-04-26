@@ -18,6 +18,7 @@ public class BookingController {
 
     @GetMapping("/bookings")
     public List<Booking> getAllBookings() {
+        DatabaseController.testMethod();
         return bookings.getAllBookings();
     }
 
