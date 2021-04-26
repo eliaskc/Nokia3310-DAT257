@@ -10,6 +10,7 @@ export default function Guests(props) {
     function handleSelect(item){
         console.log(item)
         props.guestProps(item)
+        setDropDownTitle(item)
     }
     
     return (
@@ -17,7 +18,7 @@ export default function Guests(props) {
             <h2><span>Gäster</span></h2>
             <DropdownButton title={dropdownTitle} id="dropdown-menu" onSelect={handleSelect}>
                 {guestsAmount.map(n => (
-                    <Dropdown.Item key={n.toString()} eventKey={n} onClick={() => setDropDownTitle(n.toString())}> {n} </Dropdown.Item>
+                    <Dropdown.Item key={n.toString()} eventKey={n}> {n} </Dropdown.Item>
                 ))}
             </DropdownButton>
         </div>
