@@ -21,7 +21,7 @@ function HomeComponent() {
         <div className="App">
             <header className="App-header">
 
-                <img src="/hamncafet_logo.jpg" alt="Hamncafét logga" className="main_logo" />
+                <img src="/hamncafet_logo.png" alt="Hamncafét logga" className="main_logo" />
 
                 <Router>
                     <nav>

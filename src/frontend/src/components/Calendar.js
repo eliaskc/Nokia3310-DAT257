@@ -25,7 +25,7 @@ export default function calendar(props) {
 
     return (
         <div className='calendar'>
-            <h2><span>Pick a date</span></h2>
+            <h2><span>Datum</span></h2>
             <Calendar tileDisabled={tileDisabled} onChange={(value) => displayDate(value)}></Calendar>
         </div>
     )

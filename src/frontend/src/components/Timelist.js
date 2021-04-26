@@ -1,30 +1,33 @@
-import React from 'react'
-import Button from 'react-bootstrap/Button';
+import React,{useState} from 'react'
+import Dropdown from 'react-bootstrap/Dropdown';
+import DropdownButton from 'react-bootstrap/DropdownButton';
 
 export default function Timelist(props) {
-    
-    //example of times, will be populated with times from backend
-    const times = [
-        {time_string: '12:00'},
-        {time_string: '13:00'},
-        {time_string: '14:00'},
-        {time_string: '15:00'},
-        {time_string: '16:00'},
-        {time_string: '17:00'},
-        {time_string: '18:00'},
-        {time_string: '19:00'}]
+    const [dropdownTitle, setDropDownTitle] = useState('Välj tid');
 
-    function displayTime(time){
-        console.log(time.time_string)
-        props.timeProps(time.time_string)
+    //example of times, will be populated with times from backend
+    const times = ['12:00',
+                   '13:00',
+                   '14:00',
+                   '15:00',
+                   '16:00',
+                   '17:00',
+                   '18:00',
+                   '19:00']
+
+    function handleSelect(item){
+        console.log(item)
+        props.timeProps(item)
     }
 
     return (
         <div>
-            <h2><span>Pick a time</span></h2>
-            {times.map((time, index) => (
-                <Button onClick={() => displayTime(time)} key={index}> {time.time_string}</Button>
-            ))}
+            <h2><span>Tid</span></h2>
+            <DropdownButton title={dropdownTitle} id="dropdown-menu" onSelect={handleSelect}>
+                {times.map(n => (
+                    <Dropdown.Item key={n.toString()} eventKey={n} onClick={() => setDropDownTitle(n.toString())}> {n} </Dropdown.Item>
+                ))}
+            </DropdownButton>
         </div>
     )
 }
