@@ -4,6 +4,9 @@ import Button from 'react-bootstrap/Button'
 import moment from 'moment'
 import BookingDataService from '../api/BookingDataService.js'
 
+/**
+ * Component that shows a list of all bookings
+ */
 function BookingListComponent() {
     const [bookings,setBookings] = useState([]);
 

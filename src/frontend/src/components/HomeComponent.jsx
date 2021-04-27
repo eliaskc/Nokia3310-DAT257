@@ -7,6 +7,9 @@ import Timelist from './Timelist';
 import Guests from './Guests';
 import Confirm from './Confirm';
 
+/**
+ * Component for the Home page 
+ */
 function HomeComponent() {
     const [guests, setGuests] = useState(0);
     const [date, setDate] = useState(new Date());
