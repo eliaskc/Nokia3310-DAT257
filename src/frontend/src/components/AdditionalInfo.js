@@ -10,19 +10,19 @@ export default function AdditionalInfo(props){
             <Form>
                 <Form.Group controlId="formName">
                     <Form.Label>Namn</Form.Label>
-                    <Form.Control type="email" placeholder="Skriv in namn" />
+                    <Form.Control type="text" placeholder="Skriv in namn" onChange={(e) => {props.setName(e.target.value)}}/>
                 </Form.Group>
                 <Form.Group controlId="formEmail">
                     <Form.Label>E-post</Form.Label>
-                    <Form.Control type="email" placeholder="Skriv in e-postaddress" />
+                    <Form.Control type="email" placeholder="Skriv in e-postaddress" onChange={e => props.setEmail(e.target.value)}/>
                 </Form.Group>
                 <Form.Group controlId="formTel">
                     <Form.Label>Telefonnummer</Form.Label>
-                    <Form.Control type="tel" placeholder="Skriv in telefonnummer" />
+                    <Form.Control type="tel" placeholder="Skriv in telefonnummer" onChange={e => props.setTel(e.target.value)}/>
                 </Form.Group>
                 <Form.Group controlId="formText">
                     <Form.Label>Övrig information</Form.Label>
-                    <Form.Control type="text" placeholder='Allergier, födelsedag etc.'/>
+                    <Form.Control type="text" placeholder='Allergier, födelsedag etc.' onChange={e => props.setText(e.target.value)}/>
                 </Form.Group>
             </Form>
             <nav>

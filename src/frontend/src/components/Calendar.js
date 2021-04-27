@@ -10,11 +10,6 @@ export default function calendar(props) {
     function tileDisabled({date}) {
         date.setHours(0,0,0,0)
 
-        //If it is not friday or saturday, disable date
-        if ((date.getDay() !== 5) && (date.getDay() !== 6)){
-            return true
-        }
-
         //If the date is before today, disable date
         return (date < today);
     }

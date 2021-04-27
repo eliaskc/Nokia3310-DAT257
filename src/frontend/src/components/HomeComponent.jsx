@@ -30,13 +30,12 @@ function HomeComponent() {
     return (
         <div className="App">
             <header className="App-header">
-
                 <img src="/hamncafet_logo.png" alt="Hamncafét logga" className="main_logo" />
 
                 <Router>
                     <Switch>
                         <Route path='/guests'>
-                            <Guests guestProps={setGuests} Prev={''} Next={'/date'}/>
+                            <Guests guestProps={setGuests} Next={'/date'}/>
                         </Route>
                         <Route path='/date'>
                             <Calendar dateProps={setDate} Prev={'/guests'} Next={'/timelist'}/>
@@ -49,8 +48,9 @@ function HomeComponent() {
                              Prev={'timelist'} Next={'/confirm'}/>
                         </Route>
                         <Route path='/confirm'>
-                            <Confirm guestProps={guests} dateProps={date} timeProps={time} 
-                             Prev={'info'} Next={''}/>
+                            <Confirm nameProps={name} emailProps={email} telProps={tel} infoProp={info}
+                            guestProps={guests} dateProps={date} timeProps={time} 
+                             Prev={'info'}/>
                         </Route>
                     </Switch>
                 </Router>
