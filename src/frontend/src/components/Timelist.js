@@ -18,7 +18,7 @@ export default function Timelist(props) {
     function handleSelect(item){
         console.log(item)
         props.timeProps(item)
-        setDropDownTitle(item)
+        setDropDownTitle('Tid: ' + item)
     }
 
     return (

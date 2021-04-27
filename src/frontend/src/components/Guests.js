@@ -10,7 +10,7 @@ export default function Guests(props) {
     function handleSelect(item){
         console.log(item)
         props.guestProps(item)
-        setDropDownTitle(item)
+        setDropDownTitle('Antal gäster: ' + item)
     }
     
     return (
