@@ -5,16 +5,27 @@ import {BrowserRouter as Router, Route, Switch, Link} from 'react-router-dom'
 import Calendar from './Calendar';
 import Timelist from './Timelist';
 import Guests from './Guests';
+import AdditionalInfo from './AdditionalInfo';
 import Confirm from './Confirm';
 
 function HomeComponent() {
     const [guests, setGuests] = useState(0);
     const [date, setDate] = useState(new Date());
     const [time, setTime] = useState('');
+    const [name, setName] = useState('');
+    const [email, setEmail] = useState('');
+    const [tel, setTel] = useState('');
+    const [info, setInfo] = useState('');
+
+
     function onConfirm() {
         console.log(guests)
         console.log(date)
         console.log(time)
+        console.log(name)
+        console.log(email)
+        console.log(tel)
+        console.log(info)
     };
 
     return (
@@ -26,10 +37,11 @@ function HomeComponent() {
                 <Router>
                     <nav>
                         <ul>
-                            <li> <Link to='/guests'>1</Link></li>
-                            <li> <Link to='/date'>2</Link></li>
-                            <li> <Link to='/timelist'>3</Link></li>
-                            <li> <Link to='/confirm'>4</Link></li>
+                            <li> <Link to='/guests'>Gäster</Link></li>
+                            <li> <Link to='/date'>Datum</Link></li>
+                            <li> <Link to='/timelist'>Tider</Link></li>
+                            <li> <Link to='/info'>Personlig info</Link></li>
+                            <li> <Link to='/confirm'>Bekräfta</Link></li>
                         </ul>
                     </nav>
                     <Switch>
@@ -41,6 +53,9 @@ function HomeComponent() {
                         </Route>
                         <Route path='/timelist'>
                             <Timelist timeProps={setTime} />
+                        </Route>
+                        <Route path='/info'>
+                            <AdditionalInfo nameProps={name} emailProps={email} telProps={tel} infoProps={info}/>
                         </Route>
                         <Route path='/confirm'>
                             <Confirm guestProps={guests} dateProps={date} timeProps={time} />
