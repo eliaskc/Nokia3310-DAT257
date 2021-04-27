@@ -1,5 +1,5 @@
-import React, { useState } from 'react';
-import Button from 'react-bootstrap/Button';
+import Button from 'react-bootstrap/Button'
+import React,{useState} from 'react'
 import {BrowserRouter as Router, Route, Switch, Link} from 'react-router-dom'
 
 import Calendar from './Calendar';
@@ -9,51 +9,69 @@ import AdditionalInfo from './AdditionalInfo';
 import Confirm from './Confirm';
 
 function HomeComponent() {
-    const [guests, setGuests] = useState(0);
-    const [date, setDate] = useState(new Date());
-    const [time, setTime] = useState('');
-    const [name, setName] = useState('');
-    const [email, setEmail] = useState('');
-    const [tel, setTel] = useState('');
-    const [info, setInfo] = useState('');
+    const bookingJSON = {
+        'name': '',
+        'email': '',
+        'tel': '',
+        'info': '',
+        'guests': 0,
+        'date': undefined,
+        'time': ''
+    }
 
-    function onConfirm() {
-        console.log(guests)
-        console.log(date)
-        console.log(time)
-        console.log(name)
-        console.log(email)
-        console.log(tel)
-        console.log(info)
-    };
+    let page = 0
+    const [prevPage, setPrevPage] = useState('')
+    const [nextPage, setNextPage] = useState('/date')
+    const pages = ['/guests', '/date', '/timelist', '/info', 'confirm']
 
-    
+    function handlePrevPage(){
+        console.log('Page before: ' + page)
+        if (page !== 0){
+            page--
+        }
+        console.log('Page after: ' + page)
+        setPrevPage(pages[page])
+    }
+
+    function handleNextPage(){
+        console.log('Page before: ' + page)
+        if (page !== pages.length){
+           page++
+        }
+        console.log('Page after: ' + page)
+        setNextPage(pages[page])
+    }
+
+    function seebooking(){
+        console.log(bookingJSON)
+    }
 
     return (
         <div className="App">
             <header className="App-header">
                 <img src="/hamncafet_logo.png" alt="Hamncafét logga" className="main_logo" />
-                
-
                 <Router>
+                    <nav>
+                        <ul>
+                            <Link to={prevPage} onClick={e => handlePrevPage()}>Tillbaka</Link>
+                            <Link to={nextPage} onClick={e => handleNextPage()}>Nästa</Link>
+                        </ul>
+                    </nav> 
                     <Switch>
                         <Route path='/guests'>
-                            <Guests guestProps={setGuests} Next={'/date'}/>
+                            <Guests booking={bookingJSON}/>
                         </Route>
                         <Route path='/date'>
-                            <Calendar dateProps={setDate} Prev={'/guests'} Next={'/timelist'}/>
+                            <Calendar booking={bookingJSON}/>
                         </Route>
                         <Route path='/timelist'>
-                            <Timelist timeProps={setTime} Prev={'date'} Next={'/info'}/>
+                            <Timelist booking={bookingJSON}/>
                         </Route>
                         <Route path='/info'>
-                            <AdditionalInfo nameProps={setName} emailProps={setEmail} telProps={setTel} infoProps={setInfo}
-                             Prev={'timelist'} Next={'/confirm'}/>
+                            <AdditionalInfo booking={bookingJSON}/>
                         </Route>
                         <Route path='/confirm'>
-                            <Confirm nameProps={name} emailProps={email} telProps={tel} infoProp={info}
-                            guestProps={guests} dateProps={date} timeProps={time} 
-                             Prev={'info'}/>
+                            <Confirm booking={bookingJSON}/>
                         </Route>
                     </Switch>
                 </Router>
@@ -62,12 +80,12 @@ function HomeComponent() {
                     <Button href="/guests">Boka bord</Button>
                 </div>
 
-                <div className='confirm-btn'>
-                    <Button onClick={onConfirm}>Confirm</Button>
+                <div>
+                    <Button href="/bookings">See bookings </Button>
                 </div>
 
                 <div>
-                    <Button href="/bookings">See bookings </Button>
+                    <Button onClick={e => seebooking()}>PRINT </Button>
                 </div>
 
             </header>

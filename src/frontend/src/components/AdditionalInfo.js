@@ -1,36 +1,33 @@
 import React from 'react';
 import Form from 'react-bootstrap/Form'
-import {Link} from 'react-router-dom'
 
 //Lägg till detta evt.
 //https://react-bootstrap.github.io/components/forms/#forms-validation
 export default function AdditionalInfo(props){
+    function handleChange(event){
+        props.booking[event.target.id] = event.target.value
+    }
+
     return (
         <div>
-            <Form>
-                <Form.Group controlId="formName">
+            <Form onChange={e => handleChange(e)}>
+                <Form.Group controlId="name">
                     <Form.Label>Namn</Form.Label>
-                    <Form.Control type="text" placeholder="Skriv in namn" onChange={(e) => {props.setName(e.target.value)}}/>
+                    <Form.Control type="text" placeholder="Skriv in namn"/>
                 </Form.Group>
-                <Form.Group controlId="formEmail">
+                <Form.Group controlId="email">
                     <Form.Label>E-post</Form.Label>
-                    <Form.Control type="email" placeholder="Skriv in e-postaddress" onChange={e => props.setEmail(e.target.value)}/>
+                    <Form.Control type="email" placeholder="Skriv in e-postaddress"/>
                 </Form.Group>
-                <Form.Group controlId="formTel">
+                <Form.Group controlId="tel">
                     <Form.Label>Telefonnummer</Form.Label>
-                    <Form.Control type="tel" placeholder="Skriv in telefonnummer" onChange={e => props.setTel(e.target.value)}/>
+                    <Form.Control type="tel" placeholder="Skriv in telefonnummer"/>
                 </Form.Group>
-                <Form.Group controlId="formText">
+                <Form.Group controlId="info">
                     <Form.Label>Övrig information</Form.Label>
-                    <Form.Control type="text" placeholder='Allergier, födelsedag etc.' onChange={e => props.setText(e.target.value)}/>
+                    <Form.Control type="text" placeholder='Allergier, födelsedag etc.'/>
                 </Form.Group>
             </Form>
-            <nav>
-                <ul>
-                    <li> <Link to={props.Prev}>Tillbaka</Link></li>
-                    <li> <Link to={props.Next}>Nästa</Link></li>
-                </ul>
-            </nav>
         </div>
     )
 }

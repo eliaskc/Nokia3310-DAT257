@@ -1,7 +1,6 @@
 import React,{useState} from 'react'
 import Dropdown from 'react-bootstrap/Dropdown';
 import DropdownButton from 'react-bootstrap/DropdownButton';
-import {Link} from 'react-router-dom'
 
 export default function Timelist(props) {
     const [dropdownTitle, setDropDownTitle] = useState('Välj tid');
@@ -18,7 +17,7 @@ export default function Timelist(props) {
 
     function handleSelect(item){
         console.log(item)
-        props.timeProps(item)
+        props.booking.time = item
         setDropDownTitle('Tid: ' + item)
     }
 
@@ -30,12 +29,6 @@ export default function Timelist(props) {
                     <Dropdown.Item key={n.toString()} eventKey={n}> {n} </Dropdown.Item>
                 ))}
             </DropdownButton>
-            <nav>
-                <ul>
-                    <li> <Link to={props.Prev}>Tillbaka</Link></li>
-                    <li> <Link to={props.Next}>Nästa</Link></li>
-                </ul>
-            </nav>
         </div>
     )
 }

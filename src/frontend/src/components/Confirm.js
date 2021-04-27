@@ -1,35 +1,39 @@
 import React from 'react'
-import {Link} from 'react-router-dom'
+import Button from 'react-bootstrap/Button'
 
 export default function Confirm(props) {
+
+    function onConfirm(){
+        console.log('klart!')
+    }
+
     return (
         <div className="Confirm">
             <h2 className="confirmName">
-                Namn: {props.nameProps.toString()}
+                Namn: {props.booking.name}
             </h2>
             <h2 className="confirmEmail">
-                E-post: {props.emailProps.toString()}
+                E-post: {props.booking.email}
             </h2>
             <h2 className="confirmTel">
-                Telefonnummer: {props.telProps.toString()}
+                Telefonnummer: {props.booking.tel}
             </h2>
             <h2 className="confirmInfo">
-                Övrig info: {props.infoProps.toString()}
+                Övrig info: {props.booking.info}
             </h2>
             <h2 className="confirmGuests">
-                Antal gäster: {props.guestProps.toString()}
+                Antal gäster: {props.booking.guests.toString()}
             </h2>
             <h2 className="confirmDate">
-                Datum: {props.dateProps.toLocaleString('swe', {month: '2-digit', day: '2-digit'})}
+                Datum: {props.booking.date.toLocaleString('swe', {month: '2-digit', day: '2-digit'})}
             </h2>
             <h2 className="confirmTime">
-                Tid: {props.timeProps.toString()}
+                Tid: {props.booking.time}
             </h2>
-            <nav>
-                <ul>
-                    <li> <Link to={props.Prev}>Tillbaka</Link></li>
-                </ul>
-            </nav>
+
+            <div className='confirm-btn'>
+                <Button onClick={onConfirm}>Confirm</Button>
+            </div>
         </div>
     )
 }
