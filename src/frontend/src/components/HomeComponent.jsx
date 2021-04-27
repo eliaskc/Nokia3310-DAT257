@@ -27,10 +27,13 @@ function HomeComponent() {
         console.log(info)
     };
 
+    
+
     return (
         <div className="App">
             <header className="App-header">
                 <img src="/hamncafet_logo.png" alt="Hamncafét logga" className="main_logo" />
+                
 
                 <Router>
                     <Switch>
@@ -54,6 +57,10 @@ function HomeComponent() {
                         </Route>
                     </Switch>
                 </Router>
+
+                <div className='book-btn'>
+                    <Button href="/guests">Boka bord</Button>
+                </div>
 
                 <div className='confirm-btn'>
                     <Button onClick={onConfirm}>Confirm</Button>
