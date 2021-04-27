@@ -1,6 +1,7 @@
 import React,{useState} from 'react';
 import DropdownButton from 'react-bootstrap/DropdownButton';
 import Dropdown from 'react-bootstrap/Dropdown';
+import {Link} from 'react-router-dom'
 
 export default function Guests(props) {
     const [dropdownTitle, setDropDownTitle] = useState('Välj antal gäster');
@@ -21,6 +22,11 @@ export default function Guests(props) {
                     <Dropdown.Item key={n.toString()} eventKey={n}> {n} </Dropdown.Item>
                 ))}
             </DropdownButton>
+            <nav>
+                <ul>
+                    <li> <Link to={props.Next}>Nästa</Link></li>
+                </ul>
+            </nav>
         </div>
     )
 }

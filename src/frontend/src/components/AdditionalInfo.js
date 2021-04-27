@@ -1,5 +1,6 @@
 import React from 'react';
 import Form from 'react-bootstrap/Form'
+import {Link} from 'react-router-dom'
 
 //Lägg till detta evt.
 //https://react-bootstrap.github.io/components/forms/#forms-validation
@@ -24,6 +25,12 @@ export default function AdditionalInfo(props){
                     <Form.Control type="text" placeholder='Allergier, födelsedag etc.'/>
                 </Form.Group>
             </Form>
+            <nav>
+                <ul>
+                    <li> <Link to={props.Prev}>Tillbaka</Link></li>
+                    <li> <Link to={props.Next}>Nästa</Link></li>
+                </ul>
+            </nav>
         </div>
     )
 }

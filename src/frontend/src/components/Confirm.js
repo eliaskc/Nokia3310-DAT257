@@ -1,4 +1,5 @@
 import React from 'react'
+import {Link} from 'react-router-dom'
 
 export default function Confirm(props) {
     return (
@@ -12,6 +13,11 @@ export default function Confirm(props) {
             <h2 className="Time">
                 Tid: {props.timeProps.toString()}
             </h2>
+            <nav>
+                <ul>
+                    <li> <Link to={props.Prev}>Tillbaka</Link></li>
+                </ul>
+            </nav>
         </div>
     )
 }

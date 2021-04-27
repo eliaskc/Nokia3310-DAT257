@@ -1,6 +1,7 @@
 import React from 'react';
 import Calendar from 'react-calendar';
 import 'react-calendar/dist/Calendar.css';
+import {Link} from 'react-router-dom'
 
 export default function calendar(props) {
     let today = new Date()
@@ -27,6 +28,12 @@ export default function calendar(props) {
         <div className='calendar'>
             <h2><span>Datum</span></h2>
             <Calendar tileDisabled={tileDisabled} onChange={(value) => displayDate(value)}></Calendar>
+            <nav>
+                <ul>
+                    <li> <Link to={props.Prev}>Tillbaka</Link></li>
+                    <li> <Link to={props.Next}>Nästa</Link></li>
+                </ul>
+            </nav>
         </div>
     )
 }

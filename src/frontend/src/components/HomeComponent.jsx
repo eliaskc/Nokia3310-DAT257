@@ -17,7 +17,6 @@ function HomeComponent() {
     const [tel, setTel] = useState('');
     const [info, setInfo] = useState('');
 
-
     function onConfirm() {
         console.log(guests)
         console.log(date)
@@ -35,30 +34,23 @@ function HomeComponent() {
                 <img src="/hamncafet_logo.png" alt="Hamncafét logga" className="main_logo" />
 
                 <Router>
-                    <nav>
-                        <ul>
-                            <li> <Link to='/guests'>Gäster</Link></li>
-                            <li> <Link to='/date'>Datum</Link></li>
-                            <li> <Link to='/timelist'>Tider</Link></li>
-                            <li> <Link to='/info'>Personlig info</Link></li>
-                            <li> <Link to='/confirm'>Bekräfta</Link></li>
-                        </ul>
-                    </nav>
                     <Switch>
                         <Route path='/guests'>
-                            <Guests guestProps={setGuests} />
+                            <Guests guestProps={setGuests} Prev={''} Next={'/date'}/>
                         </Route>
                         <Route path='/date'>
-                            <Calendar dateProps={setDate} />
+                            <Calendar dateProps={setDate} Prev={'/guests'} Next={'/timelist'}/>
                         </Route>
                         <Route path='/timelist'>
-                            <Timelist timeProps={setTime} />
+                            <Timelist timeProps={setTime} Prev={'date'} Next={'/info'}/>
                         </Route>
                         <Route path='/info'>
-                            <AdditionalInfo nameProps={name} emailProps={email} telProps={tel} infoProps={info}/>
+                            <AdditionalInfo nameProps={setName} emailProps={setEmail} telProps={setTel} infoProps={setInfo}
+                             Prev={'timelist'} Next={'/confirm'}/>
                         </Route>
                         <Route path='/confirm'>
-                            <Confirm guestProps={guests} dateProps={date} timeProps={time} />
+                            <Confirm guestProps={guests} dateProps={date} timeProps={time} 
+                             Prev={'info'} Next={''}/>
                         </Route>
                     </Switch>
                 </Router>
