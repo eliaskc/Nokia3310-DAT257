@@ -7,6 +7,9 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
+/**
+ * Initializes, stores and provides dummy booking data for the API
+ */
 @Service
 public class BookingsTest {
     @Getter private static List<Booking> bookings = new ArrayList<>();
