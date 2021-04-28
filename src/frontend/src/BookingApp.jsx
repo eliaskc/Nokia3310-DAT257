@@ -1,6 +1,6 @@
 import React from 'react';
 import {BrowserRouter as Router, Route, Switch} from 'react-router-dom'
-import BookingListComponent from './components/BookingListComponent'
+import AvailableTimeListComponent from './components/AvailableTimeListComponent'
 import HomeComponent from './components/HomeComponent'
 import './BookingApp.sass'
 import 'bootstrap/dist/css/bootstrap.min.css';
@@ -11,7 +11,7 @@ function BookingApp() {
             <Router>
             <>  
                 <Switch>
-                        <Route path="/bookings" component={BookingListComponent}/>
+                        <Route path="/availableTimes" component={AvailableTimeListComponent}/>
                         <Route path="/" component={HomeComponent}/>
                 </Switch>   
             </>

@@ -26,6 +26,17 @@ public class Booking {
         this.bookingDate = bookingDate;
         this.startTime = startTime;
     }
-    
-    
+
+    @Override
+    public String toString() {
+        return "Booking{" +
+                "id=" + id +
+                ", guestName='" + guestName + '\'' +
+                ", guestEmail='" + guestEmail + '\'' +
+                ", guestTelNr='" + guestTelNr + '\'' +
+                ", nrOfPeople=" + nrOfPeople +
+                ", bookingDate=" + bookingDate +
+                ", startTime=" + startTime +
+                '}';
+    }
 }

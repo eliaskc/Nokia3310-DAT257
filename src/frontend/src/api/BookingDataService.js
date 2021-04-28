@@ -10,6 +10,14 @@ class BookingDataService {
     }
 
     /**
+     * 
+     * @returns A JSON array of booking objects
+     */
+     retrieveAllAvailableTimes() {
+        return axios.get(`http://localhost:8080/availableTimes`);
+    }
+
+    /**
      * valid id's are positive non zero integers
      * @returns A JSON object of a Booking
      */

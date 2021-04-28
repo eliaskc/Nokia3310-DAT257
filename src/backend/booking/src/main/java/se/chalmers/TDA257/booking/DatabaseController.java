@@ -1,7 +1,8 @@
-package se.chalmers.TDA257.booking.*;
+package se.chalmers.TDA257.booking;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Time;
 import java.util.Date;
 import java.util.List;
 
@@ -19,7 +20,7 @@ public class DatabaseController {
     private DataSource dataSource;
 
     @Autowired
-    public List<Booking> testMethod() {
+    public static List<Booking> fetchAllBookings() {
         return jdbcTemplate.query("select * from Bookings", new RowMapper<Booking>() {
             @Override
             public Booking mapRow(ResultSet rs, int rownumber) throws SQLException {
@@ -30,6 +31,14 @@ public class DatabaseController {
         });
     }
 
+    @Autowired
+    public static List<Time> fetchAvailableTimes(){
+        return jdbcTemplate.query("select * from availablereservations", new RowMapper<Time>() {
+            @Override
+            public Time mapRow(ResultSet rs, int rownumber) throws SQLException {
+                return rs.getTime(2);
+            }
+        });
     }
 
     @Autowired
