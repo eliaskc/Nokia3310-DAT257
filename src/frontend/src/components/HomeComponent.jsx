@@ -25,7 +25,7 @@ function HomeComponent() {
 
     let page = useRef(0)
     const [prevPage, setPrevPage] = useState('')
-    const [nextPage, setNextPage] = useState('/date')
+    const [nextPage, setNextPage] = useState('/guests')
     const pages = ['', '/guests', '/date', '/timelist', '/info', 'confirm']
 
     function handlePages(action){
@@ -63,27 +63,36 @@ function HomeComponent() {
                         </Route>
                     </Switch>
 
-                    {pages.current > 0 && pages.current < 5 && <nav>
-                        <Link className='prevLink' to={prevPage} onClick={e => handlePages('prev')}>
-                            <Button>
-                                Tillbaka
-                            </Button>
-                        </Link>
-                        <Link className='nextLink' to={nextPage} onClick={e => handlePages('next')}>
-                            <Button>
-                                Nästa
-                            </Button>
-                        </Link>
-                    </nav> }
+
+                    <div>
+                        {page.current > 0 ? (
+
+                        <nav>
+                            <Link className='prevLink' to={prevPage} onClick={e => handlePages('prev')}>
+                                <Button>
+                                    Tillbaka
+                                </Button>
+                            </Link>
+                            <Link className='nextLink' to={nextPage} onClick={e => handlePages('next')}>
+                                <Button>
+                                    Nästa
+                                </Button>
+                            </Link>
+                        </nav>):( <nav>
+                            <Link className='book-lnk' to={nextPage} onClick={e => handlePages('next')}>
+                                <Button>
+                                    Boka bord
+                                </Button>
+                            </Link>
+                                <div>
+                                    <Button href="/bookings">Se bokningar</Button>
+                                </div>
+                            </nav>)                        
+                        }
+                    </div>
                 </Router>
 
-                <div className='book-btn'>
-                    <Button href="/guests">Boka bord</Button>
-                </div>
-
-                <div>
-                    <Button href="/bookings">Se bokningar</Button>
-                </div>
+                
 
             </header>
         </div>
