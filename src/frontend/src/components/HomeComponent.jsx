@@ -64,10 +64,16 @@ function HomeComponent() {
                     </Switch>
 
                     <nav>
-                        <ul>
-                            <Link to={prevPage} onClick={e => handlePages('prev')}>Tillbaka</Link>
-                            <Link to={nextPage} onClick={e => handlePages('next')}>Nästa</Link>
-                        </ul>
+                        <Link className='prevLink' to={prevPage} onClick={e => handlePages('prev')}>
+                            <Button>
+                                Tillbaka
+                            </Button>
+                        </Link>
+                        <Link className='nextLink' to={nextPage} onClick={e => handlePages('next')}>
+                            <Button>
+                                Nästa
+                            </Button>
+                        </Link>
                     </nav> 
                 </Router>
 
