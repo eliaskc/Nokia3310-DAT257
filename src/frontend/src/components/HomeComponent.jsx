@@ -65,7 +65,7 @@ function HomeComponent() {
 
 
                     <div>
-                        {page.current > 0 ? (
+                        {page.current > 0 && page.current < 5? (
 
                         <nav>
                             <Link className='prevLink' to={prevPage} onClick={e => handlePages('prev')}>
