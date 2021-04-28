@@ -23,7 +23,7 @@ function HomeComponent() {
         'time': ''
     })
 
-    let page = useRef(0)
+    let page = useRef(1)
     const [prevPage, setPrevPage] = useState('')
     const [nextPage, setNextPage] = useState('/date')
     const pages = ['', '/guests', '/date', '/timelist', '/info', 'confirm']
@@ -63,7 +63,7 @@ function HomeComponent() {
                         </Route>
                     </Switch>
 
-                    {pages.current > 0 && pages.current < 5 && <nav>
+                    <nav>
                         <Link className='prevLink' to={prevPage} onClick={e => handlePages('prev')}>
                             <Button>
                                 Tillbaka
@@ -74,11 +74,11 @@ function HomeComponent() {
                                 Nästa
                             </Button>
                         </Link>
-                    </nav> }
+                    </nav> 
                 </Router>
 
                 <div className='book-btn'>
-                    <Button href="/guests" onClick={handlePages('next')}>Boka bord</Button>
+                    <Button href="/guests">Boka bord</Button>
                 </div>
 
                 <div>
