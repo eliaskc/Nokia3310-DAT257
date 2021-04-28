@@ -19,10 +19,10 @@ function HomeComponent() {
         'time': ''
     })
 
-    let page = useRef(0)
+    let page = useRef(1)
     const [prevPage, setPrevPage] = useState('')
     const [nextPage, setNextPage] = useState('/date')
-    const pages = ['/guests', '/date', '/timelist', '/info', 'confirm']
+    const pages = ['', '/guests', '/date', '/timelist', '/info', 'confirm']
 
     function handlePages(action){
         if (page !== 0 && action === 'prev'){
