@@ -19,22 +19,20 @@ function HomeComponent() {
         'time': ''
     })
 
-    let page = 0
+    let page = useRef(0)
     const [prevPage, setPrevPage] = useState('')
     const [nextPage, setNextPage] = useState('/date')
     const pages = ['/guests', '/date', '/timelist', '/info', 'confirm']
 
     function handlePages(action){
-        console.log(bookingJSON.current)
         if (page !== 0 && action === 'prev'){
-            page--
+            page.current--
         }
         if (page !== pages.length && action === 'next'){
-            page++
+            page.current++
          }
-
-         setPrevPage(pages[page-1])
-         setNextPage(pages[page+1])
+         setPrevPage(pages[Math.max(page.current-1, 0)])
+         setNextPage(pages[Math.min(page.current+1, pages.length-1)])
     }
 
     return (
