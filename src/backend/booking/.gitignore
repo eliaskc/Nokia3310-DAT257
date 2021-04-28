@@ -34,3 +34,4 @@ build/
 
 ### Database ###
 */application.properties
+backend/booking/src/main/resources
