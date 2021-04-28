@@ -82,7 +82,7 @@ function HomeComponent() {
                 </div>
 
                 <div>
-                    <Button href="/bookings">See bookings </Button>
+                    <Button href="/bookings">Se bokningar</Button>
                 </div>
 
             </header>

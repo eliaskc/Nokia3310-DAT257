@@ -55,7 +55,7 @@ export default function Confirm(props) {
             </h2>
 
             <div className='confirm-btn'>
-                <Button onClick={onConfirm}>Confirm</Button>
+                <Button onClick={onConfirm}>Bekräfta</Button>
             </div>
         </div>
     )
