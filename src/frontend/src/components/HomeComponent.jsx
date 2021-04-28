@@ -29,10 +29,10 @@ function HomeComponent() {
     const pages = ['', '/guests', '/date', '/timelist', '/info', 'confirm']
 
     function handlePages(action){
-        if (page !== 0 && action === 'prev'){
+        if (page.current !== 0 && action === 'prev'){
             page.current--
         }
-        if (page !== pages.length && action === 'next'){
+        if (page.current !== pages.length && action === 'next'){
             page.current++
          }
          setPrevPage(pages[Math.max(page.current-1, 0)])
