@@ -29,6 +29,10 @@ public class BookingController {
         return DatabaseController.fetchAllBookings();
     }
 
+    /**
+     * Fetches all available times
+     * @return list of Times
+     */
     @GetMapping("/availableTimes")
     public List<Time> getAllAvailableTimes(){
         return DatabaseController.fetchAvailableTimes();

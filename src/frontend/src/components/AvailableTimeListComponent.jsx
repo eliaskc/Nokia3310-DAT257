@@ -4,6 +4,9 @@ import Button from 'react-bootstrap/Button'
 import moment from 'moment'
 import BookingDataService from '../api/BookingDataService.js'
 
+/**
+ * Components that fetches and shows all available times
+ */
 export default function AvailableTimeListComponent() {
     const [availableTimeList,setAvailableTimeList] = useState([]);
 

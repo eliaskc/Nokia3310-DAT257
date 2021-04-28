@@ -19,9 +19,10 @@ public class Booking {
     private int nrOfPeople;
     private Date bookingDate;
     private Time startTime;
+    private String additionalInfo;
     
     public Booking(long id, String guestName, String guestEmail, String guestTelNr, int nrOfPeople, Date bookingDate,
-            Time startTime) {
+            Time startTime, String additionalInfo) {
         this.id = id;
         this.guestName = guestName;
         this.guestEmail = guestEmail;
@@ -29,6 +30,7 @@ public class Booking {
         this.nrOfPeople = nrOfPeople;
         this.bookingDate = bookingDate;
         this.startTime = startTime;
+        this.additionalInfo = additionalInfo;
     }
 
     @Override
