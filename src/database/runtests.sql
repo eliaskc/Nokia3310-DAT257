@@ -3,6 +3,22 @@ INSERT INTO Tables VALUES (1, 2);
 INSERT INTO Tables VALUES (2, 2);
 INSERT INTO Tables VALUES (3, 2);
 INSERT INTO Tables VALUES (4, 2);
+INSERT INTO Tables VALUES (5, 2);
+INSERT INTO Tables VALUES (6, 2);
+INSERT INTO Tables VALUES (7, 2);
+INSERT INTO Tables VALUES (8, 2);
+INSERT INTO Tables VALUES (9, 2);
+INSERT INTO Tables VALUES (10, 2);
+INSERT INTO Tables VALUES (11, 2);
+INSERT INTO Tables VALUES (12, 2);
+INSERT INTO Tables VALUES (13, 2);
+INSERT INTO Tables VALUES (14, 2);
+INSERT INTO Tables VALUES (15, 2);
+INSERT INTO Tables VALUES (16, 2);
+INSERT INTO Tables VALUES (17, 2);
+INSERT INTO Tables VALUES (18, 2);
+INSERT INTO Tables VALUES (19, 2);
+INSERT INTO Tables VALUES (20, 2);
 
 --Inserting all the allowed booking times for a specific date
 --OBS! Remember when trigger is made: if someone is booking 21,

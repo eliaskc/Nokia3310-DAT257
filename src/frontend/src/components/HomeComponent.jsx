@@ -56,7 +56,7 @@ function HomeComponent() {
                 </div>
 
                 <div>
-                    <Button href="/bookings">See bookings </Button>
+                    <Button href="/availableTimes">Lediga tider!</Button>
                 </div>
 
             </header>
