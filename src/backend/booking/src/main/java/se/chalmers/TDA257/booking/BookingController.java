@@ -18,7 +18,8 @@ public class BookingController {
 
     @GetMapping("/bookings")
     public List<Booking> getAllBookings() {
-        DatabaseController.testMethod();
+        List<Booking> bookingsTest = DatabaseController.testMethod();
+        System.out.println(bookingsTest);
         return bookings.getAllBookings();
     }
 
