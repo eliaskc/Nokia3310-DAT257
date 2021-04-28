@@ -2,6 +2,11 @@ import React from 'react';
 import Calendar from 'react-calendar';
 import 'react-calendar/dist/Calendar.css';
 
+/**
+ * Represents the calendar page
+ * @param {*} props Object that represents the current booking
+ * @returns 
+ */
 export default function calendar(props) {
     let today = new Date()
     today.setHours(0,0,0,0)

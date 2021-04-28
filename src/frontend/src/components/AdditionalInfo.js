@@ -3,6 +3,11 @@ import Form from 'react-bootstrap/Form'
 
 //Lägg till detta evt.
 //https://react-bootstrap.github.io/components/forms/#forms-validation
+/**
+ * Represents the page for inputting information
+ * @param {*} props Object that represents the current booking
+ * @returns 
+ */
 export default function AdditionalInfo(props){
     function handleChange(event){
         props.booking[event.target.id] = event.target.value

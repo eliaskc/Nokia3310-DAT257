@@ -1,6 +1,11 @@
 import React from 'react'
 import Button from 'react-bootstrap/Button'
 
+/**
+ * Represents the confirmation page
+ * @param {*} props Object that represents the current booking
+ * @returns 
+ */
 export default function Confirm(props) {
 
     function checkBookingComplete(){

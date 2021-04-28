@@ -8,6 +8,10 @@ import Guests from './Guests';
 import AdditionalInfo from './AdditionalInfo';
 import Confirm from './Confirm';
 
+/**
+ * Main controller/page
+ * 
+ */
 function HomeComponent() {
     const bookingJSON = useRef({
         'name': '',
