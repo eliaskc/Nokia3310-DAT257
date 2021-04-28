@@ -6,6 +6,7 @@ import Calendar from './Calendar';
 import Timelist from './Timelist';
 import Guests from './Guests';
 import Confirm from './Confirm';
+import AvailableTimeListComponent from './AvailableTimeListComponent';
 
 /**
  * Component for the Home page 
@@ -56,7 +57,7 @@ function HomeComponent() {
                 </div>
 
                 <div>
-                    <Button href="/availableTimes">Lediga tider!</Button>
+                    <AvailableTimeListComponent/>
                 </div>
 
             </header>
