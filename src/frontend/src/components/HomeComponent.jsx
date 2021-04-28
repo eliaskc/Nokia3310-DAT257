@@ -1,5 +1,5 @@
 import Button from 'react-bootstrap/Button'
-import React,{useState} from 'react'
+import React,{useState, useRef} from 'react'
 import {BrowserRouter as Router, Route, Switch, Link} from 'react-router-dom'
 
 import Calendar from './Calendar';
@@ -9,7 +9,7 @@ import AdditionalInfo from './AdditionalInfo';
 import Confirm from './Confirm';
 
 function HomeComponent() {
-    const bookingJSON = {
+    const bookingJSON = useRef({
         'name': '',
         'email': '',
         'tel': '',
@@ -17,33 +17,24 @@ function HomeComponent() {
         'guests': 0,
         'date': undefined,
         'time': ''
-    }
+    })
 
     let page = 0
     const [prevPage, setPrevPage] = useState('')
     const [nextPage, setNextPage] = useState('/date')
     const pages = ['/guests', '/date', '/timelist', '/info', 'confirm']
 
-    function handlePrevPage(){
-        console.log('Page before: ' + page)
-        if (page !== 0){
+    function handlePages(action){
+        console.log(bookingJSON.current)
+        if (page !== 0 && action === 'prev'){
             page--
         }
-        console.log('Page after: ' + page)
-        setPrevPage(pages[page])
-    }
+        if (page !== pages.length && action === 'next'){
+            page++
+         }
 
-    function handleNextPage(){
-        console.log('Page before: ' + page)
-        if (page !== pages.length){
-           page++
-        }
-        console.log('Page after: ' + page)
-        setNextPage(pages[page])
-    }
-
-    function seebooking(){
-        console.log(bookingJSON)
+         setPrevPage(pages[page-1])
+         setNextPage(pages[page+1])
     }
 
     return (
@@ -53,25 +44,25 @@ function HomeComponent() {
                 <Router>
                     <nav>
                         <ul>
-                            <Link to={prevPage} onClick={e => handlePrevPage()}>Tillbaka</Link>
-                            <Link to={nextPage} onClick={e => handleNextPage()}>Nästa</Link>
+                            <Link to={prevPage} onClick={e => handlePages('prev')}>Tillbaka</Link>
+                            <Link to={nextPage} onClick={e => handlePages('next')}>Nästa</Link>
                         </ul>
                     </nav> 
                     <Switch>
                         <Route path='/guests'>
-                            <Guests booking={bookingJSON}/>
+                            <Guests booking={bookingJSON.current}/>
                         </Route>
                         <Route path='/date'>
-                            <Calendar booking={bookingJSON}/>
+                            <Calendar booking={bookingJSON.current}/>
                         </Route>
                         <Route path='/timelist'>
-                            <Timelist booking={bookingJSON}/>
+                            <Timelist booking={bookingJSON.current}/>
                         </Route>
                         <Route path='/info'>
-                            <AdditionalInfo booking={bookingJSON}/>
+                            <AdditionalInfo booking={bookingJSON.current}/>
                         </Route>
                         <Route path='/confirm'>
-                            <Confirm booking={bookingJSON}/>
+                            <Confirm booking={bookingJSON.current}/>
                         </Route>
                     </Switch>
                 </Router>
@@ -82,10 +73,6 @@ function HomeComponent() {
 
                 <div>
                     <Button href="/bookings">See bookings </Button>
-                </div>
-
-                <div>
-                    <Button onClick={e => seebooking()}>PRINT </Button>
                 </div>
 
             </header>
