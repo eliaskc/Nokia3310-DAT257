@@ -40,12 +40,7 @@ function HomeComponent() {
             <header className="App-header">
                 <img src="/hamncafet_logo.png" alt="Hamncafét logga" className="main_logo" />
                 <Router>
-                    <nav>
-                        <ul>
-                            <Link to={prevPage} onClick={e => handlePages('prev')}>Tillbaka</Link>
-                            <Link to={nextPage} onClick={e => handlePages('next')}>Nästa</Link>
-                        </ul>
-                    </nav> 
+                    
                     <Switch>
                         <Route path='/guests'>
                             <Guests booking={bookingJSON.current}/>
@@ -63,6 +58,13 @@ function HomeComponent() {
                             <Confirm booking={bookingJSON.current}/>
                         </Route>
                     </Switch>
+
+                    <nav>
+                        <ul>
+                            <Link to={prevPage} onClick={e => handlePages('prev')}>Tillbaka</Link>
+                            <Link to={nextPage} onClick={e => handlePages('next')}>Nästa</Link>
+                        </ul>
+                    </nav> 
                 </Router>
 
                 <div className='book-btn'>
