@@ -6,7 +6,9 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
+import javax.xml.crypto.Data;
 import java.net.URI;
+import java.sql.Time;
 import java.util.List;
 
 @RestController
@@ -18,9 +20,12 @@ public class BookingController {
 
     @GetMapping("/bookings")
     public List<Booking> getAllBookings() {
-        List<Booking> bookingsTest = DatabaseController.testMethod();
-        System.out.println(bookingsTest);
-        return bookings.getAllBookings();
+        return DatabaseController.fetchAllBookings();
+    }
+
+    @GetMapping("/availableTimes")
+    public List<Time> getAllAvailableTimes(){
+        return DatabaseController.fetchAvailableTimes();
     }
 
     @GetMapping("/bookings/{id}")
