@@ -65,7 +65,7 @@ function HomeComponent() {
 
 
                     <div>
-                        {page.current > 0 && page.current < 5? (
+                        {page.current > 0 && page.current < 5 && (
 
                         <nav>
                             <Link className='prevLink' to={prevPage} onClick={e => handlePages('prev')}>
@@ -78,10 +78,24 @@ function HomeComponent() {
                                     Nästa
                                 </Button>
                             </Link>
-                        </nav>):( <nav>
+                        </nav>) }
+                        
+                        {page.current === 0 && ( <nav>
                             <Link className='book-lnk' to={nextPage} onClick={e => handlePages('next')}>
                                 <Button>
                                     Boka bord
+                                </Button>
+                            </Link>
+                                <div>
+                                    <Button href="/bookings">Se bokningar</Button>
+                                </div>
+                            </nav>)                        
+                        }
+
+                        {page.current === 5 && ( <nav>
+                            <Link className='book-lnk' to={prevPage} onClick={e => handlePages('prev')}>
+                                <Button>
+                                    Ändra i bokning
                                 </Button>
                             </Link>
                                 <div>
