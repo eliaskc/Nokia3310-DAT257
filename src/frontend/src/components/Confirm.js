@@ -4,13 +4,13 @@ export default function Confirm(props) {
     return (
         <div className="Confirm">
             <h2 className="Guests">
-                Guests: {props.guestProps.toString()}
+                Antal gäster: {props.guestProps.toString()}
             </h2>
             <h2 className="Date">
-                Date: {props.dateProps.toDateString()}
+                Datum: {props.dateProps.toLocaleString('swe', {month: '2-digit', day: '2-digit'})}
             </h2>
             <h2 className="Time">
-                Time: {props.timeProps.toString()}
+                Tid: {props.timeProps.toString()}
             </h2>
         </div>
     )

@@ -7,6 +7,9 @@ import Timelist from './Timelist';
 import Guests from './Guests';
 import Confirm from './Confirm';
 
+/**
+ * Component for the Home page 
+ */
 function HomeComponent() {
     const [guests, setGuests] = useState(0);
     const [date, setDate] = useState(new Date());
@@ -21,7 +24,7 @@ function HomeComponent() {
         <div className="App">
             <header className="App-header">
 
-                <img src="/hamncafet_logo.jpg" alt="Hamncafét logga" className="main_logo" />
+                <img src="/hamncafet_logo.png" alt="Hamncafét logga" className="main_logo" />
 
                 <Router>
                     <nav>

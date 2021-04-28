@@ -6,6 +6,10 @@ import lombok.Setter;
 import java.sql.Time;
 import java.util.Date;
 
+/**
+ * Class for the booking object containing information about what time the booking is as well
+ * as information about the guest
+ */
 @Getter @Setter
 public class Booking {
     private long id;
