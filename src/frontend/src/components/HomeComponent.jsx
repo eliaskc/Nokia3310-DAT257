@@ -7,6 +7,7 @@ import Timelist from './Timelist';
 import Guests from './Guests';
 import AdditionalInfo from './AdditionalInfo';
 import Confirm from './Confirm';
+import Contact from './Contact';
 
 /**
  * Main controller/page
@@ -89,6 +90,9 @@ function HomeComponent() {
                                 <div>
                                     <Button href="/bookings">Se bokningar</Button>
                                 </div>
+                                <div>
+                                    <Button className='contact-btn' href="/contact" >Kontakt</Button>
+                                </div>
                             </nav>)                        
                         }
 
@@ -98,9 +102,6 @@ function HomeComponent() {
                                     Ändra i bokning
                                 </Button>
                             </Link>
-                                <div>
-                                    <Button href="/bookings">Se bokningar</Button>
-                                </div>
                             </nav>)                        
                         }
                     </div>
