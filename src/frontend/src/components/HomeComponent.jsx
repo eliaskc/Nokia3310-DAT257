@@ -15,7 +15,7 @@ function HomeComponent() {
         'tel': '',
         'info': '',
         'guests': 0,
-        'date': undefined,
+        'date': '',
         'time': ''
     })
 

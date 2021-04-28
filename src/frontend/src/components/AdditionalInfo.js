@@ -13,19 +13,19 @@ export default function AdditionalInfo(props){
             <Form onChange={e => handleChange(e)}>
                 <Form.Group controlId="name">
                     <Form.Label>Namn</Form.Label>
-                    <Form.Control type="text" placeholder="Skriv in namn"/>
+                    <Form.Control defaultValue={props.booking.name} type="text" placeholder="Skriv in namn"/>
                 </Form.Group>
                 <Form.Group controlId="email">
                     <Form.Label>E-post</Form.Label>
-                    <Form.Control type="email" placeholder="Skriv in e-postaddress"/>
+                    <Form.Control defaultValue={props.booking.email} type="email" placeholder="Skriv in e-postaddress"/>
                 </Form.Group>
                 <Form.Group controlId="tel">
                     <Form.Label>Telefonnummer</Form.Label>
-                    <Form.Control type="tel" placeholder="Skriv in telefonnummer"/>
+                    <Form.Control defaultValue={props.booking.tel} type="tel" placeholder="Skriv in telefonnummer"/>
                 </Form.Group>
                 <Form.Group controlId="info">
                     <Form.Label>Övrig information</Form.Label>
-                    <Form.Control type="text" placeholder='Allergier, födelsedag etc.'/>
+                    <Form.Control defaultValue={props.booking.info} as='textarea' type="text" placeholder='Allergier, födelsedag etc.'/>
                 </Form.Group>
             </Form>
         </div>

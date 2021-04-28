@@ -3,8 +3,25 @@ import Button from 'react-bootstrap/Button'
 
 export default function Confirm(props) {
 
+    function checkBookingComplete(){
+        if (props.booking.name === '' ||
+            props.booking.email === '' ||
+            props.booking.tel === '' ||
+            props.booking.guests === '' ||
+            props.booking.date === '' ||
+            props.booking.time === ''){
+                return false
+        } else {
+            return true
+        }
+    }
+
     function onConfirm(){
-        console.log('klart!')
+        if (!checkBookingComplete()){
+            alert('Du måste fylla i all information')
+        } else {
+           console.log('klart!') 
+        }
     }
 
     return (
