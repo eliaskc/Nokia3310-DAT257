@@ -1,5 +1,7 @@
 import React from 'react'
 import Button from 'react-bootstrap/Button'
+import BookingDataService from '../api/BookingDataService.js'
+
 
 /**
  * Represents the confirmation page
@@ -25,7 +27,10 @@ export default function Confirm(props) {
         if (!checkBookingComplete()){
             alert('Du måste fylla i all information')
         } else {
-           console.log('klart!') 
+            console.log('klart!') 
+            console.log(props.booking) 
+            BookingDataService.createBooking(props.booking)
+
         }
     }
 
