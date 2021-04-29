@@ -36,28 +36,30 @@ export default function Confirm(props) {
 
     return (
         <div className="Confirm">
-            <h2 className="confirmName">
+            <h2>Översikt</h2>
+
+            <h3 className="confirmName">
                 Namn: {props.booking.name}
-            </h2>
-            <h2 className="confirmEmail">
+            </h3>
+            <h3 className="confirmEmail">
                 E-post: {props.booking.email}
-            </h2>
-            <h2 className="confirmTel">
+            </h3>
+            <h3 className="confirmTel">
                 Telefonnummer: {props.booking.tel}
-            </h2>
+            </h3>
             
-            <h2 className="confirmGuests">
+            <h3 className="confirmGuests">
                 Antal gäster: {props.booking.guests.toString()}
-            </h2>
-            <h2 className="confirmDate">
+            </h3>
+            <h3 className="confirmDate">
                 Datum: {props.booking.date.toLocaleString('swe', {month: '2-digit', day: '2-digit'})}
-            </h2>
-            <h2 className="confirmTime">
+            </h3>
+            <h3 className="confirmTime">
                 Tid: {props.booking.time}
-            </h2>
-            <h2 className="confirmInfo">
+            </h3>
+            <h3 className="confirmInfo">
                 Övrig info: {props.booking.info}
-            </h2>
+            </h3>
 
             <div className='confirm-btn'>
                 <Button onClick={onConfirm}>Bekräfta</Button>
