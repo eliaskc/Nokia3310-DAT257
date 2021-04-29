@@ -28,9 +28,9 @@ export default function Confirm(props) {
         guestName: props.booking.name,
         guestEmail: props.booking.email,
         guestTelNr: props.booking.tel,
-        nrOfGuests: props.booking.guests,
-        date: props.booking.date,
-        time: props.booking.time,
+        nrOfPeople: props.booking.guests,
+        bookingDate: props.booking.date,
+        startTime: props.booking.time,
         additionalInfo: props.booking.info
     }
 
@@ -40,7 +40,7 @@ export default function Confirm(props) {
         } else {
             console.log('klart!') 
             console.log(props.booking) 
-            console.log(booking) 
+            console.log(booking)
             BookingDataService.createBooking(booking)
 
         }
