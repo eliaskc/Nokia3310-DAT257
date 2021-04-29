@@ -4,6 +4,9 @@ import Button from 'react-bootstrap/Button'
 import moment from 'moment'
 import BookingDataService from '../api/BookingDataService.js'
 
+/**
+ * Component that shows a list of all bookings
+ */
 function BookingListComponent() {
     const [bookings,setBookings] = useState([]);
 
@@ -30,16 +33,16 @@ function BookingListComponent() {
 
     return (
         <div className="BookingListComponent">
-            <Button>Lägg till en ny bokning</Button>
+            <Button>Lägg till bokning</Button>
             <Table responsive>
                 <thead>
                     <tr>
-                        <th>bokningsId</th>
-                        <th>datum</th>
-                        <th>antal personer</th>
-                        <th>email</th>
-                        <th>ändra</th>
-                        <th>ta bort</th>
+                        <th>id</th>
+                        <th>Datum</th>
+                        <th>Antal personer</th>
+                        <th>Email</th>
+                        <th>Ändra</th>
+                        <th>Ta bort</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -51,14 +54,14 @@ function BookingListComponent() {
                                     <td>{moment(booking.bookingDate).format("YYYY-MM-DD")}</td>
                                     <td>{booking.numberOfPeople}</td>
                                     <td>{booking.email}</td>
-                                    <td><Button onClick={() => updateBookingClicked(booking.id)}>update</Button></td>
-                                    <td><Button variant="danger" onClick={() => deleteBookingClicked(booking.id)}>ta bort</Button></td>
+                                    <td><Button onClick={() => updateBookingClicked(booking.id)}>Uppdatera</Button></td>
+                                    <td><Button variant="danger" onClick={() => deleteBookingClicked(booking.id)}>Ta bort</Button></td>
                                 </tr>
                         )
                     }
                 </tbody>
             </Table>
-            <Button href="/">Hem</Button>
+            <Button href="/">Tillbaka</Button>
         </div>
         
     )

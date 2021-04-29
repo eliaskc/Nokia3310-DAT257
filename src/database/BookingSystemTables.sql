@@ -30,6 +30,7 @@ CREATE TABLE Bookings (
     nrOfPeople INTEGER NOT NULL,
     bookingDate DATE NOT NULL,
     startTime TIME NOT NULL,
+    additionalInfo TEXT,
     PRIMARY KEY(bookingDate, startTime, guestEmail),
     FOREIGN KEY (bookingDate, startTime) REFERENCES BookingTimes(bookingDate, startTime)
 );

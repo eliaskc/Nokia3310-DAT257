@@ -7,10 +7,10 @@ import Timelist from './Timelist';
 import Guests from './Guests';
 import AdditionalInfo from './AdditionalInfo';
 import Confirm from './Confirm';
+import AvailableTimeListComponent from './AvailableTimeListComponent';
 
 /**
- * Main controller/page
- * 
+ * Component for the Home page 
  */
 function HomeComponent() {
     const bookingJSON = useRef({
@@ -82,7 +82,7 @@ function HomeComponent() {
                 </div>
 
                 <div>
-                    <Button href="/bookings">Se bokningar</Button>
+                    <AvailableTimeListComponent/>
                 </div>
 
             </header>

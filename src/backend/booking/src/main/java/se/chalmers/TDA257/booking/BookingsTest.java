@@ -7,11 +7,15 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
+/**
+ * Initializes, stores and provides dummy booking data for the API
+ */
 @Service
 public class BookingsTest {
     @Getter private static List<Booking> bookings = new ArrayList<>();
     private static long idCounter = 0;
     static {
+        /*
         bookings.add(new Booking(++idCounter,new Date(),1,"email@email1.com"));
         bookings.add(new Booking(++idCounter,new Date(),5,"email@email2.com"));
         bookings.add(new Booking(++idCounter,new Date(),3,"email@email3.com"));
@@ -19,6 +23,7 @@ public class BookingsTest {
         bookings.add(new Booking(++idCounter,new Date(),2,"email@email5.com"));
         bookings.add(new Booking(++idCounter,new Date(),1,"email@email6.com"));
         bookings.add(new Booking(++idCounter,new Date(),4,"email@email7.com"));
+         */
     }
 
     public List<Booking> getAllBookings() {
