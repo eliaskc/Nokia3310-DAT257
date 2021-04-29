@@ -16,11 +16,22 @@ export default function Confirm(props) {
             props.booking.tel === '' ||
             props.booking.guests === '' ||
             props.booking.date === '' ||
-            props.booking.time === ''){
+            props.booking.time === '' ||
+            props.booking.info === ''){
                 return false
         } else {
             return true
         }
+    }
+
+    let booking = {
+        guestName: props.booking.name,
+        guestEmail: props.booking.email,
+        guestTelNr: props.booking.tel,
+        nrOfGuests: props.booking.guests,
+        date: props.booking.date,
+        time: props.booking.time,
+        additionalInfo: props.booking.info
     }
 
     function onConfirm(){
@@ -29,7 +40,8 @@ export default function Confirm(props) {
         } else {
             console.log('klart!') 
             console.log(props.booking) 
-            BookingDataService.createBooking(props.booking)
+            console.log(booking) 
+            BookingDataService.createBooking(booking)
 
         }
     }
