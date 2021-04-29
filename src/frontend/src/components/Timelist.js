@@ -2,6 +2,11 @@ import React,{useState} from 'react'
 import Dropdown from 'react-bootstrap/Dropdown';
 import DropdownButton from 'react-bootstrap/DropdownButton';
 
+/**
+ * Represents the page for selecting time
+ * @param {*} props Object that represents the current booking
+ * @returns 
+ */
 export default function Timelist(props) {
     const [dropdownTitle, setDropDownTitle] = useState('Välj tid');
 
@@ -17,8 +22,8 @@ export default function Timelist(props) {
 
     function handleSelect(item){
         console.log(item)
-        props.timeProps(item)
-        setDropDownTitle(item)
+        props.booking.time = item
+        setDropDownTitle('Tid: ' + item)
     }
 
     return (
