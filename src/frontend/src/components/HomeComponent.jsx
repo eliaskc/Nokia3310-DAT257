@@ -1,6 +1,6 @@
 import Button from 'react-bootstrap/Button'
 import React,{useState, useRef} from 'react'
-import {BrowserRouter as Router, Route, Switch, Link} from 'react-router-dom'
+import {BrowserRouter as Router, Route, Switch, Link, Redirect} from 'react-router-dom'
 
 import Calendar from './Calendar';
 import Timelist from './Timelist';
@@ -40,6 +40,14 @@ function HomeComponent() {
          setNextPage(pages[Math.min(page.current+1, pages.length-1)])
     }
 
+    //If someone tries to access the page by going directly
+    //to, for example, /date then redirect to home page
+    if (page.current === 0 && window.location.pathname !== '/'){
+        return (
+            <Redirect to=''/>
+        )
+    }
+    
     return (
         <div className="App">
             <header className="App-header">
