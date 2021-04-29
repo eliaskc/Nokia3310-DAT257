@@ -45,7 +45,6 @@ export default function Confirm(props) {
             <h2 className="confirmTel">
                 Telefonnummer: {props.booking.tel}
             </h2>
-            
             <h2 className="confirmGuests">
                 Antal gäster: {props.booking.guests.toString()}
             </h2>
@@ -58,7 +57,6 @@ export default function Confirm(props) {
             <h2 className="confirmInfo">
                 Övrig info: {props.booking.info}
             </h2>
-
             <div className='confirm-btn'>
                 <Button onClick={onConfirm}>Bekräfta</Button>
             </div>

@@ -25,15 +25,15 @@ function HomeComponent() {
     })
 
     let page = useRef(0)
+    const pages = ['', '/guests', '/date', '/timelist', '/info', 'confirm']
     const [prevPage, setPrevPage] = useState('')
     const [nextPage, setNextPage] = useState('/guests')
-    const pages = ['', '/guests', '/date', '/timelist', '/info', 'confirm']
 
     function handlePages(action){
-        if (page !== 0 && action === 'prev'){
+        if (page.current !== 0 && action === 'prev'){
             page.current--
         }
-        if (page !== pages.length && action === 'next'){
+        if (page.current !== pages.length && action === 'next'){
             page.current++
          }
          setPrevPage(pages[Math.max(page.current-1, 0)])
@@ -66,7 +66,7 @@ function HomeComponent() {
 
 
                     <div>
-                        {page.current > 0 && page.current < 5 && (
+                        {page.current > 0 && page.current < pages.length-1 && (
 
                         <nav>
                             <Link className='prevLink' to={prevPage} onClick={e => handlePages('prev')}>
@@ -96,7 +96,7 @@ function HomeComponent() {
                             </nav>)                        
                         }
 
-                        {page.current === 5 && ( <nav>
+                        {page.current === pages.length-1 && ( <nav>
                             <Link className='book-lnk' to={prevPage} onClick={e => handlePages('prev')}>
                                 <Button>
                                     Ändra i bokning
