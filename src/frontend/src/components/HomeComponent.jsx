@@ -43,7 +43,7 @@ function HomeComponent() {
     return (
         <div className="App">
             <div className='background-image'>
-
+                <div class="blur"/>
             </div>
             <header className="App-header">
                 <img src="/hamncafet_logo.png" alt="Hamncafét logga" className="main_logo" />
