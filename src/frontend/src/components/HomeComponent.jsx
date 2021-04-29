@@ -1,59 +1,88 @@
-import React, { useState } from 'react';
-import Button from 'react-bootstrap/Button';
+import Button from 'react-bootstrap/Button'
+import React,{useState, useRef} from 'react'
 import {BrowserRouter as Router, Route, Switch, Link} from 'react-router-dom'
 
 import Calendar from './Calendar';
 import Timelist from './Timelist';
 import Guests from './Guests';
+import AdditionalInfo from './AdditionalInfo';
 import Confirm from './Confirm';
 
+/**
+ * Main controller/page
+ * 
+ */
 function HomeComponent() {
-    const [guests, setGuests] = useState(0);
-    const [date, setDate] = useState(new Date());
-    const [time, setTime] = useState('');
-    function onConfirm() {
-        console.log(guests)
-        console.log(date)
-        console.log(time)
-    };
+    const bookingJSON = useRef({
+        'name': '',
+        'email': '',
+        'tel': '',
+        'info': '',
+        'guests': 0,
+        'date': '',
+        'time': ''
+    })
+
+    let page = useRef(1)
+    const [prevPage, setPrevPage] = useState('')
+    const [nextPage, setNextPage] = useState('/date')
+    const pages = ['', '/guests', '/date', '/timelist', '/info', 'confirm']
+
+    function handlePages(action){
+        if (page !== 0 && action === 'prev'){
+            page.current--
+        }
+        if (page !== pages.length && action === 'next'){
+            page.current++
+         }
+         setPrevPage(pages[Math.max(page.current-1, 0)])
+         setNextPage(pages[Math.min(page.current+1, pages.length-1)])
+    }
 
     return (
         <div className="App">
             <header className="App-header">
-
-                <img src="/hamncafet_logo.jpg" alt="Hamncafét logga" className="main_logo" />
-
+                <img src="/hamncafet_logo.png" alt="Hamncafét logga" className="main_logo" />
                 <Router>
-                    <nav>
-                        <ul>
-                            <li> <Link to='/guests'>1</Link></li>
-                            <li> <Link to='/date'>2</Link></li>
-                            <li> <Link to='/timelist'>3</Link></li>
-                            <li> <Link to='/confirm'>4</Link></li>
-                        </ul>
-                    </nav>
+                    
                     <Switch>
                         <Route path='/guests'>
-                            <Guests guestProps={setGuests} />
+                            <Guests booking={bookingJSON.current}/>
                         </Route>
                         <Route path='/date'>
-                            <Calendar dateProps={setDate} />
+                            <Calendar booking={bookingJSON.current}/>
                         </Route>
                         <Route path='/timelist'>
-                            <Timelist timeProps={setTime} />
+                            <Timelist booking={bookingJSON.current}/>
+                        </Route>
+                        <Route path='/info'>
+                            <AdditionalInfo booking={bookingJSON.current}/>
                         </Route>
                         <Route path='/confirm'>
-                            <Confirm guestProps={guests} dateProps={date} timeProps={time} />
+                            <Confirm booking={bookingJSON.current}/>
                         </Route>
                     </Switch>
+
+                    <nav>
+                        <Link className='prevLink' to={prevPage} onClick={e => handlePages('prev')}>
+                            <Button>
+                                Tillbaka
+                            </Button>
+                        </Link>
+                        <Link className='nextLink' to={nextPage} onClick={e => handlePages('next')}>
+                            <Button>
+                                Nästa
+                            </Button>
+                        </Link>
+                    </nav> 
                 </Router>
 
-                <div className='confirm-btn'>
-                    <Button onClick={onConfirm}>Confirm</Button>
+                <div className='book-btn'>
+                    <Button href="/guests">Boka bord</Button>
                 </div>
 
                 <div>
-                    <Button href="/bookings">See bookings </Button>
+                    <Button href="/bookings">Se bokningar</Button>
                 </div>
 
             </header>

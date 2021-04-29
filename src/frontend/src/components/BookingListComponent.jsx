@@ -30,16 +30,16 @@ function BookingListComponent() {
 
     return (
         <div className="BookingListComponent">
-            <Button>Add new booking</Button>
+            <Button>Lägg till en ny bokning</Button>
             <Table responsive>
                 <thead>
                     <tr>
-                        <th>id</th>
-                        <th>date</th>
-                        <th>number of people</th>
+                        <th>bokningsId</th>
+                        <th>datum</th>
+                        <th>antal personer</th>
                         <th>email</th>
-                        <th>update</th>
-                        <th>remove</th>
+                        <th>ändra</th>
+                        <th>ta bort</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -52,13 +52,13 @@ function BookingListComponent() {
                                     <td>{booking.numberOfPeople}</td>
                                     <td>{booking.email}</td>
                                     <td><Button onClick={() => updateBookingClicked(booking.id)}>update</Button></td>
-                                    <td><Button variant="danger" onClick={() => deleteBookingClicked(booking.id)}>delete</Button></td>
+                                    <td><Button variant="danger" onClick={() => deleteBookingClicked(booking.id)}>ta bort</Button></td>
                                 </tr>
                         )
                     }
                 </tbody>
             </Table>
-            <Button href="/">Home</Button>
+            <Button href="/">Hem</Button>
         </div>
         
     )
