@@ -16,8 +16,7 @@ export default function Confirm(props) {
             props.booking.tel === '' ||
             props.booking.guests === '' ||
             props.booking.date === '' ||
-            props.booking.time === '' ||
-            props.booking.info === ''){
+            props.booking.time === ''){
                 return false
         } else {
             return true
