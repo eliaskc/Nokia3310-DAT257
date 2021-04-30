@@ -3,7 +3,6 @@ package se.chalmers.TDA257.booking;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Time;
-import java.util.Date;
 import java.util.List;
 
 import javax.sql.DataSource;
@@ -24,6 +23,7 @@ public class DatabaseController {
 
     /**
      * Fetches all bookings from the bookings view
+     * 
      * @return List of Bookings
      */
     @Autowired
@@ -32,23 +32,44 @@ public class DatabaseController {
             @Override
             public Booking mapRow(ResultSet rs, int rownumber) throws SQLException {
                 return new Booking(rs.getString(1), rs.getString(2), rs.getString(3), rs.getInt(4),
-                rs.getDate(5), rs.getString(6), rs.getString(7));
+                        rs.getDate(5).toLocalDate(), rs.getTime(6).toLocalTime(), rs.getString(7));
             }
         });
     }
 
     /**
      * Fetches all available times from the availableReservations view
+     * 
      * @return List of Times
      */
     @Autowired
-    public static List<Time> fetchAvailableTimes(){
+    public static List<Time> fetchAvailableTimes() {
         return jdbcTemplate.query("select * from availablereservations", new RowMapper<Time>() {
             @Override
             public Time mapRow(ResultSet rs, int rownumber) throws SQLException {
                 return rs.getTime(2);
             }
         });
+    }
+
+    /**
+     * 
+     */
+    @Autowired
+    public static int insertNewBooking(Booking booking) {
+        String sqlQuery = ("INSERT INTO Bookings (" + "guestName, " + "guestEmail, " + "guestTelNr, " + "nrOfPeople, "
+                + "bookingDate, " + "startTime, " + "additionalInfo) VALUES (?, ?, ?, ?, ?, ?, ?);");
+
+        Object[] params = new Object[] {booking.getGuestName(),booking.getGuestEmail(), booking.getGuestTelNr(), 
+            booking.getNrOfPeople(), booking.getBookingDate(), booking.getStartTime(), booking.getAdditionalInfo()};
+
+        for (Object o : params) {
+            System.out.println(o.getClass());
+        }
+
+        // String sqlQuery = "INSERT INTO Tables (tableID, nrOfSeats) VALUES (150, 2)";
+
+        return jdbcTemplate.update(sqlQuery, params);
     }
 
     @Autowired
