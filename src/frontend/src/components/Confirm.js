@@ -5,24 +5,23 @@ import BookingDataService from '../api/BookingDataService.js'
 
 /**
  * Represents the confirmation page
- * @param {*} props Object that represents the current booking
+ * @param props Object that represents the current booking
  * @returns 
  */
 export default function Confirm(props) {
 
-    function checkBookingComplete(){
-        if (props.booking.name === '' ||
+    function checkBookingComplete() {
+        return !(props.booking.name === '' ||
             props.booking.email === '' ||
             props.booking.tel === '' ||
             props.booking.guests === '' ||
             props.booking.date === '' ||
-            props.booking.time === ''){
-                return false
-        } else {
-            return true
-        }
+            props.booking.time === '');
     }
 
+    /**
+     * Javascript object created with the values of props, in order for the backend to be able to handle it
+     */
     let booking = {
         guestName: props.booking.name,
         guestEmail: props.booking.email,
@@ -33,13 +32,15 @@ export default function Confirm(props) {
         additionalInfo: props.booking.info
     }
 
-    function onConfirm(){
-        if (!checkBookingComplete()){
+    function onConfirm() {
+        if (!checkBookingComplete()) {
             alert('Du måste fylla i all information')
         } else {
-            console.log('klart!') 
-            console.log(props.booking) 
+            // For development
+            console.log('klart!')
+            console.log(props.booking)
             console.log(booking)
+            
             BookingDataService.createBooking(booking)
 
         }
@@ -60,7 +61,7 @@ export default function Confirm(props) {
                 Antal gäster: {props.booking.guests.toString()}
             </h2>
             <h2 className="confirmDate">
-                Datum: {props.booking.date.toLocaleString('swe', {month: '2-digit', day: '2-digit'})}
+                Datum: {props.booking.date.toLocaleString('swe', { month: '2-digit', day: '2-digit' })}
             </h2>
             <h2 className="confirmTime">
                 Tid: {props.booking.time}

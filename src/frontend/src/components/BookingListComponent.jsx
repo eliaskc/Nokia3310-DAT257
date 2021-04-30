@@ -52,8 +52,8 @@ function BookingListComponent() {
                                 <tr key={booking.id}>
                                     <td>{booking.id}</td>
                                     <td>{moment(booking.bookingDate).format("YYYY-MM-DD")}</td>
-                                    <td>{booking.numberOfPeople}</td>
-                                    <td>{booking.email}</td>
+                                    <td>{booking.nrOfPeople}</td>
+                                    <td>{booking.guestEmail}</td>
                                     <td><Button onClick={() => updateBookingClicked(booking.id)}>Uppdatera</Button></td>
                                     <td><Button variant="danger" onClick={() => deleteBookingClicked(booking.id)}>Ta bort</Button></td>
                                 </tr>
