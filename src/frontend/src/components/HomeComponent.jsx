@@ -8,7 +8,6 @@ import Guests from './Guests';
 import AdditionalInfo from './AdditionalInfo';
 import Confirm from './Confirm';
 import AvailableTimeListComponent from './AvailableTimeListComponent';
-import Contact from './Contact';
 
 /**
  * Component for the Home page 
