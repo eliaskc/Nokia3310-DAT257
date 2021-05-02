@@ -47,7 +47,7 @@ public class DatabaseController {
     @Autowired
     public static List<Time> fetchAvailableTimes(Date date, LocalTime time, int nrOfPeople) {
         String sqlQuery = ("SELECT bookingDate, startTime, nrOfAvailableSeats FROM AvailableReservations" + 
-        " WHERE " + nrOfPeople + " <= nrOfAvailableSeats AND " + date + " <= bookingDate AND " + time + " <= startTime);");<
+        " WHERE " + nrOfPeople + " <= nrOfAvailableSeats AND " + date + " <= bookingDate AND " + time + " <= startTime);");
 
         return jdbcTemplate.query(sqlQuery, new RowMapper<Time>() {
             @Override
