@@ -21,8 +21,8 @@ CREATE TABLE Tables (
     CHECK (nrOfSeats=2)
 );
 
---Tog bort GuestParties pga finns ingen anledning att prata om GP som en 
---egen entitet i detta sammanhang
+/*Tog bort GuestParties pga finns ingen anledning att prata om GP som en 
+egen entitet i detta sammanhang*/
 CREATE TABLE Bookings (
     guestName TEXT NOT NULL,
     guestEmail TEXT,
@@ -32,7 +32,8 @@ CREATE TABLE Bookings (
     startTime TIME NOT NULL,
     additionalInfo TEXT,
     PRIMARY KEY(bookingDate, startTime, guestEmail),
-    FOREIGN KEY (bookingDate, startTime) REFERENCES BookingTimes(bookingDate, startTime)
+    FOREIGN KEY (bookingDate, startTime) 
+        REFERENCES BookingTimes(bookingDate, startTime) ON DELETE CASCADE;
 );
 
 
@@ -43,6 +44,6 @@ CREATE TABLE BookedTables (
     startTime TIME,
     guestEmail TEXT ,
     FOREIGN KEY(bookingDate, startTime, guestEmail) 
-        REFERENCES Bookings(bookingDate, startTime, guestEmail),
+        REFERENCES Bookings(bookingDate, startTime, guestEmail) ON DELETE CASCADE,
     PRIMARY KEY(tableID, bookingDate, startTime)
 );
