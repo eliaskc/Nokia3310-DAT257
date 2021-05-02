@@ -27,8 +27,8 @@ export default function Timelist(props) {
     }
 
     return (
-        <div>
-            <h2><span>Tid</span></h2>
+        <div className="Timelist">
+            
             <DropdownButton title={dropdownTitle} id="dropdown-menu" onSelect={handleSelect}>
                 {times.map(n => (
                     <Dropdown.Item key={n.toString()} eventKey={n}> {n} </Dropdown.Item>

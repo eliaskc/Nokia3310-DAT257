@@ -14,7 +14,7 @@ export default function AdditionalInfo(props){
     }
 
     return (
-        <div>
+        <div className="AdditionalInfo">
             <Form onChange={e => handleChange(e)}>
                 <Form.Group controlId="name">
                     <Form.Label>Namn</Form.Label>
