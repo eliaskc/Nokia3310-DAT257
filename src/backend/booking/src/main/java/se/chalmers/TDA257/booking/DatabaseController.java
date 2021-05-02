@@ -32,7 +32,7 @@ public class DatabaseController {
             @Override
             public Booking mapRow(ResultSet rs, int rownumber) throws SQLException {
                 return new Booking(rs.getString(1), rs.getString(2), rs.getString(3), rs.getInt(4),
-                        rs.getDate(5).toLocalDate(), rs.getTime(6).toLocalTime(), rs.getString(7));
+                        rs.getDate(5), rs.getTime(6).toLocalTime(), rs.getString(7));
             }
         });
     }
