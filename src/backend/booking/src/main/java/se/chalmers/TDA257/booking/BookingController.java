@@ -78,12 +78,13 @@ public class BookingController {
      * @param booking
      */
     @PostMapping("/bookings")
-    public ResponseEntity<Void> addBooking(@RequestBody Booking booking) {
+    public int addBooking(@RequestBody Booking booking) {
         System.out.println(booking);
-        DatabaseController.insertNewBooking(booking);
-        URI uri = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}")
-                .buildAndExpand(booking.getId()).toUri();
-        return ResponseEntity.created(uri).build();
+        return DatabaseController.insertNewBooking(booking);
+        //Booking b = bookings.saveBooking(booking);
+        //URI uri = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}")
+                //.buildAndExpand(b.getId()).toUri();
+        //return ResponseEntity.created(uri).build();
     }
 }
 

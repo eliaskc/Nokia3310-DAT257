@@ -8,7 +8,6 @@ import Guests from './Guests';
 import AdditionalInfo from './AdditionalInfo';
 import Confirm from './Confirm';
 import AvailableTimeListComponent from './AvailableTimeListComponent';
-import BookingDataService from '../api/BookingDataService.js';
 
 /**
  * Component for the Home page 
@@ -47,27 +46,11 @@ function HomeComponent() {
             <Redirect to=''/>
         )
     }
-
-    const testCreateBooking = () => {
-        let date = new Date();
-        let booking = {
-            guestName: 'test name',
-            guestEmail: 'test@emal.com',
-            guestTelNr: "070123456",
-            nrOfPeople: 3,
-            bookingDate: date,
-            startTime: date.getTime(),
-            additionalInfo: "some info"
-        };
-        //console.log(booking)
-        BookingDataService.createBooking(booking);
-    }
     
     return (
         <div className="App">
             <header className="App-header">
                 <img src="/hamncafet_logo.png" alt="Hamncafét logga" className="main_logo" />
-                <Button onClick={testCreateBooking}>TEST</Button>
                 <Router>
                     
                     <Switch>
