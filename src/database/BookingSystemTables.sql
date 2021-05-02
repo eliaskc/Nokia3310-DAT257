@@ -11,7 +11,7 @@ GRANT ALL ON SCHEMA public TO postgres;
 -- ev lägga till i schemat och det
 CREATE TABLE BookingTimes (
     bookingDate DATE NOT NULL,
-    startTime TIME NOT NULL, --ev ändra detta sen så det är time
+    startTime TIME NOT NULL,
     PRIMARY KEY (bookingDate, startTime)
 );
 

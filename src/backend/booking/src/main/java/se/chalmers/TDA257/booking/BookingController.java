@@ -78,9 +78,9 @@ public class BookingController {
      * @param booking
      */
     @PostMapping("/bookings")
-    public ResponseEntity<Void> addBooking(@RequestBody Booking booking) {
+    public int addBooking(@RequestBody Booking booking) {
         System.out.println(booking);
-        return null;
+        return DatabaseController.insertNewBooking(booking);
         //Booking b = bookings.saveBooking(booking);
         //URI uri = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}")
                 //.buildAndExpand(b.getId()).toUri();
