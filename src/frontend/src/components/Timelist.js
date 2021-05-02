@@ -11,14 +11,15 @@ export default function Timelist(props) {
     const [dropdownTitle, setDropDownTitle] = useState('Välj tid');
 
     //example of times, will be populated with times from backend
-    const times = ['12:00',
-                   '13:00',
-                   '14:00',
-                   '15:00',
-                   '16:00',
-                   '17:00',
+    const times = ['17:00',
+                   '17:30',
                    '18:00',
-                   '19:00']
+                   '18:30',
+                   '19:00',
+                   '19:30',
+                   '20:00',
+                   '20:30',
+                   '21:00']
 
     function handleSelect(item){
         console.log(item)
