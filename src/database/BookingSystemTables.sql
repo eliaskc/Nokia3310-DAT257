@@ -10,26 +10,26 @@ GRANT ALL ON SCHEMA public TO postgres;
 --A table of all the allowed booking times for a given date
 -- ev lägga till i schemat och det
 CREATE TABLE BookingTimes (
-    bookingDate DATE NOT NULL,
-    startTime TIME NOT NULL,
+    bookingDate DATE,
+    startTime TIME,
     PRIMARY KEY (bookingDate, startTime)
 );
 
 CREATE TABLE Tables (
     tableID INT PRIMARY KEY,
-    nrOfSeats INT NOT NULL,
+    nrOfSeats INT,
     CHECK (nrOfSeats=2)
 );
 
 --Tog bort GuestParties pga finns ingen anledning att prata om GP som en 
 --egen entitet i detta sammanhang
 CREATE TABLE Bookings (
-    guestName TEXT NOT NULL,
+    guestName TEXT,
     guestEmail TEXT,
-    guestTelNr TEXT NOT NULL,
-    nrOfPeople INTEGER NOT NULL,
-    bookingDate DATE NOT NULL,
-    startTime TIME NOT NULL,
+    guestTelNr TEXT,
+    nrOfPeople INTEGER,
+    bookingDate DATE,
+    startTime TIME,
     additionalInfo TEXT,
     PRIMARY KEY(bookingDate, startTime, guestEmail),
     FOREIGN KEY (bookingDate, startTime) REFERENCES BookingTimes(bookingDate, startTime)

@@ -1,8 +1,10 @@
 package se.chalmers.TDA257.booking;
 
+import java.awt.print.Book;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Time;
+import java.sql.Types;
 import java.util.List;
 
 import javax.sql.DataSource;
@@ -32,7 +34,7 @@ public class DatabaseController {
             @Override
             public Booking mapRow(ResultSet rs, int rownumber) throws SQLException {
                 return new Booking(rs.getString(1), rs.getString(2), rs.getString(3), rs.getInt(4),
-                        rs.getDate(5).toLocalDate(), rs.getTime(6).toLocalTime(), rs.getString(7));
+                        rs.getDate(5), rs.getTime(6), rs.getString(7));
             }
         });
     }
@@ -63,13 +65,12 @@ public class DatabaseController {
         Object[] params = new Object[] {booking.getGuestName(),booking.getGuestEmail(), booking.getGuestTelNr(), 
             booking.getNrOfPeople(), booking.getBookingDate(), booking.getStartTime(), booking.getAdditionalInfo()};
 
-        for (Object o : params) {
-            System.out.println(o.getClass());
-        }
+        int[] types = new int[] {Types.VARCHAR,Types.VARCHAR, Types.VARCHAR,
+                Types.INTEGER, Types.DATE, Types.TIME, Types.VARCHAR};
 
-        // String sqlQuery = "INSERT INTO Tables (tableID, nrOfSeats) VALUES (150, 2)";
+        System.out.println(booking.toString());
 
-        return jdbcTemplate.update(sqlQuery, params);
+        return jdbcTemplate.update(sqlQuery, params, types);
     }
 
     @Autowired
