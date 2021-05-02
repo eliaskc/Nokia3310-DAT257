@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import Table from 'react-bootstrap/Table'
 import Button from 'react-bootstrap/Button'
 import BookingDataService from '../api/BookingDataService.js'
+import moment from 'moment';
 
 /**
  * Components that fetches and shows all available times
@@ -14,7 +15,7 @@ export default function AvailableTimeListComponent() {
     }, []);
 
     const refreshTimeList = () => {
-        BookingDataService.retrieveAllAvailableTimes()
+        BookingDataService.retrieveAllAvailableTimes(moment(new Date()).format("YYYY-MM-DD"), '17:00:00', 2)
             .then(
                 (response) => {
                     setAvailableTimeList(response.data)

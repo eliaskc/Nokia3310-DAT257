@@ -3,7 +3,9 @@ package se.chalmers.TDA257.booking;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Time;
+import java.time.LocalTime;
 import java.util.List;
+import java.sql.Date;
 
 import javax.sql.DataSource;
 
@@ -43,8 +45,11 @@ public class DatabaseController {
      * @return List of Times
      */
     @Autowired
-    public static List<Time> fetchAvailableTimes() {
-        return jdbcTemplate.query("select * from availablereservations", new RowMapper<Time>() {
+    public static List<Time> fetchAvailableTimes(Date date, LocalTime time, int nrOfPeople) {
+        String sqlQuery = ("SELECT bookingDate, startTime, nrOfAvailableSeats FROM AvailableReservations" + 
+        " WHERE " + nrOfPeople + " <= nrOfAvailableSeats AND " + date + " <= bookingDate AND " + time + " <= startTime);");<
+
+        return jdbcTemplate.query(sqlQuery, new RowMapper<Time>() {
             @Override
             public Time mapRow(ResultSet rs, int rownumber) throws SQLException {
                 return rs.getTime(2);
