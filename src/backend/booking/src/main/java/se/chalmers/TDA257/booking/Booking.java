@@ -12,18 +12,17 @@ import java.util.Date;
  */
 @Getter @Setter
 public class Booking {
-    private long id;
+    private long id = 0;
     private String guestName;
     private String guestEmail;
     private String guestTelNr;
     private int nrOfPeople;
     private Date bookingDate;
-    private Time startTime;
+    private String startTime;
     private String additionalInfo;
     
-    public Booking(long id, String guestName, String guestEmail, String guestTelNr, int nrOfPeople, Date bookingDate,
-            Time startTime, String additionalInfo) {
-        this.id = id;
+    public Booking(String guestName, String guestEmail, String guestTelNr, int nrOfPeople, Date bookingDate,
+            String startTime, String additionalInfo) {
         this.guestName = guestName;
         this.guestEmail = guestEmail;
         this.guestTelNr = guestTelNr;
@@ -43,6 +42,7 @@ public class Booking {
                 ", nrOfPeople=" + nrOfPeople +
                 ", bookingDate=" + bookingDate +
                 ", startTime=" + startTime +
+                ", additionalInfo=" + additionalInfo +
                 '}';
     }
 }

@@ -1,26 +1,25 @@
-import React, {useState,useEffect } from 'react';
+import React, { useState, useEffect } from 'react';
 import Table from 'react-bootstrap/Table'
 import Button from 'react-bootstrap/Button'
-import moment from 'moment'
 import BookingDataService from '../api/BookingDataService.js'
 
 /**
  * Components that fetches and shows all available times
  */
 export default function AvailableTimeListComponent() {
-    const [availableTimeList,setAvailableTimeList] = useState([]);
+    const [availableTimeList, setAvailableTimeList] = useState([]);
 
     useEffect(() => {
         refreshTimeList();
-      }, []);
+    }, []);
 
     const refreshTimeList = () => {
         BookingDataService.retrieveAllAvailableTimes()
-        .then(
-            (response) => {
-                setAvailableTimeList(response.data)
-            }
-        )
+            .then(
+                (response) => {
+                    setAvailableTimeList(response.data)
+                }
+            )
     }
 
     return (
@@ -44,6 +43,6 @@ export default function AvailableTimeListComponent() {
             </Table>
             <Button href="/">Tillbaka</Button>
         </div>
-        
+
     )
 }

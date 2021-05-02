@@ -31,8 +31,8 @@ public class DatabaseController {
         return jdbcTemplate.query("select * from Bookings", new RowMapper<Booking>() {
             @Override
             public Booking mapRow(ResultSet rs, int rownumber) throws SQLException {
-                return new Booking(0, rs.getString(1), rs.getString(2), rs.getString(3), rs.getInt(4),
-                rs.getDate(5), rs.getTime(6), rs.getString(7));
+                return new Booking(rs.getString(1), rs.getString(2), rs.getString(3), rs.getInt(4),
+                rs.getDate(5), rs.getString(6), rs.getString(7));
             }
         });
     }
