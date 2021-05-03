@@ -20,7 +20,6 @@ export default function Guests(props) {
     
     return (
         <div>
-            <h2><span>Gäster</span></h2>
             <DropdownButton title={dropdownTitle} id="dropdown-menu" onSelect={handleSelect}>
                 {guestsAmount.map(n => (
                     <Dropdown.Item key={n.toString()} eventKey={n}> {n} </Dropdown.Item>
