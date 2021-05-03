@@ -4,6 +4,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Time;
 import java.time.LocalTime;
+import java.time.LocalDate;
 import java.util.List;
 import java.sql.Date;
 
@@ -45,16 +46,20 @@ public class DatabaseController {
      * @return List of Times
      */
     @Autowired
-    public static List<Time> fetchAvailableTimes(Date date, LocalTime time, int nrOfPeople) {
+    public static List<Time> fetchAvailableTimes(LocalDate date, LocalTime time, int nrOfPeople) {
         String sqlQuery = ("SELECT bookingDate, startTime, nrOfAvailableSeats FROM AvailableReservations" + 
-        " WHERE " + nrOfPeople + " <= nrOfAvailableSeats AND " + date + " <= bookingDate AND " + time + " <= startTime);");
+        " WHERE (?) <= nrOfAvailableSeats AND (?) <= bookingDate AND (?) <= startTime);");
 
-        return jdbcTemplate.query(sqlQuery, new RowMapper<Time>() {
+        Object[] params = new Object[] {date, time, nrOfPeople};
+
+        RowMapper<Time> rowMapper = new RowMapper<Time>() {
             @Override
             public Time mapRow(ResultSet rs, int rownumber) throws SQLException {
                 return rs.getTime(2);
             }
-        });
+        };
+
+        return jdbcTemplate.query(sqlQuery, rowMapper, params);
     }
 
     /**

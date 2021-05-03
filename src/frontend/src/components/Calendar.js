@@ -20,7 +20,7 @@ export default function calendar(props) {
 
     function displayDate(date){
         console.log(date)
-        props.booking.date = date
+        props.booking.date = date.toLocaleDateString()
     }
 
     return (

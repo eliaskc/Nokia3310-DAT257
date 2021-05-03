@@ -10,6 +10,7 @@ import javax.xml.crypto.Data;
 import java.net.URI;
 import java.sql.Time;
 import java.time.LocalTime;
+import java.time.LocalDate;
 import java.sql.Date;
 import java.util.List;
 /**
@@ -36,8 +37,7 @@ public class BookingController {
      * @return list of Times
      */
     @GetMapping("/availableTimes")
-    public List<Time> getAllAvailableTimes(Date date, @DateTimeFormat(pattern = "HH:mm:ss") LocalTime time, int guests){
-        System.out.println(time);
+    public List<Time> getAllAvailableTimes(@DateTimeFormat(pattern = "yyyy-MM-dd") LocalDate date, @DateTimeFormat(pattern = "HH:mm:ss") LocalTime time, int guests){
         return DatabaseController.fetchAvailableTimes(date, time, guests);
     }
 

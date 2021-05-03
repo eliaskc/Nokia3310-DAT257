@@ -7,7 +7,6 @@ import Timelist from './Timelist';
 import Guests from './Guests';
 import AdditionalInfo from './AdditionalInfo';
 import Confirm from './Confirm';
-import AvailableTimeListComponent from './AvailableTimeListComponent';
 
 /**
  * Component for the Home page 
@@ -116,10 +115,6 @@ function HomeComponent() {
                         }
                     </div>
                 </Router>
-                <div>
-                    <AvailableTimeListComponent/>
-                </div>
-
             </header>
         </div>
     );
