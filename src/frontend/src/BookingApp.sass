@@ -8,7 +8,7 @@
   height: 100%
   width: 100%
   background-size: cover
-  background-position: 50% 50%
+  background-position: 50% 30%
   transition: transform 0.3s ease-in-out
   min-height: 100vh
   text-align: center
@@ -21,7 +21,7 @@
   
   
   .App-header
-    backdrop-filter: blur(6px)
+    backdrop-filter: blur(5px)
     top: 0
     left: 0
     height: 100%
@@ -46,11 +46,13 @@
     padding-bottom: 20px
     border: 1px solid #E0E0E0
     opacity: .9
-    
+    width: 80%
 
 
   .AdditionalInfo
     background-color: white
+    width: 80%
+    margin-top: 10px
     padding-right: 50px
     padding-left: 50px
     padding-top: 30px
@@ -66,9 +68,13 @@
     background-color: cutom-color
     border-color: #5e92da
     border-color: cutom-cor
-    margin: 10px
-    border-radius: 20px
-    font-size: 18px
+    margin: 14px
+    padding-left: 17px
+    padding-right: 17px
+    padding-top: 8px
+    padding-bottom: 8px
+    border-radius: 28px
+    font-size: 25px
     font-family: 'Roboto', sans-serif
     
 
@@ -79,8 +85,30 @@
     border-color: #ebebeb
     border-color: cutom-cor
   
+  #dropdown-menu
+    font-size: 33px
+    border-radius: 10px
 
+    
  
+  .dropdown .dropdown-menu
+    background-color: transparent
+    width: calc(100% - 29px)
+    font-size: 33px
+    font-family: 'Roboto', sans-serif
+    text-align: center
+    display: flex
+    flex-direction: column
+    align-items: center
+    border: 0
+
+  .dropdown .dropdown-menu .dropdown-item
+    border: 1px solid #5e92da
+    background-color: #ebebeb
+    margin-top: -10px
+    padding-: 10px
+    color: #5C5858
+
 
   h2
     color: #5C5858
@@ -89,10 +117,15 @@
   form
     color: #5C5858
     font-family: 'Roboto', sans-serif
+    font-size: 30px
+
+  .form-control
+    font-size: 20px
+    width: 100%
 
   h3
     color: #5C5858
-    font-size: 18px
+    font-size: 22px
     font-family: 'Roboto', sans-serif
 
 
@@ -107,14 +140,22 @@
 .react-calendar__tile
   height: 50px
 
+.react-calendar button
+  font-size: 24px
+  font-family: 'Roboto', sans-serif
+
+  
+
 .react-calendar__month-view__weekdays__weekday abbr[title] 
-  font-size: 14px
-  color: rgb(15, 70, 15)
+  font-size: 15px
+  color: #5C5858
   text-decoration: none
+  font-family: 'Roboto bold', sans-serif
 
 .react-calendar__tile--active
   background: #004E7C
   color: white
+  
 
 .react-calendar__tile--active:enabled:hover,
 .react-calendar__tile--active:enabled:focus
@@ -125,8 +166,9 @@
   font-size: 16px
 
 .main_logo
-  height: 171px
-  width: 500px
+  max-width: 55vw
+  display: flex
+  margin: 30px
 
 .react-calendar
   margin: 20px
@@ -135,4 +177,6 @@
 .calendar
   display: flex
   flex-direction: column
+  max-width: 95%
   align-items: center
+  
