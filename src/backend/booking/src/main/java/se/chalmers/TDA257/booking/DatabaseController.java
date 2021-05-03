@@ -5,6 +5,7 @@ import java.sql.SQLException;
 import java.sql.Time;
 import java.time.LocalTime;
 import java.time.LocalDate;
+import java.util.Arrays;
 import java.util.List;
 import java.sql.Date;
 
@@ -45,10 +46,13 @@ public class DatabaseController {
         });
     }
 
+
     /**
-     * Fetches all available times from the availableReservations view
-     * 
-     * @return List of Times
+     * Fetches all available times for the provided date, time and number of people from the database
+     * @param date LocalDate date to check
+     * @param time Current time
+     * @param nrOfPeople Number of people to book
+     * @return
      */
     @Autowired
     public static List<Time> fetchAvailableTimes(LocalDate date, LocalTime time, int nrOfPeople) {
