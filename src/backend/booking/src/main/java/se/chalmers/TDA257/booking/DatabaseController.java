@@ -66,14 +66,10 @@ public class DatabaseController {
     @Autowired
     public static int insertNewBooking(Booking booking) {
         String sqlQuery = ("INSERT INTO BookingsView (" + "bookingDate, " + "startTime, " + "tableID, " + "guestEmail, " +
-            "guestName, " + "guestTelNr, " + "nrOfPeople, " + "additionalInfo" );
+            "guestName, " + "guestTelNr, " + "nrOfPeople, " + "additionalInfo) VALUES (?, ?, ?, ?, ?, ?, ?, ?)" );
         
         Object[] params = new Object[] {booking.getBookingDate(),booking.getStartTime(), 0, booking.getGuestEmail(), 
             booking.getGuestName(), booking.getGuestTelNr(), booking.getNrOfPeople(), booking.getAdditionalInfo()};
-
-        for (Object o : params) {
-            System.out.println(o.getClass());
-        }
 
         // String sqlQuery = "INSERT INTO Tables (tableID, nrOfSeats) VALUES (150, 2)";
 
