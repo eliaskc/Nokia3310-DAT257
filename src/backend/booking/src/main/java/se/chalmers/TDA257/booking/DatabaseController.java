@@ -93,7 +93,7 @@ public class DatabaseController {
 	void dailyInsertBookingTimesDB() throws InterruptedException {
 		System.out.println("LOL*");
         String insertSqlQuery = ("INSERT INTO BookingTimes (" + "bookingDate, " + "startTime) VALUES (?, ?);");
-        LocalDate dateToAdd = LocalDate.now().plusWeeks(2);
+        LocalDate dateToAdd = LocalDate.now().plusWeeks(3);
         List<LocalTime> bookingTimes = Arrays.asList(LocalTime.parse("17:00:00"), LocalTime.parse("17:30:00"), LocalTime.parse("18:00:00"), LocalTime.parse("18:30:00"),
         LocalTime.parse("19:00:00"), LocalTime.parse("19:30:00"), LocalTime.parse("20:00:00"), LocalTime.parse("20:30:00"), LocalTime.parse("21:00:00"),
         LocalTime.parse("21:30:00"), LocalTime.parse("22:00:00"), LocalTime.parse("22:30:00"));
@@ -111,7 +111,7 @@ public class DatabaseController {
 	void dailyDeleteBookingTimesDB() throws InterruptedException {
 		System.out.println("asdfa");
         String deleteSqlQuery = ("DELETE FROM BookingTimes WHERE bookingdate =" + "?" + " AND startTime =" + "?"+ ";");
-        LocalDate dateToDelete = LocalDate.now().minusDays(1);
+        LocalDate dateToDelete = LocalDate.now().minusDays(3);
         List<LocalTime> bookingTimes = Arrays.asList(LocalTime.parse("17:00:00"), LocalTime.parse("17:30:00"), LocalTime.parse("18:00:00"), LocalTime.parse("18:30:00"),
         LocalTime.parse("19:00:00"), LocalTime.parse("19:30:00"), LocalTime.parse("20:00:00"), LocalTime.parse("20:30:00"), LocalTime.parse("21:00:00"),
         LocalTime.parse("21:30:00"), LocalTime.parse("22:00:00"), LocalTime.parse("22:30:00"));
