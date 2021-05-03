@@ -1,7 +1,7 @@
 import Button from 'react-bootstrap/Button'
 import React,{useState, useRef} from 'react'
 import {BrowserRouter as Router, Route, Switch, Link, Redirect} from 'react-router-dom'
-
+import AddToHomeScreen from '@ideasio/add-to-homescreen-react';
 import Calendar from './Calendar';
 import Timelist from './Timelist';
 import Guests from './Guests';
@@ -116,6 +116,11 @@ function HomeComponent() {
                         }
                     </div>
                 </Router>
+
+                <div className='add-btn'>
+                    <AddToHomeScreen/>
+                </div>
+
                 <div>
                     <AvailableTimeListComponent/>
                 </div>
