@@ -48,9 +48,9 @@ public class DatabaseController {
     @Autowired
     public static List<Time> fetchAvailableTimes(LocalDate date, LocalTime time, int nrOfPeople) {
         String sqlQuery = ("SELECT bookingDate, startTime, nrOfAvailableSeats FROM AvailableReservations" + 
-        " WHERE (?) <= nrOfAvailableSeats AND (?) <= bookingDate AND (?) <= startTime);");
+        " WHERE (?) <= nrOfAvailableSeats AND (?) = bookingDate AND (?) <= startTime;");
 
-        Object[] params = new Object[] {date, time, nrOfPeople};
+        Object[] params = new Object[] {nrOfPeople, date, time};
 
         RowMapper<Time> rowMapper = new RowMapper<Time>() {
             @Override
