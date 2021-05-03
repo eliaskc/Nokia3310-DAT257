@@ -16,12 +16,10 @@ export default function Timelist(props) {
     //Else we input 00:00:00
     function getDateTime(){
         let dateTime = new Date()
-        if (props.booking.date === dateTime.toLocaleDateString()){
-            return dateTime.toLocaleTimeString()
-        } else {
+        if (props.booking.date !== dateTime.toLocaleDateString()){
             dateTime.setTime(0,0,0,0)
-            return dateTime.toLocaleTimeString()
         }
+        return dateTime.toLocaleTimeString()
     }
 
     useEffect(() => {
