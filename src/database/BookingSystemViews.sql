@@ -8,7 +8,7 @@ CREATE VIEW TimeSlots AS
 
 -- All timeslots with connected bookings if there are any. 
 -- This is the view that is used for inserting a booking from the backend.
-CREATE VIEW AllTimeSlots AS
+CREATE VIEW BookingsView AS
     SELECT bookingDate, startTime, tableID, guestEmail, guestName, guestTelNr, nrOfPeople, additionalInfo,
     CASE
         WHEN guestEmail IS NULL THEN true ELSE false
@@ -25,7 +25,7 @@ CREATE VIEW AllTimeSlots AS
 -- before a another booking coming up is the one that is 1,5 hours before.
 CREATE VIEW AvailableTimeSlots AS
     SELECT tableID, bookingDate, startTime
-    FROM AllTimeSlots 
+    FROM BookingsView 
     WHERE isAvailable = true AND startTime < '21:30:00'
     EXCEPT (SELECT tableID, bookingDate, startTime - INTERVAL '90 minutes'
         FROM BookedTables)
@@ -48,5 +48,5 @@ CREATE VIEW AvailableReservations AS
 -- Shows all booked times
 CREATE VIEW OccupiedTimeSlots AS
     SELECT tableID, bookingDate, startTime, guestEmail
-    FROM AllTimeSlots
+    FROM BookingsView
     WHERE isAvailable = false;
