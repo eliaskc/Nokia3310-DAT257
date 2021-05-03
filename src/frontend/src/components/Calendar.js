@@ -8,14 +8,11 @@ import 'react-calendar/dist/Calendar.css';
  * @returns 
  */
 export default function calendar(props) {
-    let today = new Date()
-    today.setHours(0,0,0,0)
-
     function tileDisabled({date}) {
-        date.setHours(0,0,0,0)
-
-        //If the date is before today, disable date
-        return (date < today);
+        //Lägg till kod som kallar på backenden och returnerar 'true' om det inte finns någon ledig tid för dagen 'date'
+        //Använd date.setHours(0,0,0,0)
+        //Använd date.toLocaleDateString() för datumet
+        //Använd date.toLocaleTimeString() för tiden
     }
 
     function displayDate(date){
@@ -26,7 +23,7 @@ export default function calendar(props) {
     return (
         <div className='calendar'>
             <h2><span>Datum</span></h2>
-            <Calendar tileDisabled={tileDisabled} onChange={(value) => displayDate(value)}></Calendar>
+            <Calendar tileDisabled={tileDisabled} minDate={new Date()} onChange={(value) => displayDate(value)}></Calendar>
         </div>
     )
 }
