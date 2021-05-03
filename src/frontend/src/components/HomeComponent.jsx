@@ -121,10 +121,6 @@ function HomeComponent() {
                     <AddToHomeScreen/>
                 </div>
 
-                <div>
-                    <AvailableTimeListComponent/>
-                </div>
-
             </header>
         </div>
     );
