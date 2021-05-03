@@ -33,7 +33,7 @@ CREATE TABLE Bookings (
     additionalInfo TEXT,
     PRIMARY KEY(bookingDate, startTime, guestEmail),
     FOREIGN KEY (bookingDate, startTime) 
-        REFERENCES BookingTimes(bookingDate, startTime) ON DELETE CASCADE;
+        REFERENCES BookingTimes(bookingDate, startTime) ON DELETE CASCADE ON UPDATE CASCADE
 );
 
 
@@ -44,6 +44,6 @@ CREATE TABLE BookedTables (
     startTime TIME,
     guestEmail TEXT ,
     FOREIGN KEY(bookingDate, startTime, guestEmail) 
-        REFERENCES Bookings(bookingDate, startTime, guestEmail) ON DELETE CASCADE,
+        REFERENCES Bookings(bookingDate, startTime, guestEmail) ON DELETE CASCADE ON UPDATE CASCADE,
     PRIMARY KEY(tableID, bookingDate, startTime)
 );
