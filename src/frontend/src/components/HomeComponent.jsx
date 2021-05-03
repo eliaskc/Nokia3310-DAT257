@@ -54,8 +54,9 @@ function HomeComponent() {
             </div>
             <header className="App-header">
                 <img src="/hamncafet_logo.png" alt="Hamncafét logga" className="main_logo" />
+              
                 <Router>
-                    
+               
                     <Switch>
                         <Route path='/guests'>
                             <Guests booking={bookingJSON.current}/>
@@ -117,9 +118,9 @@ function HomeComponent() {
                     </div>
                 </Router>
 
-                <div className='add-btn'>
-                    <AddToHomeScreen/>
-                </div>
+                
+                  
+                
 
             </header>
         </div>
