@@ -3,10 +3,11 @@ package se.chalmers.TDA257.booking;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Time;
-import java.time.LocalDate;
 import java.time.LocalTime;
+import java.time.LocalDate;
 import java.util.Arrays;
 import java.util.List;
+import java.sql.Date;
 
 import javax.sql.DataSource;
 
@@ -45,19 +46,29 @@ public class DatabaseController {
         });
     }
 
+
     /**
-     * Fetches all available times from the availableReservations view
-     * 
-     * @return List of Times
+     * Fetches all available times for the provided date, time and number of people from the database
+     * @param date LocalDate date to check
+     * @param time Current time
+     * @param nrOfPeople Number of people to book
+     * @return
      */
     @Autowired
-    public static List<Time> fetchAvailableTimes() {
-        return jdbcTemplate.query("select * from availablereservations", new RowMapper<Time>() {
+    public static List<Time> fetchAvailableTimes(LocalDate date, LocalTime time, int nrOfPeople) {
+        String sqlQuery = ("SELECT bookingDate, startTime, nrOfAvailableSeats FROM AvailableReservations" + 
+        " WHERE (?) <= nrOfAvailableSeats AND (?) = bookingDate AND (?) <= startTime;");
+
+        Object[] params = new Object[] {nrOfPeople, date, time};
+
+        RowMapper<Time> rowMapper = new RowMapper<Time>() {
             @Override
             public Time mapRow(ResultSet rs, int rownumber) throws SQLException {
                 return rs.getTime(2);
             }
-        });
+        };
+
+        return jdbcTemplate.query(sqlQuery, rowMapper, params);
     }
 
     /**
