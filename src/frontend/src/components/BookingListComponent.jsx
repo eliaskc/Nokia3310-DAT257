@@ -10,17 +10,16 @@ import BookingDataService from '../api/BookingDataService.js'
  */
 function BookingListComponent() {
     const [bookings,setBookings] = useState([]);
-    const [date,setDate] = useState();
 
 
     useEffect(() => {
         refreshBokings();
       }, []);
 
-    const refreshBokings = (date) => {
+    const refreshBokings = (date,time) => {
         date = moment(date).format('YYYY-MM-DD')
-        console.log(date)
-        BookingDataService.getBookingsByDate(date)
+        console.log(time)
+        BookingDataService.getBookingsByDateAndTime(date,time)
         .then(
             (response) => {
                 setBookings(response.data)
@@ -37,25 +36,28 @@ function BookingListComponent() {
     }
 
     const testMethod = (values) => {
-        refreshBokings(values.targetDate);
+        refreshBokings(values.targetDate,values.targetTime);
     }
 
-
+    const date = new Date()
     return (
+
         <div className="BookingListComponent">
             <div className="container">
                 <Formik 
-                        initialValues = {{date}}
+                        initialValues = {{date,}}
                         onSubmit={testMethod}
                         enableReinitialize={true}
                 >
                     {
-                            (props) => (
+                            () => (
                                 <Form>
                                     <div>
                                         <fieldset className="form-group">
                                             <label>Datum</label>
                                             <Field className="form-control" type="date" name="targetDate"/>
+                                            <label>Tid</label>
+                                            <Field className="form-control" type="time" name="targetTime"/>
                                         </fieldset>
                                         <button className="btn btn-success" type="submit" >save</button>
                                     </div>
