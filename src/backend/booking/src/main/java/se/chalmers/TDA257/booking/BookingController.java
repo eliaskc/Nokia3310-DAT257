@@ -47,7 +47,6 @@ public class BookingController {
      */
     @GetMapping("/bookings/{id}")
     public Booking getBooking(@PathVariable long id) {
-
         return bookings.getBooking(id);
     }
 
@@ -88,6 +87,12 @@ public class BookingController {
         //URI uri = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}")
                 //.buildAndExpand(b.getId()).toUri();
         //return ResponseEntity.created(uri).build();
+    }
+
+    @GetMapping("/bookings/date/{date}")
+    public List<Booking> getBookingByDate(@PathVariable Date date) {
+        System.out.println(date);
+        return DatabaseController.fetchBookingsByDate(date);
     }
 }
 

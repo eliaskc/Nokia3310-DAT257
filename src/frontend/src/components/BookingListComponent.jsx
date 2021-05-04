@@ -2,6 +2,7 @@ import React, {useState,useEffect } from 'react';
 import Table from 'react-bootstrap/Table'
 import Button from 'react-bootstrap/Button'
 import moment from 'moment'
+import {Formik,Form, Field,ErrorMessage} from 'formik'
 import BookingDataService from '../api/BookingDataService.js'
 
 /**
@@ -9,13 +10,17 @@ import BookingDataService from '../api/BookingDataService.js'
  */
 function BookingListComponent() {
     const [bookings,setBookings] = useState([]);
+    const [date,setDate] = useState();
+
 
     useEffect(() => {
         refreshBokings();
       }, []);
 
-    const refreshBokings = () => {
-        BookingDataService.retrieveAllBookings()
+    const refreshBokings = (date) => {
+        date = moment(date).format('YYYY-MM-DD')
+        console.log(date)
+        BookingDataService.getBookingsByDate(date)
         .then(
             (response) => {
                 setBookings(response.data)
@@ -31,9 +36,34 @@ function BookingListComponent() {
        //TODO
     }
 
+    const testMethod = (values) => {
+        refreshBokings(values.targetDate);
+    }
+
+
     return (
         <div className="BookingListComponent">
-            <Button>Lägg till bokning</Button>
+            <div className="container">
+                <Formik 
+                        initialValues = {{date}}
+                        onSubmit={testMethod}
+                        enableReinitialize={true}
+                >
+                    {
+                            (props) => (
+                                <Form>
+                                    <div>
+                                        <fieldset className="form-group">
+                                            <label>Datum</label>
+                                            <Field className="form-control" type="date" name="targetDate"/>
+                                        </fieldset>
+                                        <button className="btn btn-success" type="submit" >save</button>
+                                    </div>
+                                </Form>
+                            )
+                        }
+                </Formik>
+            </div>
             <Table responsive>
                 <thead>
                     <tr>
