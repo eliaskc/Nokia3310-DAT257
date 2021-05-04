@@ -39,13 +39,15 @@ function BookingListComponent() {
         refreshBokings(values.targetDate,values.targetTime);
     }
 
-    const date = new Date()
+    const date = moment(new Date()).format('YYYY-MM-DD')
+    const time = moment(new Date()).format('HH:00')
+    console.log(time)
     return (
 
         <div className="BookingListComponent">
             <div className="container">
                 <Formik 
-                        initialValues = {{date,}}
+                        initialValues = {{targetDate: date,targetTime: time}}
                         onSubmit={testMethod}
                         enableReinitialize={true}
                 >
