@@ -1,4 +1,4 @@
-import React,{useEffect} from 'react';
+import React,{useState, useEffect,} from 'react';
 import Calendar from 'react-calendar';
 import 'react-calendar/dist/Calendar.css';
 import Button from 'react-bootstrap/Button'
@@ -11,12 +11,21 @@ import BookingDataService from '../api/BookingDataService'
  * @returns 
  */
 export default function CalendarFunc(props) {
-    let dateDisabled = {}
+    console.log('Start')
+
+    const [go, setGo] = useState(false)
+
+    let disabledDate = {}
     let dateList = []
+
+    let today = new Date()
     let start = new Date()
     let end = new Date()
-    end.setDate(start.getDate() + 13)
-    
+
+    console.log(disabledDate)
+    start.setDate(today.getDate() + 1)
+    end.setDate(today.getDate() + 13)
+    dateList.push(today)
     for(let dt = new Date(start); dt<=end; dt.setDate(dt.getDate()+1)){
         dateList.push(new Date(dt.setHours(0,0,0,0)))
     }
@@ -26,17 +35,22 @@ export default function CalendarFunc(props) {
             .then(
                 (response) => {
                     if (response.data.length > 0) {
-                        dateDisabled[date] = false
+                        disabledDate[date] = false
                     } else {
-                        dateDisabled[date] = true
+                        disabledDate[date] = true
                     }
                 }
             )
     }
+
+    function walla(){
+        setGo(true)
+    }
     
     function tileDisabled({date}) {
-        if (date in dateDisabled) {
-            return dateDisabled[date]    
+        console.log('HERE NW')
+        if (date in disabledDate) {
+            return disabledDate[date]    
         } else {
             return true
         }
@@ -50,12 +64,13 @@ export default function CalendarFunc(props) {
     return (
         <div className='calendar'>
             <h2><span>Datum</span></h2>
-            <Calendar 
-            tileDisabled={tileDisabled} 
-            minDate={new Date()} 
+            {go ? <Calendar
+            tileDisabled={tileDisabled}
+            minDate={new Date()}
             minDetail='month'
             onChange={(value) => displayDate(value)}>
-            </Calendar>
+            </Calendar>: null}
+            <Button onClick={() => walla()}>WALALAAA</Button>
         </div>
     )
 }
