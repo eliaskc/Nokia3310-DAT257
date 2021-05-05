@@ -14,7 +14,7 @@ function BookingTimeSlotComponent(props) {
         if(prevProps && !(prevProps === props)){
             refreshBookings(props.inputDate, props.inputTime);
             refreshNumberOfGuests(props.inputDate,props.inputTime);
-            console.log("UPDATE")
+            setExpanded(false);
         }
     },[props]);
 
