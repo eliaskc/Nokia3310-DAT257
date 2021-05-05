@@ -7,6 +7,7 @@ import Timelist from './Timelist';
 import Guests from './Guests';
 import AdditionalInfo from './AdditionalInfo';
 import Confirm from './Confirm';
+import Contact from './Contact';
 import AvailableTimeListComponent from './AvailableTimeListComponent';
 
 /**
@@ -73,6 +74,9 @@ function HomeComponent() {
                         <Route path='/confirm'>
                             <Confirm booking={bookingJSON.current}/>
                         </Route>
+                        <Route path='/contact'>
+                            <Contact/>
+                        </Route>
                     </Switch>
 
 
@@ -98,12 +102,11 @@ function HomeComponent() {
                                     Boka bord
                                 </Button>
                             </Link>
+                            <Link className='contact-lnk' to='/contact'>
                                 <div>
-                                    <Button href="/bookings">Se bokningar</Button>
+                                    <Button className='contact-btn' href="/contact">Kontakt</Button>
                                 </div>
-                                <div>
-                                    <Button className='contact-btn' href="/contact" >Kontakt</Button>
-                                </div>
+                            </Link>
                             </nav>)                        
                         }
 
