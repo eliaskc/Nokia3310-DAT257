@@ -103,10 +103,14 @@ function HomeComponent() {
                             <div >
                                     
                                 <Button className='contact-btn' onClick={()=> setShow(!show)}>Kontakt</Button>
+
                                 {
                                 show?<div class="card" className="contact-card">
                                     <div class="card-body">
-                                       <div>
+                                        <div className="italictext">
+                                        <em>Har ni några frågor eller vill hellre boka via telefon eller mail? Tveka inte att kontakta oss!<br/>
+                                       </em></div>
+                                        <div>
                                         Telefon: <a href="tel:0304-570-07">0304-570 07</a> <br/>
                                         Email: <a href="mailto:info@gullholmenshamncafe.se">info@gullholmenshamncafe.se</a></div>
                                     </div>
