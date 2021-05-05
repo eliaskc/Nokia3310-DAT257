@@ -33,11 +33,6 @@ function BookingListComponent() {
         //TODO
     }
 
-    const testMethod = (values) => {
-        refreshBokings(values.targetDate,values.targetTime);
-    }
-
-    console.log(time)
     return (
 
         <div className="BookingListComponent">
