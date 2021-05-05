@@ -1,6 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import Table from 'react-bootstrap/Table'
 import Button from 'react-bootstrap/Button'
+import moment from 'moment'
+import {Formik,Form, Field,ErrorMessage} from 'formik'
 import BookingDataService from '../api/BookingDataService.js'
 import BookingComponent from './BookingComponent.jsx';
 
@@ -31,7 +33,13 @@ function BookingListComponent() {
         //TODO
     }
 
+    const testMethod = (values) => {
+        refreshBokings(values.targetDate,values.targetTime);
+    }
+
+    console.log(time)
     return (
+
         <div className="BookingListComponent">
             <Table responsive>
                 <thead>

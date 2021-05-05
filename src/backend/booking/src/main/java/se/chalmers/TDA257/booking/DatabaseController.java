@@ -88,6 +88,30 @@ public class DatabaseController {
     }
 
     @Autowired
+    public static List<Booking> fetchBookingsByDate(Date date) {
+        String sqlQuery = ("select * from BookingsView WHERE bookingDate = ? AND guestEmail IS NOT NULL");
+        Object[] params = new Object[] {date};
+        RowMapper rowMapper = new RowMapper<Booking>() {
+            @Override
+            public Booking mapRow(ResultSet rs, int rownumber) throws SQLException {
+                return new Booking(rs.getString(5), rs.getString(4), rs.getString(6), rs.getInt(7),
+                        rs.getDate(1), rs.getTime(2).toLocalTime(), rs.getString(8));
+            }};
+        return jdbcTemplate.query(sqlQuery,rowMapper,params);
+    }
+
+    @Autowired
+    public static List<Booking> fetchBookingsByDateAndTime(Date date, Time time) {
+        String sqlQuery = ("select * from BookingsView WHERE bookingDate = ? AND starttime = ? AND guestEmail IS NOT NULL");
+        Object[] params = new Object[] {date,time};
+        RowMapper rowMapper = (RowMapper<Booking>) (rs, rownumber) -> new Booking(rs.getString(5), rs.getString(4), rs.getString(6), rs.getInt(7),
+                rs.getDate(1), rs.getTime(2).toLocalTime(), rs.getString(8));
+        return jdbcTemplate.query(sqlQuery,rowMapper,params);
+    }
+
+
+
+    @Autowired
     public void setDataSource(DataSource dataSource) {
         this.jdbcTemplate = new JdbcTemplate(dataSource); 
     }
