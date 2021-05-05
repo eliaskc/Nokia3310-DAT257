@@ -72,6 +72,10 @@ class BookingDataService {
         return axios.get(`http://localhost:8080/bookings/date/${date}/${time}`);
     }
 
+    getNumberOfBookingsByDateAndTime(date,time){
+        return axios.get(`http://localhost:8080/bookings/count/${date}/${time}`);
+    }
+
 
 }
 

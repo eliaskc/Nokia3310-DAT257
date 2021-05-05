@@ -101,9 +101,8 @@ public class BookingController {
         return DatabaseController.fetchBookingsByDateAndTime(date,sqlTime);
     }
 
-    @GetMapping("/bookings//{date}/{time}")
+    @GetMapping("/bookings/count/{date}/{time}")
     public int getNumberOfBookingByDateAndTime(@PathVariable Date date, @PathVariable String time) {
-        time = time + ":00";
         Time sqlTime = Time.valueOf(time);
         return DatabaseController.fetchNumberOfBookingByDateAndTime(date,sqlTime);
     }
