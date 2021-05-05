@@ -1,19 +1,21 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import moment from 'moment'
 import BookingDataService from '../../api/BookingDataService.js'
 import BookingComponent from './BookingComponent.jsx';
 import Button from 'react-bootstrap/Button';
 
 function BookingTimeSlotComponent(props) {
+    const prevProps = useRef();
     const [bookings, setBookings] = useState([]);
     const [isExpanded, setExpanded] = useState(false);
     const [numberOfBookings, setNumberOfBookings] = useState(0);
-    const [date,setDate] = useState(props.inputDate);
-
-    useEffect(() => {
-        refreshBookings(props.inputDate, props.inputTime);
-        refreshNumberOfGuests(props.inputDate,props.inputTime);
-    },[numberOfBookings]);
+ 
+    useEffect(() => {    
+        if(prevProps && !(prevProps === props)){
+            refreshBookings(props.inputDate, props.inputTime);
+            refreshNumberOfGuests(props.inputDate,props.inputTime);
+        }
+    },[props]);
 
     const refreshBookings = (inputDate, inputTime) => {
         inputDate = moment(inputDate).format('YYYY-MM-DD')
@@ -41,8 +43,6 @@ function BookingTimeSlotComponent(props) {
                 }
             )
     }
-
-    refreshNumberOfGuests(props.inputDate,props.inputTime);
 
     return (
         <tr className="BookingTimeSlotComponent">
