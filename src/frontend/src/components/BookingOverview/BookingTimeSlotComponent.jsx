@@ -8,10 +8,11 @@ function BookingTimeSlotComponent(props) {
     const [bookings, setBookings] = useState([]);
     const [isExpanded, setExpanded] = useState(false);
     const [numberOfBookings, setNumberOfBookings] = useState(0);
+    const [date,setDate] = useState(props.inputDate);
 
     useEffect(() => {
         refreshBookings(props.inputDate, props.inputTime);
-        getNumberOfGuests(props.inputDate,props.inputTime)
+        getNumberOfGuests(props.inputDate,props.inputTime);
     },[]);
 
     const refreshBookings = (inputDate, inputTime) => {
@@ -33,6 +34,7 @@ function BookingTimeSlotComponent(props) {
     }
 
     function getNumberOfGuests(date,time) {
+   
         date = moment(date).format('YYYY-MM-DD')
         BookingDataService.getNumberOfBookingsByDateAndTime(date, time)
             .then(
@@ -41,6 +43,8 @@ function BookingTimeSlotComponent(props) {
                 }
             )
     }
+
+    getNumberOfGuests(props.inputDate,props.inputTime)
 
     return (
         <tr className="BookingTimeSlotComponent">
