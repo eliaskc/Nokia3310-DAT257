@@ -92,7 +92,7 @@ public class DatabaseController {
      */
     @Autowired
     public static List<Time> fetchTimeSlotsByDate(Date date) {
-        String sqlQuery = ("select * from TimeSlots WHERE bookingDate = ? AND tableID = 1");
+        String sqlQuery = ("SELECT * FROM TimeSlots WHERE bookingDate = ? AND tableID = 1");
         Object[] params = new Object[] {date};
         RowMapper rowMapper = new RowMapper<Time>() {
             @Override
@@ -107,7 +107,7 @@ public class DatabaseController {
      */
     @Autowired
     public static List<Booking> fetchBookingsByDate(Date date) {
-        String sqlQuery = ("select * from BookingsView WHERE bookingDate = ? AND guestEmail IS NOT NULL");
+        String sqlQuery = ("SELECT * FROM BookingsView WHERE bookingDate = ? AND guestEmail IS NOT NULL");
         Object[] params = new Object[] {date};
         RowMapper rowMapper = new RowMapper<Booking>() {
             @Override
@@ -123,7 +123,7 @@ public class DatabaseController {
      */
     @Autowired
     public static List<Booking> fetchBookingsByDateAndTime(Date date, Time time) {
-        String sqlQuery = ("select * from BookingsView WHERE bookingDate = ? AND starttime = ? AND guestEmail IS NOT NULL");
+        String sqlQuery = ("SELECT DISTINCT ON(guestEmail) * from BookingsView WHERE bookingDate = ? AND starttime = ? AND guestEmail IS NOT NULL");
         Object[] params = new Object[] {date,time};
         RowMapper rowMapper = (RowMapper<Booking>) (rs, rownumber) -> new Booking(rs.getString(5), rs.getString(4), rs.getString(6), rs.getInt(7),
                 rs.getDate(1), rs.getTime(2).toLocalTime(), rs.getString(8));
