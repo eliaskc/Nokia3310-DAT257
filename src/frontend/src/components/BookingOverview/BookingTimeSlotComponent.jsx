@@ -8,13 +8,13 @@ function BookingTimeSlotComponent(props) {
     const prevProps = useRef();
     const [bookings, setBookings] = useState([]);
     const [isExpanded, setExpanded] = useState(false);
-    const [numberOfBookings, setNumberOfBookings] = useState(0);
+    const [numberOfBookings, setNumberOfBookings] = useState(refreshNumberOfGuests(props.inputDate,props.inputTime));
  
     useEffect(() => {    
-        if(prevProps && !(prevProps === props)){
+        if(prevProps && !(props === prevProps)){
             setExpanded(false);
-            refreshBookings(props.inputDate, props.inputTime);
-            refreshNumberOfGuests(props.inputDate,props.inputTime);
+            refreshBookings(props.inputDate, props.inputTime)
+            //refreshNumberOfGuests(props.inputDate,props.inputTime);
         }
     },[props]);
 
