@@ -2,29 +2,32 @@ import React, { useState, useEffect } from 'react';
 import Table from 'react-bootstrap/Table'
 import Button from 'react-bootstrap/Button'
 import moment from 'moment'
-import {Formik,Form, Field,ErrorMessage} from 'formik'
-import BookingDataService from '../api/BookingDataService.js'
-import BookingComponent from './BookingComponent.jsx';
+import BookingDataService from '../../api/BookingDataService.js'
+import BookingTimeSlotComponent from './BookingTimeSlotComponent.jsx';
 
 /**
  * Component that shows a list of all bookings
  */
 function BookingListComponent() {
-    const [bookings, setBookings] = useState([]);
+    const [timeSlots, setTimeSlots] = useState([]);
+    const [date] = useState(moment(new Date()).format('YYYY-MM-DD'));
 
     useEffect(() => {
-        refreshBookings();
+        refreshTimeSlots(date);
     }, []);
 
-    const refreshBookings = () => {
-        BookingDataService.retrieveAllBookings()
+    const refreshTimeSlots = (inputDate) => {
+        inputDate = moment(inputDate).format('YYYY-MM-DD')
+        BookingDataService.getTimeSlotsByDate(inputDate)
             .then(
                 (response) => {
-                    setBookings(response.data)
+                    setTimeSlots(response.data)
+                    console.log(timeSlots);
                 }
             )
     }
 
+    /*
     const updateBookingClicked = (id) => {
         //TODO
     }
@@ -32,10 +35,12 @@ function BookingListComponent() {
     const deleteBookingClicked = (id) => {
         //TODO
     }
+    */
 
     return (
 
         <div className="BookingListComponent">
+            <Button onClick={refreshTimeSlots}>Refresh TimeSlots</Button>
             <Table responsive>
                 <thead>
                     <tr>
@@ -46,9 +51,9 @@ function BookingListComponent() {
                 </thead>
                 <tbody>
                     {
-                        bookings.map(
-                            booking => 
-                                <BookingComponent booking={booking}/>
+                        timeSlots.map(
+                            timeSlot => 
+                                <BookingTimeSlotComponent inputTime={timeSlot} inputDate={date}/>
                         )
                     }
                 </tbody>

@@ -87,6 +87,24 @@ public class DatabaseController {
         return jdbcTemplate.update(sqlQuery, params);
     }
 
+    /**
+     * Fetches all timeslots for a specific date
+     */
+    @Autowired
+    public static List<Time> fetchTimeSlotsByDate(Date date) {
+        String sqlQuery = ("select * from TimeSlots WHERE bookingDate = ? AND tableID = 1");
+        Object[] params = new Object[] {date};
+        RowMapper rowMapper = new RowMapper<Time>() {
+            @Override
+            public Time mapRow(ResultSet rs, int rownumber) throws SQLException {
+                return rs.getTime(4);
+            }};
+        return jdbcTemplate.query(sqlQuery,rowMapper,params);
+    }
+
+    /**
+     * Fetches all bookings for a specific date
+     */
     @Autowired
     public static List<Booking> fetchBookingsByDate(Date date) {
         String sqlQuery = ("select * from BookingsView WHERE bookingDate = ? AND guestEmail IS NOT NULL");
@@ -100,6 +118,9 @@ public class DatabaseController {
         return jdbcTemplate.query(sqlQuery,rowMapper,params);
     }
 
+    /**
+     * Fetches all bookings for a specific date and time
+     */
     @Autowired
     public static List<Booking> fetchBookingsByDateAndTime(Date date, Time time) {
         String sqlQuery = ("select * from BookingsView WHERE bookingDate = ? AND starttime = ? AND guestEmail IS NOT NULL");
