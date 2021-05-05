@@ -14,7 +14,7 @@ function BookingListComponent() {
 
     useEffect(() => {
         refreshTimeSlots(date);
-    });
+    },[]);
 
     const refreshTimeSlots = (inputDate) => {
         inputDate = moment(inputDate).format('YYYY-MM-DD')
