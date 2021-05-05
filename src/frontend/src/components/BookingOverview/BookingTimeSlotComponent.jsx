@@ -12,9 +12,9 @@ function BookingTimeSlotComponent(props) {
  
     useEffect(() => {    
         if(prevProps && !(prevProps === props)){
+            setExpanded(false);
             refreshBookings(props.inputDate, props.inputTime);
             refreshNumberOfGuests(props.inputDate,props.inputTime);
-            setExpanded(false);
         }
     },[props]);
 
