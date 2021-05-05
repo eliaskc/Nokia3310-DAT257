@@ -9,6 +9,7 @@ import AdditionalInfo from './AdditionalInfo';
 import Confirm from './Confirm';
 import AvailableTimeListComponent from './AvailableTimeListComponent';
 
+
 /**
  * Component for the Home page 
  */
@@ -54,6 +55,7 @@ function HomeComponent() {
                 <div class="blur"/>
             </div>
             <header className="App-header">
+                <AddToHomeScreen/>
                 <img src="/hamncafet_logo.png" alt="Hamncafét logga" className="main_logo" />
               
                 <Router>
@@ -133,7 +135,7 @@ function HomeComponent() {
                 </Router>
 
                 
-                
+          
                 
 
             </header>
