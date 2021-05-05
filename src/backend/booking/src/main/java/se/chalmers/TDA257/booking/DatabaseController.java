@@ -130,6 +130,12 @@ public class DatabaseController {
         return jdbcTemplate.query(sqlQuery,rowMapper,params);
     }
 
+    @Autowired
+    public static int fetchNumberOfBookingByDateAndTime(Date date, Time time) {
+        String sqlQuery = ("SELECT COUNT(*) FROM occupiedtimeslots WHERE bookingDate = ? AND starttime = ?");
+        Object[] params = new Object[] {date,time};
+        return jdbcTemplate.queryForObject(sqlQuery,Integer.class,params);
+    }
 
 
     @Autowired
