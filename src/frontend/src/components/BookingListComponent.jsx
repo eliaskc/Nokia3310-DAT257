@@ -10,10 +10,11 @@ import BookingDataService from '../api/BookingDataService.js'
  */
 function BookingListComponent() {
     const [bookings,setBookings] = useState([]);
-
+    const [date,setDate] = useState(moment(new Date()).format('YYYY-MM-DD'));
+    const [time,setTime] = useState(moment(new Date()).format('HH:00'));
 
     useEffect(() => {
-        refreshBokings();
+        refreshBokings(date,time);
       }, []);
 
     const refreshBokings = (date,time) => {
@@ -39,8 +40,6 @@ function BookingListComponent() {
         refreshBokings(values.targetDate,values.targetTime);
     }
 
-    const date = moment(new Date()).format('YYYY-MM-DD')
-    const time = moment(new Date()).format('HH:00')
     console.log(time)
     return (
 
