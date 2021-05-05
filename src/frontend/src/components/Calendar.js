@@ -1,6 +1,7 @@
-import React,{useState, useEffect,} from 'react';
+import React,{useState, useEffect, useRef} from 'react';
 import Calendar from 'react-calendar';
 import 'react-calendar/dist/Calendar.css';
+import DotLoader from 'react-spinners/DotLoader'
 import Button from 'react-bootstrap/Button'
 
 import BookingDataService from '../api/BookingDataService'
@@ -11,46 +12,24 @@ import BookingDataService from '../api/BookingDataService'
  * @returns 
  */
 export default function CalendarFunc(props) {
-    console.log('Start')
+    let loading = useRef(true)
+    const [reload, setReload] = useState(false)
+    const [dayList, setDayList] = useState([])
 
-    const [go, setGo] = useState(false)
-
-    let disabledDate = {}
-    let dateList = []
-
-    let today = new Date()
-    let start = new Date()
-    let end = new Date()
-
-    console.log(disabledDate)
-    start.setDate(today.getDate() + 1)
-    end.setDate(today.getDate() + 13)
-    dateList.push(today)
-    for(let dt = new Date(start); dt<=end; dt.setDate(dt.getDate()+1)){
-        dateList.push(new Date(dt.setHours(0,0,0,0)))
-    }
-
-    for (const date of dateList){
-        BookingDataService.retrieveAllAvailableTimes(date.toLocaleDateString(), new Date().toLocaleTimeString(), props.booking.guests)
+    useEffect(() => {
+        BookingDataService.retrieveAllAvailableDays(props.booking.guests)
             .then(
                 (response) => {
-                    if (response.data.length > 0) {
-                        disabledDate[date] = false
-                    } else {
-                        disabledDate[date] = true
-                    }
+                    setDayList(response.data)
+                    loading.current = false
+                    setReload(true)
                 }
             )
-    }
+    }, [])
 
-    function walla(){
-        setGo(true)
-    }
-    
     function tileDisabled({date}) {
-        console.log('HERE NW')
-        if (date in disabledDate) {
-            return disabledDate[date]    
+        if (dayList.includes(date.toLocaleDateString())){
+            return false
         } else {
             return true
         }
@@ -63,14 +42,17 @@ export default function CalendarFunc(props) {
 
     return (
         <div className='calendar'>
-            <h2><span>Datum</span></h2>
-            {go ? <Calendar
+            <h2><span>Välj datum</span></h2>
+            {loading.current ? 
+            <DotLoader color={'#FFFFFF'}/>
+            :
+            <Calendar
             tileDisabled={tileDisabled}
             minDate={new Date()}
             minDetail='month'
             onChange={(value) => displayDate(value)}>
-            </Calendar>: null}
-            <Button onClick={() => walla()}>WALALAAA</Button>
+            </Calendar>
+            }
         </div>
     )
 }

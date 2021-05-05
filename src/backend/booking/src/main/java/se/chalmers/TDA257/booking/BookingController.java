@@ -33,12 +33,17 @@ public class BookingController {
     }
 
     /**
-     * Fetches all available times
+     * Fetches all available times for a certain date + time
      * @return list of Times
      */
     @GetMapping("/availableTimes")
     public List<Time> getAllAvailableTimes(@DateTimeFormat(pattern = "yyyy-MM-dd") LocalDate date, @DateTimeFormat(pattern = "HH:mm:ss") LocalTime time, int guests){
         return DatabaseController.fetchAvailableTimes(date, time, guests);
+    }
+
+    @GetMapping("/availableDays")
+    public List<Date> getAllAvailableDays(int guests){
+        return DatabaseController.fetchAvailableDays(guests);
     }
 
     /**
