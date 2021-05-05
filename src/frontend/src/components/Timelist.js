@@ -11,7 +11,7 @@ import BookingDataService from '../api/BookingDataService.js'
 export default function Timelist(props) {
     const [timelist, setTimelist] = useState([]);
     const [dropdownTitle, setDropDownTitle] = useState('Välj tid');
-
+    
     useEffect(() => {
         BookingDataService.retrieveAllAvailableTimes(props.booking.date, new Date().toLocaleTimeString(), props.booking.guests)
             .then(
