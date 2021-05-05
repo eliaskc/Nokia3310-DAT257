@@ -7,7 +7,6 @@ import Timelist from './Timelist';
 import Guests from './Guests';
 import AdditionalInfo from './AdditionalInfo';
 import Confirm from './Confirm';
-import AvailableTimeListComponent from './AvailableTimeListComponent';
 
 
 /**
