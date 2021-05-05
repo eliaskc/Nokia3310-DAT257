@@ -7,7 +7,6 @@ import Timelist from './Timelist';
 import Guests from './Guests';
 import AdditionalInfo from './AdditionalInfo';
 import Confirm from './Confirm';
-import Contact from './Contact';
 import AvailableTimeListComponent from './AvailableTimeListComponent';
 
 /**
@@ -28,6 +27,7 @@ function HomeComponent() {
     const pages = ['', '/guests', '/date', '/timelist', '/info', 'confirm']
     const [prevPage, setPrevPage] = useState('')
     const [nextPage, setNextPage] = useState('/guests')
+    const [show, setShow] = useState(false);
 
     function handlePages(action){
         if (page.current !== 0 && action === 'prev'){
@@ -74,9 +74,6 @@ function HomeComponent() {
                         <Route path='/confirm'>
                             <Confirm booking={bookingJSON.current}/>
                         </Route>
-                        <Route path='/contact'>
-                            <Contact/>
-                        </Route>
                     </Switch>
 
 
@@ -102,11 +99,21 @@ function HomeComponent() {
                                     Boka bord
                                 </Button>
                             </Link>
-                            <Link className='contact-lnk' to='/contact'>
-                                <div>
-                                    <Button className='contact-btn' href="/contact">Kontakt</Button>
-                                </div>
-                            </Link>
+                            
+                            <div >
+                                    
+                                <Button className='contact-btn' onClick={()=> setShow(!show)}>Kontakt</Button>
+                                {
+                                show?<div class="card" className="contact-card">
+                                    <div class="card-body">
+                                       <div>
+                                        Telefon: <a href="tel:0304-570-07">0304-570 07</a> <br/>
+                                        Email: <a href="mailto:info@gullholmenshamncafe.se">info@gullholmenshamncafe.se</a></div>
+                                    </div>
+                                    </div>: null
+                                }
+                            </div>
+                            
                             </nav>)                        
                         }
 
@@ -122,7 +129,7 @@ function HomeComponent() {
                 </Router>
 
                 
-                  
+                
                 
 
             </header>
