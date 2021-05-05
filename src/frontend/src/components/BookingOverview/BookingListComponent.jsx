@@ -38,7 +38,6 @@ function BookingListComponent() {
     */
 
     return (
-
         <div className="BookingListComponent">
             <Button onClick={refreshTimeSlots}>Refresh TimeSlots</Button>
             <Table responsive>
