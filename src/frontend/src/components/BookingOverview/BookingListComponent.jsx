@@ -14,7 +14,7 @@ function BookingListComponent() {
 
     useEffect(() => {
         refreshTimeSlots(date);
-    }, []);
+    });
 
     const refreshTimeSlots = (inputDate) => {
         inputDate = moment(inputDate).format('YYYY-MM-DD')
@@ -22,7 +22,6 @@ function BookingListComponent() {
             .then(
                 (response) => {
                     setTimeSlots(response.data)
-                    console.log(timeSlots);
                 }
             )
     }
@@ -39,20 +38,18 @@ function BookingListComponent() {
 
     return (
         <div className="BookingListComponent">
-            <Button onClick={refreshTimeSlots}>Refresh TimeSlots</Button>
             <Table responsive>
                 <thead>
                     <tr>
-                        <th>Namn</th>
-                        <th>Datum</th>
                         <th>Tid</th>
+                        <th>Antal bokningar</th>
                     </tr>
                 </thead>
                 <tbody>
                     {
                         timeSlots.map(
                             timeSlot => 
-                                <BookingTimeSlotComponent inputTime={timeSlot} inputDate={date}/>
+                                <BookingTimeSlotComponent key={timeSlot} inputTime={timeSlot} inputDate={date}/>
                         )
                     }
                 </tbody>

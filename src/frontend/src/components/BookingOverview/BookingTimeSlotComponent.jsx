@@ -1,18 +1,16 @@
 import React, { useState, useEffect } from 'react';
-import Table from 'react-bootstrap/Table'
-import Button from 'react-bootstrap/Button'
 import moment from 'moment'
 import BookingDataService from '../../api/BookingDataService.js'
 import BookingComponent from './BookingComponent.jsx';
+import Button from 'react-bootstrap/Button';
 
 function BookingTimeSlotComponent(props) {
     const [bookings, setBookings] = useState([]);
+    const [isExpanded, setExpanded] = useState(false);
 
     useEffect(() => {
-        console.log("InputTime: " + props.inputTime);
-        console.log("InputDate: " + props.inputDate);
         refreshBookings(props.inputDate, props.inputTime);
-    }, []);
+    });
 
     const refreshBookings = (inputDate, inputTime) => {
         inputDate = moment(inputDate).format('YYYY-MM-DD')
@@ -25,16 +23,29 @@ function BookingTimeSlotComponent(props) {
             )
     }
 
+    function openClose() {
+        if (isExpanded)
+            setExpanded(false);
+        else
+            setExpanded(true);
+    }
+
     return (
-        <tr>
-            {
+        <tr className="BookingTimeSlotComponent">
+            <td>{props.inputTime}</td>
+            <td>{bookings.length}</td> {/* Should show the number of booked guests/tables */}
+            <Button onClick={openClose}>{isExpanded ? 'Stäng' : 'Öppna'}</Button>
+
+            <div className={isExpanded ? 'expanded' : 'closed'}>{
                 bookings.map(
                     booking =>
-                        <BookingComponent booking={booking}/>
+                        <BookingComponent booking={booking} />
                 )
-            }
+            }</div>
         </tr>
     )
+
+
 
 
 }
