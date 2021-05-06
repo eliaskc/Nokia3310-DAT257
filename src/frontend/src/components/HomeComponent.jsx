@@ -117,6 +117,8 @@ function HomeComponent() {
                                     </div>: null
                                 }
                             </div>
+                            <DownloadInstructions/>
+
                             
                             </nav>)                        
                         }
@@ -131,11 +133,6 @@ function HomeComponent() {
                         }
                     </div>
                 </Router>
-
-                
-          
-                <br/>
-                <DownloadInstructions/>
 
             </header>
         </div>
