@@ -24,18 +24,20 @@ CREATE TABLE Tables (
 /*Tog bort GuestParties pga finns ingen anledning att prata om GP som en 
 egen entitet i detta sammanhang*/
 CREATE TABLE Bookings (
+    bookingID INTEGER NOT NULL,
     guestName TEXT NOT NULL,
-    guestEmail TEXT,
+    guestEmail TEXT NOT NULL,
     guestTelNr TEXT NOT NULL,
     nrOfPeople INTEGER NOT NULL,
     bookingDate DATE NOT NULL,
     startTime TIME NOT NULL,
     additionalInfo TEXT,
-    PRIMARY KEY(bookingDate, startTime, guestEmail),
+    PRIMARY KEY (bookingDate, startTime, guestEmail),
     FOREIGN KEY (bookingDate, startTime) 
         REFERENCES BookingTimes(bookingDate, startTime) ON DELETE CASCADE ON UPDATE CASCADE
 );
 
+CREATE INDEX ON Bookings (bookingID);
 
 -- Connects the bookings made to specific tables
 CREATE TABLE BookedTables (
