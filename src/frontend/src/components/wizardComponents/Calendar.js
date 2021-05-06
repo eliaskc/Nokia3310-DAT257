@@ -16,6 +16,7 @@ export default function CalendarFunc(props) {
     let loading = useRef(true)
     const [reload, setReload] = useState(false)
     const [dayList, setDayList] = useState([])
+    const [disabled, setDisabled] = useState(true)
 
     useEffect(() => {
         BookingDataService.retrieveAllAvailableDays(props.booking.guests)
@@ -39,6 +40,7 @@ export default function CalendarFunc(props) {
     function displayDate(date){
         console.log(date)
         props.booking.date = date.toLocaleDateString()
+        setDisabled(false)
     }
 
     return (
@@ -61,7 +63,7 @@ export default function CalendarFunc(props) {
                     </Button>
                 </Link>
                 <Link className='nextLink' to={'/timelist'}>
-                    <Button>
+                    <Button disabled={disabled}>
                         Nästa
                     </Button>
                 </Link> 

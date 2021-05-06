@@ -11,6 +11,7 @@ import Button from 'react-bootstrap/Button'
  */
 export default function Guests(props) {
     const [dropdownTitle, setDropDownTitle] = useState('Välj antal gäster');
+    const [disabled, setDisabled] = useState(true)
 
     let guestsAmount = [1,2,3,4,5,6,7,8];
 
@@ -18,6 +19,7 @@ export default function Guests(props) {
         console.log(item)
         props.booking.guests = item
         setDropDownTitle('Antal gäster: ' + item)
+        setDisabled(false)
     }
     
     return (
@@ -32,7 +34,7 @@ export default function Guests(props) {
                     Avbryt
                 </Button>
                 <Link className='nextLink' to={'/date'}>
-                    <Button>
+                    <Button disabled={disabled}>
                         Nästa
                     </Button>
                 </Link> 

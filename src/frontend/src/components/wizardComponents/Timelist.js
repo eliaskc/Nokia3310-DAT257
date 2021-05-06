@@ -13,6 +13,7 @@ import Button from 'react-bootstrap/Button'
 export default function Timelist(props) {
     const [timelist, setTimelist] = useState([]);
     const [dropdownTitle, setDropDownTitle] = useState('Välj tid');
+    const [disabled, setDisabled] = useState(true)
 
     //If the date we are trying to get times for is today, input the current time
     //Else we input 00:00:00
@@ -37,6 +38,7 @@ export default function Timelist(props) {
         console.log(item)
         props.booking.time = item
         setDropDownTitle('Tid: ' + item)
+        setDisabled(false)
     }
 
     return (
@@ -53,7 +55,7 @@ export default function Timelist(props) {
                     </Button>
                 </Link>
                 <Link className='nextLink' to={'/info'}>
-                    <Button>
+                    <Button disabled={disabled}>
                         Nästa
                     </Button>
                 </Link> 
