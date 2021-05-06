@@ -1,7 +1,6 @@
 import React, { useState, useEffect, useRef } from 'react';
 import moment from 'moment'
 import BookingDataService from '../../api/BookingDataService.js'
-import BookingComponent from './BookingComponent.jsx';
 import Button from 'react-bootstrap/Button';
 import Table from 'react-bootstrap/Table';
 import Modal from 'react-bootstrap/Modal'
@@ -28,7 +27,7 @@ function BookingTimeSlotComponent(props) {
             setTimeSlotIsExpanded(false);
             refreshBookings(props.inputDate, props.inputTime)
         }
-    }, []);
+    }, [props]);
 
     const refreshBookings = (inputDate, inputTime) => {
         inputDate = moment(inputDate).format('YYYY-MM-DD')
@@ -75,7 +74,9 @@ function BookingTimeSlotComponent(props) {
         <tr className={timeSlotIsExpanded ? 'BookingTimeSlotComponent expandedParent' : 'BookingTimeSlotComponent closedParent'}>
             <td>{props.inputTime}</td>
             <td>{numberOfBookings}</td>
-            <Button onClick={handleOpenCloseTimeSlot}>{timeSlotIsExpanded ? 'Stäng' : 'Öppna'}</Button>
+            <td>
+                <Button onClick={handleOpenCloseTimeSlot}>{timeSlotIsExpanded ? 'Stäng' : 'Öppna'}</Button>
+            </td>
             <Table className={timeSlotIsExpanded ? 'expanded' : 'closed'}>
                 <thead>
                     <tr>
@@ -117,7 +118,7 @@ function BookingTimeSlotComponent(props) {
                         Ta bort
                     </Button> : <Button variant="danger" onClick={confirmDelete}>
                         Är du säker?
-                    </Button> }
+                    </Button>}
                 </Modal.Footer>
             </Modal>
         </tr>
