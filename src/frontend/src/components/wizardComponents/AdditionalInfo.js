@@ -17,8 +17,9 @@ export default function AdditionalInfo(props){
 
     return (
         <div>
-            <div className='text_box'>
+            <div>
                 <Form onChange={e => handleChange(e)}>
+                <div className='text_box'>
                     <Form.Group controlId="name">
                         <Form.Label>Namn</Form.Label>
                         <Form.Control 
@@ -52,6 +53,12 @@ export default function AdditionalInfo(props){
                         maxLength='150' 
                         placeholder='Allergier, födelsedag etc.'/>
                     </Form.Group>
+                </div>
+                    <Form.Group controlId="submit">
+                        <Form.Control className='nextLink' type="submit" placeholder='Nästa'/>
+                        <Form.Control className='prevLink' placeholder='Tillbaka'/>
+                    </Form.Group>
+
                 </Form>
             </div>
             <div>
