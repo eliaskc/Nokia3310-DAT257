@@ -7,6 +7,7 @@ import Timelist from './Timelist';
 import Guests from './Guests';
 import AdditionalInfo from './AdditionalInfo';
 import Confirm from './Confirm';
+import Thanks from './Thanks';
 
 /**
  * Component for the Home page 
@@ -40,7 +41,7 @@ function HomeComponent() {
 
     //If someone tries to access the page by going directly
     //to, for example, /date then redirect to home page
-    if (page.current === 0 && window.location.pathname !== '/'){
+    if (page.current === 0 && window.location.pathname !== '/' && window.location.pathname !== '/thanks'){
         return (
             <Redirect to=''/>
         )
@@ -71,6 +72,9 @@ function HomeComponent() {
                         <Route path='/confirm'>
                             <Confirm booking={bookingJSON.current}/>
                         </Route>
+                        <Route path='/thanks'>
+                            <Thanks/>
+                        </Route>
                     </Switch>
 
 
@@ -90,7 +94,7 @@ function HomeComponent() {
                             </Link>
                         </nav>) }
                         
-                        {page.current === 0 && ( <nav>
+                        {page.current === 0 && window.location.pathname !== '/thanks' && ( <nav>
                             <Link className='book-lnk' to={nextPage} onClick={e => handlePages('next')}>
                                 <Button>
                                     Boka bord
