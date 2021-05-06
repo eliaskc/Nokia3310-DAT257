@@ -54,7 +54,6 @@ function HomeComponent() {
                 <div class="blur"/>
             </div>
             <header className="App-header">
-                <DownloadInstructions/>
                 <img src="/hamncafet_logo.png" alt="Hamncafét logga" className="main_logo" />
               
                 <Router>
@@ -135,7 +134,8 @@ function HomeComponent() {
 
                 
           
-                
+                <br/>
+                <DownloadInstructions/>
 
             </header>
         </div>
