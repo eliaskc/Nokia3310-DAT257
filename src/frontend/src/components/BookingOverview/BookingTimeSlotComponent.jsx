@@ -10,6 +10,7 @@ function BookingTimeSlotComponent(props) {
     const prevProps = useRef();
     const [bookings, setBookings] = useState([]);
     const [timeSlotIsExpanded, setTimeSlotIsExpanded] = useState(false);
+    const [deleteConfirmation, setDeleteConfirmation] = useState(true);
     const [showModal, setShowModal] = useState(false);
     const [modalBooking, setModalBooking] = useState({
         guestName: "placeholder name",
@@ -46,7 +47,15 @@ function BookingTimeSlotComponent(props) {
             setTimeSlotIsExpanded(true);
     }
 
-    const handleCloseModal = () => setShowModal(false)
+    const startDeleteConfirmation = () => setDeleteConfirmation(false);
+    function confirmDelete() {
+        console.log("HUR KUNDE DU TA BORT MIGG????");
+    }
+
+    const handleCloseModal = () => {
+        setShowModal(false);
+        setDeleteConfirmation(true);
+    }
     const handleShowModal = (booking) => {
         setShowModal(true);
         setModalBooking(booking);
@@ -104,9 +113,11 @@ function BookingTimeSlotComponent(props) {
                     <Button variant="primary" >
                         Ändra
                     </Button>
-                    <Button variant="danger">
+                    {deleteConfirmation ? <Button variant="danger" onClick={startDeleteConfirmation}>
                         Ta bort
-                    </Button>
+                    </Button> : <Button variant="danger" onClick={confirmDelete}>
+                        Är du säker?
+                    </Button> }
                 </Modal.Footer>
             </Modal>
         </tr>
