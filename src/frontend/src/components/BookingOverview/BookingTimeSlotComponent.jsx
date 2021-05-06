@@ -9,18 +9,25 @@ import Modal from 'react-bootstrap/Modal'
 function BookingTimeSlotComponent(props) {
     const prevProps = useRef();
     const [bookings, setBookings] = useState([]);
-    const [isExpanded, setExpanded] = useState(false);
+    const [timeSlotIsExpanded, setTimeSlotIsExpanded] = useState(false);
     const [showModal, setShowModal] = useState(false);
-    //const [modalBooking, setModalBooking] = useState();
+    const [modalBooking, setModalBooking] = useState({
+        guestName: "placeholder name",
+        guestEmail: "placeholder email",
+        guestTelNr: "placeholder tel number",
+        nrOfPeople: 0,
+        bookingDate: "2020-01-01",
+        startTime: "00:00",
+        additionalInfo: "placeholder info"
+    });
     const [numberOfBookings, setNumberOfBookings] = useState(refreshNumberOfGuests(props.inputDate, props.inputTime));
 
     useEffect(() => {
-        if (prevProps && !(props === prevProps)) {
-            setExpanded(false);
+        if (prevProps && (props !== prevProps)) {
+            setTimeSlotIsExpanded(false);
             refreshBookings(props.inputDate, props.inputTime)
-            //refreshNumberOfGuests(props.inputDate,props.inputTime);
         }
-    }, [props]);
+    }, []);
 
     const refreshBookings = (inputDate, inputTime) => {
         inputDate = moment(inputDate).format('YYYY-MM-DD')
@@ -32,17 +39,17 @@ function BookingTimeSlotComponent(props) {
             )
     }
 
-    function openClose() {
-        if (isExpanded)
-            setExpanded(false);
+    function handleOpenCloseTimeSlot() {
+        if (timeSlotIsExpanded)
+            setTimeSlotIsExpanded(false);
         else
-            setExpanded(true);
+            setTimeSlotIsExpanded(true);
     }
 
     const handleCloseModal = () => setShowModal(false)
     const handleShowModal = (booking) => {
         setShowModal(true);
-        //setModalBooking(booking);
+        setModalBooking(booking);
     }
 
     function refreshNumberOfGuests(date, time) {
@@ -56,11 +63,11 @@ function BookingTimeSlotComponent(props) {
     }
 
     return (
-        <tr className={isExpanded ? 'BookingTimeSlotComponent expandedParent' : 'BookingTimeSlotComponent closedParent'}>
+        <tr className={timeSlotIsExpanded ? 'BookingTimeSlotComponent expandedParent' : 'BookingTimeSlotComponent closedParent'}>
             <td>{props.inputTime}</td>
             <td>{numberOfBookings}</td>
-            <Button onClick={openClose}>{isExpanded ? 'Stäng' : 'Öppna'}</Button>
-            <Table className={isExpanded ? 'expanded' : 'closed'}>
+            <Button onClick={handleOpenCloseTimeSlot}>{timeSlotIsExpanded ? 'Stäng' : 'Öppna'}</Button>
+            <Table className={timeSlotIsExpanded ? 'expanded' : 'closed'}>
                 <thead>
                     <tr>
                         <th>Namn:</th>
@@ -71,7 +78,7 @@ function BookingTimeSlotComponent(props) {
                 <tbody>
                     {bookings.map(
                         booking =>
-                            <tr className="booking" onClick={handleShowModal(booking)}>
+                            <tr className="booking" onClick={() => handleShowModal(booking)}>
                                 <td>{booking.guestName}</td>
                                 <td>{booking.guestEmail}</td>
                                 <td>{booking.nrOfPeople}</td>
@@ -79,20 +86,29 @@ function BookingTimeSlotComponent(props) {
                     )}
                 </tbody>
             </Table>
-            {/*<Modal show={showModal} onHide={handleCloseModal}>
-            <Modal.Header closeButton>
-                <Modal.Title>{modalBooking.guestName}</Modal.Title>
-            </Modal.Header>
-            <Modal.Body>Woohoo, you're reading this text in a modal!</Modal.Body>
-            <Modal.Footer>
-                <Button variant="secondary" onClick={handleCloseModal}>
-                    Close
-            </Button>
-                <Button variant="primary" onClick={handleCloseModal}>
-                    Save Changes
-            </Button>
-            </Modal.Footer>
-                </Modal>*/}
+            <Modal show={showModal} onHide={handleCloseModal}>
+                <Modal.Header closeButton>
+                    <Modal.Title>{modalBooking.bookingDate + ", " + modalBooking.startTime.slice(0, 5)}</Modal.Title>
+                </Modal.Header>
+                <Modal.Body>
+                    <p><b>Namn: </b>{modalBooking.guestName}</p>
+                    <p><b>Epost: </b> {modalBooking.guestEmail}</p>
+                    <p><b>Telefonnummer: </b>{modalBooking.guestTelNr}</p>
+                    <p><b>Antal gäster: </b>{modalBooking.nrOfPeople}</p>
+                    {modalBooking.additionalInfo != null ?
+                        <p><b>Övrig info: </b>{modalBooking.additionalInfo}</p>
+                        : <p><b>Övrig info: </b>Ingen info angiven</p>
+                    }
+                </Modal.Body>
+                <Modal.Footer>
+                    <Button variant="primary" >
+                        Ändra
+                    </Button>
+                    <Button variant="danger">
+                        Ta bort
+                    </Button>
+                </Modal.Footer>
+            </Modal>
         </tr>
     )
 
