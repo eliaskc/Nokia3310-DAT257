@@ -12,8 +12,18 @@ export default function Timelist(props) {
     const [timelist, setTimelist] = useState([]);
     const [dropdownTitle, setDropDownTitle] = useState('Välj tid');
 
+    //If the date we are trying to get times for is today, input the current time
+    //Else we input 00:00:00
+    function getDateTime(){
+        let dateTime = new Date()
+        if (props.booking.date !== dateTime.toLocaleDateString()){
+            dateTime.setTime(0,0,0,0)
+        }
+        return dateTime.toLocaleTimeString()
+    }
+
     useEffect(() => {
-        BookingDataService.retrieveAllAvailableTimes(props.booking.date, new Date().toLocaleTimeString(), props.booking.guests)
+        BookingDataService.retrieveAllAvailableTimes(props.booking.date, getDateTime(), props.booking.guests)
             .then(
                 (response) => {
                     setTimelist(response.data)
