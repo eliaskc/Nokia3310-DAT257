@@ -1,6 +1,6 @@
 import Button from 'react-bootstrap/Button'
-import React,{useState, useRef} from 'react'
-import {BrowserRouter as Router, Route, Switch, Link, Redirect} from 'react-router-dom'
+import React from 'react'
+import {BrowserRouter as Router, Route, Switch} from 'react-router-dom'
 
 import Wizard from './Wizard'
 import Contact from './Contact'
@@ -12,7 +12,7 @@ function HomeComponent() {
     return (
         <div className="App">
             <div className='background-image'>
-                <div class="blur"/>
+                <div className="blur"/>
             </div>
             <header className="App-header">
                 <img src="/hamncafet_logo.png" alt="Hamncafét logga" className="main_logo" />

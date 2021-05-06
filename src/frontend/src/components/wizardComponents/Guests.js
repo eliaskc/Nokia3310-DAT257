@@ -1,4 +1,4 @@
-import React,{useState} from 'react';
+import React,{useState, useEffect} from 'react';
 import DropdownButton from 'react-bootstrap/DropdownButton';
 import Dropdown from 'react-bootstrap/Dropdown';
 import {Link} from 'react-router-dom'
@@ -12,8 +12,15 @@ import Button from 'react-bootstrap/Button'
 export default function Guests(props) {
     const [dropdownTitle, setDropDownTitle] = useState('Välj antal gäster');
     const [disabled, setDisabled] = useState(true)
-
     let guestsAmount = [1,2,3,4,5,6,7,8];
+
+    //If a value was previously chosen
+    useEffect(() => {
+        if (props.booking.guests !== 0){
+            setDropDownTitle('Antal gäster: ' + props.booking.guests)
+            setDisabled(false)
+        }
+    })
 
     function handleSelect(item){
         console.log(item)

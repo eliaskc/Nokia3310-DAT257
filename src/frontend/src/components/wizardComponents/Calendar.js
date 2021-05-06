@@ -17,8 +17,14 @@ export default function CalendarFunc(props) {
     const [reload, setReload] = useState(false)
     const [dayList, setDayList] = useState([])
     const [disabled, setDisabled] = useState(true)
+    const [selectedDate, setSelectedDate] = useState(null)
 
     useEffect(() => {
+        if (props.booking.date !== ''){
+            setSelectedDate(new Date(props.booking.date))
+            setDisabled(false)
+        }
+        
         BookingDataService.retrieveAllAvailableDays(props.booking.guests)
             .then(
                 (response) => {
@@ -53,6 +59,7 @@ export default function CalendarFunc(props) {
             tileDisabled={tileDisabled}
             minDate={new Date()}
             minDetail='month'
+            defaultValue={selectedDate}
             onChange={(value) => displayDate(value)}>
             </Calendar>
             }

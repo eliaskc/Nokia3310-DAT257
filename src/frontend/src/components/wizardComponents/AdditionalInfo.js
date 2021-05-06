@@ -1,7 +1,9 @@
 import React from 'react';
-import Form from 'react-bootstrap/Form'
 import {Link} from 'react-router-dom'
-import Button from 'react-bootstrap/Button'
+import {Button, Form} from 'react-bootstrap'
+import {Formik, ErrorMessage} from 'formik'
+import {useHistory} from 'react-router-dom'
+import * as Yup from 'yup'
 
 //Lägg till detta evt.
 //https://react-bootstrap.github.io/components/forms/#forms-validation
@@ -11,68 +13,118 @@ import Button from 'react-bootstrap/Button'
  * @returns 
  */
 export default function AdditionalInfo(props){
-    function handleChange(event){
-        props.booking[event.target.id] = event.target.value
-    }
+    const history = useHistory()
+    const numberRegExp = /^[0-9\b]+$/
+    
+    const validationSchema = Yup.object().shape({
+        name: Yup.string()
+        .min(2, '*Namn måste vara minst 2 tecken')
+        .max(100, '*Namn kan inte vara mer än 100 tecken')
+        .required('*Du måste ange ett namn'),
+        email: Yup.string()
+        .email('*E-post är inte giltigt')
+        .max(100, '*E-post kan inte vara mer än 100 tecken')
+        .required('*Du måste ange en e-postadress'),
+        tel: Yup.string()
+        .matches(numberRegExp, '*Telefonnummer är inte giltigt')
+        .required('*Du måste ange ett telefonnummer'),
+        info: Yup.string()
+        .max(150, '*Övrig info kan inte vara mer än 150 tecken')
+    })
 
     return (
         <div>
-            <div>
-                <Form onChange={e => handleChange(e)}>
-                <div className='text_box'>
-                    <Form.Group controlId="name">
-                        <Form.Label>Namn</Form.Label>
-                        <Form.Control 
-                        defaultValue={props.booking.name} 
-                        type="text" 
-                        maxLength='50' 
-                        placeholder="Skriv in namn"/>
-                    </Form.Group>
-                    <Form.Group controlId="email">
-                        <Form.Label>E-post</Form.Label>
-                        <Form.Control 
-                        defaultValue={props.booking.email} 
-                        type="email" 
-                        maxLength='50' 
-                        placeholder="Skriv in e-postaddress"/>
-                    </Form.Group>
-                    <Form.Group controlId="tel">
-                        <Form.Label>Telefonnummer</Form.Label>
-                        <Form.Control 
-                        defaultValue={props.booking.tel} 
-                        type="tel" 
-                        maxLength='20' 
-                        placeholder="Skriv in telefonnummer"/>
-                    </Form.Group>
-                    <Form.Group controlId="info">
-                        <Form.Label>Övrig information</Form.Label>
-                        <Form.Control 
-                        defaultValue={props.booking.info} 
-                        as='textarea' 
-                        type="text" 
-                        maxLength='150' 
-                        placeholder='Allergier, födelsedag etc.'/>
-                    </Form.Group>
-                </div>
-                    <Form.Group controlId="submit">
-                        <Form.Control className='nextLink' type="submit" placeholder='Nästa'/>
-                        <Form.Control className='prevLink' placeholder='Tillbaka'/>
-                    </Form.Group>
-
-                </Form>
-            </div>
-            <div>
-                <Link className='prevLink' to={'/timelist'}>
-                    <Button>
-                        Tillbaka
-                    </Button>
-                </Link>
-                <Link className='nextLink' to={'/confirm'}>
-                    <Button>
+            <Formik
+                initialValues={{ name:props.booking.name, email:props.booking.email, tel:props.booking.tel, info:props.booking.info}}
+                validationSchema={validationSchema}
+                onSubmit={(values, {setSubmitting, resetForm}) => {
+                    setSubmitting(true);
+                    props.booking.name = values.name
+                    props.booking.email = values.email
+                    props.booking.tel = values.tel
+                    props.booking.info = values.info
+                    setSubmitting(false)
+                    history.push('/confirm')
+                }}
+            >
+            {( {values,
+                errors,
+                touched,
+                handleChange,
+                handleBlur,
+                handleSubmit,
+                isSubmitting }) => (
+                <Form onSubmit={handleSubmit}>
+                    <div className='text_box'>
+                        <Form.Group controlId="formName">
+                            <Form.Label>Namn</Form.Label>
+                            <Form.Control 
+                                type='text'
+                                name='name'
+                                placeholder='Skriv in namn'
+                                onChange={handleChange}
+                                value={values.name}
+                                className={touched.name && errors.name ? "has-error" : null}
+                            />
+                            {touched.name && errors.name ? (
+                            <div className="error-message">{errors.name}</div>
+                            ): null}
+                        </Form.Group>
+                        <Form.Group controlId="email">
+                            <Form.Label>E-post</Form.Label>
+                            <Form.Control 
+                                type='text'
+                                name='email'
+                                placeholder='Skriv in e-post'
+                                onChange={handleChange}
+                                value={values.email}
+                                className={touched.email && errors.email ? "has-error" : null}
+                            />
+                            {touched.email && errors.email ? (
+                            <div className="error-message">{errors.email}</div>
+                            ): null}
+                        </Form.Group>
+                        <Form.Group controlId="tel">
+                            <Form.Label>Telefonnummer</Form.Label>
+                            <Form.Control 
+                                type='text'
+                                name='tel'
+                                placeholder='Skriv in telefonnummer'
+                                onChange={handleChange}
+                                value={values.tel}
+                                className={touched.tel && errors.tel ? "has-error" : null}
+                            />
+                            {touched.tel && errors.tel ? (
+                            <div className="error-message">{errors.tel}</div>
+                            ): null}
+                        </Form.Group>
+                        <Form.Group controlId="info">
+                            <Form.Label>Övrig information</Form.Label>
+                            <Form.Control 
+                                as='textarea'
+                                type='text'
+                                name='info'
+                                placeholder='Allergier, etc.'
+                                onChange={handleChange}
+                                value={values.info}
+                                className={touched.info && errors.info ? "has-error" : null}
+                            />
+                            {touched.info && errors.info ? (
+                            <div className="error-message">{errors.info}</div>
+                            ): null}
+                        </Form.Group>
+                    </div>
+                    <Link className='prevLink' to='/timelist'>
+                        <Button>
+                            Tillbaka
+                        </Button>
+                    </Link>
+                    <Button variant='primary' type='submit' disabled={isSubmitting}>
                         Nästa
                     </Button>
-                </Link>
-            </div>
+                </Form>
+            )}
+            </Formik>
         </div>
     )
 }

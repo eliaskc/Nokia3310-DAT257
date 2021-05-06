@@ -26,6 +26,11 @@ export default function Timelist(props) {
     }
 
     useEffect(() => {
+        if (props.booking.time !== ''){
+            setDropDownTitle('Tid: ' + props.booking.time)
+            setDisabled(false)
+        }
+
         BookingDataService.retrieveAllAvailableTimes(props.booking.date, getDateTime(), props.booking.guests)
             .then(
                 (response) => {
@@ -49,7 +54,7 @@ export default function Timelist(props) {
                 ))}
             </DropdownButton>
             <div>
-                <Link className='prevLink' to={'/calendar'}>
+                <Link className='prevLink' to={'/date'}>
                     <Button>
                         Tillbaka
                     </Button>
