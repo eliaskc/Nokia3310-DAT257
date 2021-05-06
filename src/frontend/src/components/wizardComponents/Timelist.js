@@ -1,7 +1,9 @@
 import React,{useState, useEffect} from 'react'
 import Dropdown from 'react-bootstrap/Dropdown';
 import DropdownButton from 'react-bootstrap/DropdownButton';
-import BookingDataService from '../api/BookingDataService.js'
+import BookingDataService from '../../api/BookingDataService.js'
+import {Link} from 'react-router-dom'
+import Button from 'react-bootstrap/Button'
 
 /**
  * Represents the page for selecting time
@@ -39,12 +41,23 @@ export default function Timelist(props) {
 
     return (
         <div className="Timelist">
-            
             <DropdownButton title={dropdownTitle} id="dropdown-menu" onSelect={handleSelect}>
                 {timelist.map(n => (
                     <Dropdown.Item key={n.toString()} eventKey={n.slice(0,-3)}> {n.slice(0,-3)} </Dropdown.Item>
                 ))}
             </DropdownButton>
+            <div>
+                <Link className='prevLink' to={'/calendar'}>
+                    <Button>
+                        Tillbaka
+                    </Button>
+                </Link>
+                <Link className='nextLink' to={'/info'}>
+                    <Button>
+                        Nästa
+                    </Button>
+                </Link> 
+            </div>
         </div>
     )
 }

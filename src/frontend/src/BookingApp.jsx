@@ -11,8 +11,8 @@ function BookingApp() {
             <Router>
             <>  
                 <Switch>
-                        <Route path="/bookings" component={BookingListComponent}/>
-                        <Route path="/" component={HomeComponent}/>
+                    <Route path="/bookings" component={BookingListComponent}/>
+                    <Route path="/" component={HomeComponent}/>
                 </Switch>   
             </>
             </Router>

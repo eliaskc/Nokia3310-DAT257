@@ -1,6 +1,8 @@
 import React,{useState} from 'react';
 import DropdownButton from 'react-bootstrap/DropdownButton';
 import Dropdown from 'react-bootstrap/Dropdown';
+import {Link} from 'react-router-dom'
+import Button from 'react-bootstrap/Button'
 
 /**
  * Represents page for selecting guests
@@ -25,6 +27,16 @@ export default function Guests(props) {
                     <Dropdown.Item key={n.toString()} eventKey={n}> {n} </Dropdown.Item>
                 ))}
             </DropdownButton>
+            <div>
+                <Button href='/'>
+                    Avbryt
+                </Button>
+                <Link className='nextLink' to={'/date'}>
+                    <Button>
+                        Nästa
+                    </Button>
+                </Link> 
+            </div>
         </div>
     )
 }

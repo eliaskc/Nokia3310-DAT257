@@ -2,8 +2,10 @@ import React,{useState, useEffect, useRef} from 'react';
 import Calendar from 'react-calendar';
 import 'react-calendar/dist/Calendar.css';
 import DotLoader from 'react-spinners/DotLoader'
+import {Link} from 'react-router-dom'
+import Button from 'react-bootstrap/Button'
 
-import BookingDataService from '../api/BookingDataService'
+import BookingDataService from '../../api/BookingDataService'
 
 /**
  * Represents the calendar page
@@ -52,6 +54,19 @@ export default function CalendarFunc(props) {
             onChange={(value) => displayDate(value)}>
             </Calendar>
             }
+            <div>
+                <Link className='prevLink' to={'/guests'}>
+                    <Button>
+                        Tillbaka
+                    </Button>
+                </Link>
+                <Link className='nextLink' to={'/timelist'}>
+                    <Button>
+                        Nästa
+                    </Button>
+                </Link> 
+            </div>
+            
         </div>
     )
 }

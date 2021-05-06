@@ -5,15 +5,17 @@ import Button from 'react-bootstrap/Button'
  * Component representing the 'thanks' page
  * @returns 
  */
-export default function Thanks(){
+export default function Done(){
     return (
-        <div className='thanks_div'>
-            <h2>
+        <div>
+            <div className='text_box'>
+                <h2>
                 Tack för din bokning!
-            </h2>
-            <h2>
-                Ett bekräftelsemejl kommer till din e-post inom kort.
-            </h2>
+                </h2>
+                <h2>
+                    Ett bekräftelsemejl kommer till din e-post inom kort.
+                </h2>
+            </div>
             <Button href='/'>
                 TIllbaka till start
             </Button>
