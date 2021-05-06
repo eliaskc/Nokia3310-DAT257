@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import Table from 'react-bootstrap/Table'
 import Button from 'react-bootstrap/Button'
 import moment from 'moment'
-import {Formik,Form, Field,ErrorMessage} from 'formik'
+import {Formik,Form, Field} from 'formik'
 import BookingDataService from '../../api/BookingDataService.js'
 import BookingTimeSlotComponent from './BookingTimeSlotComponent.jsx';
 
@@ -11,12 +11,12 @@ import BookingTimeSlotComponent from './BookingTimeSlotComponent.jsx';
  */
 function BookingListComponent() {
     const [timeSlots, setTimeSlots] = useState([]);
-    const [date,setDate] = useState(moment(new Date()).format('YYYY-MM-DD'));
+    const [date,setDate] = useState(moment(new Date("2021-05-05")).format('YYYY-MM-DD'));
 
     useEffect(() => {
         console.log(date)
         refreshTimeSlots(date);
-    },[]);
+    },[date]);
 
     const refreshTimeSlots = (inputDate) => {
         inputDate = moment(inputDate).format('YYYY-MM-DD');
