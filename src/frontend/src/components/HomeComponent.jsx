@@ -1,12 +1,12 @@
 import Button from 'react-bootstrap/Button'
 import React,{useState, useRef} from 'react'
 import {BrowserRouter as Router, Route, Switch, Link, Redirect} from 'react-router-dom'
-import AddToHomeScreen from '@ideasio/add-to-homescreen-react';
 import Calendar from './Calendar';
 import Timelist from './Timelist';
 import Guests from './Guests';
 import AdditionalInfo from './AdditionalInfo';
 import Confirm from './Confirm';
+import DownloadInstructions from './DownloadInstructions';
 
 
 /**
@@ -54,7 +54,7 @@ function HomeComponent() {
                 <div class="blur"/>
             </div>
             <header className="App-header">
-                <AddToHomeScreen/>
+                <DownloadInstructions/>
                 <img src="/hamncafet_logo.png" alt="Hamncafét logga" className="main_logo" />
               
                 <Router>
