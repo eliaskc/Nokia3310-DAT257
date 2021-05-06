@@ -24,17 +24,25 @@ export default function Guests(props) {
           
                 <Modal show={show} onHide={handleClose}>
                   <Modal.Header closeButton>
-                    <Modal.Title>Ladda ner som app på Android</Modal.Title>
+                    <Modal.Title>Ladda ner som App på Android</Modal.Title>
                   </Modal.Header>
                   <Modal.Body className='Popup'>
-                      <h5>1. Tryck på knappen som pilen pekar på</h5>
-                      <img src="/images/guidance/safariStep1.jpeg"></img>
-                      <h5>2. Välj "Lägg till på hemskärmen"</h5>
-                      <img src="/images/guidance/safariStep2.jpeg"></img>
-                      <h5>3. Tryck på "Lägg till"</h5>
-                      <img src="/images/guidance/safariStep3.jpeg"></img>
-                      <h5>4. Nu ligger den på hemskärmen!</h5>
-                      <img src="/images/guidance/safariStep4.jpeg"></img>
+                    <div className="Instruction">
+                        <h4>1. oifhjaso!</h4>
+                        <img src="/images/guidance/safariStep1.jpeg"></img>
+                    </div>
+                    <div className="Instruction">
+                        <h4>2.sdfa</h4>
+                        <img src="/images/guidance/safariStep2.jpeg"></img>
+                    </div>
+                    <div className="Instruction">
+                        <h4>3. Tryck på "Lägg till"</h4>
+                        <img src="/images/guidance/safariStep3.jpeg"></img>
+                    </div>
+                    <div className="Instruction">
+                        <h4>4. Nu ligger den på hemskärmen!</h4>
+                        <img src="/images/guidance/safariStep4.jpeg"></img>
+                    </div>
                     </Modal.Body>
                 </Modal>
             </>
@@ -53,16 +61,22 @@ export default function Guests(props) {
                     <Modal.Title>Ladda ner som App på iPhone</Modal.Title>
                   </Modal.Header>
                   <Modal.Body className='Popup'>
-                      <div>
-                        <h5>1. Tryck på knappen som pilen pekar på</h5>
+                    <div className="Instruction">
+                        <h4>1. Tryck på knappen som pilen pekar på</h4>
                         <img src="/images/guidance/safariStep1.jpeg"></img>
-                        <h5>2. Välj "Lägg till på hemskärmen"</h5>
+                    </div>
+                    <div className="Instruction">
+                        <h4>2. Välj "Lägg till på hemskärmen"</h4>
                         <img src="/images/guidance/safariStep2.jpeg"></img>
-                        <h5>3. Tryck på "Lägg till"</h5>
+                    </div>
+                    <div className="Instruction">
+                        <h4>3. Tryck på "Lägg till"</h4>
                         <img src="/images/guidance/safariStep3.jpeg"></img>
-                        <h5>4. Nu ligger den på hemskärmen!</h5>
+                    </div>
+                    <div className="Instruction">
+                        <h4>4. Nu ligger den på hemskärmen!</h4>
                         <img src="/images/guidance/safariStep4.jpeg"></img>
-                      </div>
+                    </div>
                     </Modal.Body>
                 </Modal>
             </>
