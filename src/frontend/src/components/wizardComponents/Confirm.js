@@ -54,7 +54,9 @@ export default function Confirm(props) {
     return (
         <div>
             {loading ? 
-            <DotLoader color={'#FFFFFF'}/>
+            <div className='loader'>
+                <DotLoader color={'#FFFFFF'}/>
+            </div>
             :
             <div>
                 <div className='text_box'>
