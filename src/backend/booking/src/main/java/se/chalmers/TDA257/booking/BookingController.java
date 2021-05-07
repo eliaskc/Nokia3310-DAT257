@@ -53,10 +53,10 @@ public class BookingController {
     /**
      * Deletes specified booking if it exists
      */
-    @DeleteMapping("/bookings/{id}")
-    public ResponseEntity<Void> deleteBooking(@PathVariable long id) {
-        Booking booking = bookings.deleteBooking(id);
-        if (booking == null) {
+    @DeleteMapping("/bookings/id/{id}")
+    public ResponseEntity<Void> deleteBooking(@PathVariable int id) {
+        int success = DatabaseController.deleteBookingByID(id);
+        if (success != 0) {
             return ResponseEntity.noContent().build();
         }
         return ResponseEntity.notFound().build();
@@ -81,7 +81,6 @@ public class BookingController {
      */
     @PostMapping("/bookings")
     public int addBooking(@RequestBody Booking booking) {
-        System.out.println(booking);
         return DatabaseController.insertNewBooking(booking);
         //Booking b = bookings.saveBooking(booking);
         //URI uri = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}")
@@ -109,8 +108,8 @@ public class BookingController {
     @GetMapping("/bookings/count/{date}/{time}")
     public int getNumberOfBookingByDateAndTime(@PathVariable Date date, @PathVariable String time) {
         Time sqlTime = Time.valueOf(time);
-        System.out.println(date);
         return DatabaseController.fetchNumberOfBookingByDateAndTime(date,sqlTime);
     }
+
 }
 

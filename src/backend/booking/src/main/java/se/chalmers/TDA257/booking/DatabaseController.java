@@ -137,6 +137,18 @@ public class DatabaseController {
         return jdbcTemplate.queryForObject(sqlQuery,Integer.class,params);
     }
 
+    @Autowired public static int deleteBookingByID(int bookingID){
+        String sqlQuery = ("DELETE FROM BookingsView WHERE bookingID = ?");
+        Object[] params = new Object[] {bookingID};
+        return jdbcTemplate.update(sqlQuery,params);
+    }
+
+    @Autowired public static int deleteBookingByEmail(String email){
+        String sqlQuery = ("DELETE FROM BookingsView WHERE guestemail = ?");
+        Object[] params = new Object[] {email};
+        return jdbcTemplate.update(sqlQuery,params);
+    }
+
 
     @Autowired
     public void setDataSource(DataSource dataSource) {
@@ -149,7 +161,6 @@ public class DatabaseController {
      */
     @Scheduled(cron = "0 0 0 * * *")
 	void dailyInsertBookingTimesDB() throws InterruptedException {
-		System.out.println("LOL*");
         String insertSqlQuery = ("INSERT INTO BookingTimes (" + "bookingDate, " + "startTime) VALUES (?, ?);");
         LocalDate dateToAdd = LocalDate.now().plusWeeks(3);
         List<LocalTime> bookingTimes = Arrays.asList(LocalTime.parse("17:00:00"), LocalTime.parse("17:30:00"), LocalTime.parse("18:00:00"), LocalTime.parse("18:30:00"),
@@ -167,7 +178,6 @@ public class DatabaseController {
      */
     @Scheduled(cron = "0 0 0 * * *")
 	void dailyDeleteBookingTimesDB() throws InterruptedException {
-		System.out.println("asdfa");
         String deleteSqlQuery = ("DELETE FROM BookingTimes WHERE bookingdate =" + "?" + " AND startTime =" + "?"+ ";");
         LocalDate dateToDelete = LocalDate.now().minusDays(3);
         List<LocalTime> bookingTimes = Arrays.asList(LocalTime.parse("17:00:00"), LocalTime.parse("17:30:00"), LocalTime.parse("18:00:00"), LocalTime.parse("18:30:00"),
