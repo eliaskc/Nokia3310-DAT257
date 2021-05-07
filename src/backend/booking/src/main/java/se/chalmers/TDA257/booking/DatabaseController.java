@@ -71,6 +71,23 @@ public class DatabaseController {
         return jdbcTemplate.query(sqlQuery, rowMapper, params);
     }
 
+    @Autowired
+    public static List<Date> fetchAvailableDays(int nrOfPeople) {
+        String sqlQuery = ("SELECT DISTINCT bookingDate FROM AvailableReservations" + 
+        " WHERE (?) <= nrOfAvailableSeats;");
+
+        Object[] params = new Object[] {nrOfPeople};
+
+        RowMapper<Date> rowMapper = new RowMapper<Date>() {
+            @Override
+            public Date mapRow(ResultSet rs, int rownumber) throws SQLException {
+                return rs.getDate(1);
+            }
+        };
+
+        return jdbcTemplate.query(sqlQuery, rowMapper, params);
+    }
+
     /**
      * 
      */
