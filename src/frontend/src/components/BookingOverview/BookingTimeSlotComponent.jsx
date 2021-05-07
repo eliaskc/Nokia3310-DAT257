@@ -106,7 +106,6 @@ function BookingTimeSlotComponent(props) {
                     <p><b>Epost: </b> {modalBooking.guestEmail}</p>
                     <p><b>Telefonnummer: </b>{modalBooking.guestTelNr}</p>
                     <p><b>Antal gäster: </b>{modalBooking.nrOfPeople}</p>
-                    <p><b>id: </b>{modalBooking.bookingID}</p>
                     {modalBooking.additionalInfo != null ?
                         <p><b>Övrig info: </b>{modalBooking.additionalInfo}</p>
                         : <p><b>Övrig info: </b>Ingen info angiven</p>
