@@ -50,8 +50,10 @@ function BookingTimeSlotComponent(props) {
     const startDeleteConfirmation = () => setDeleteConfirmation(false);
 
     function confirmDelete(bookingID) {
-        BookingDataService.deleteBooking(bookingID);
-        window.location.reload();
+        BookingDataService.deleteBooking(bookingID).then(
+            () => {
+                window.location.reload();
+            });
     }
 
     const handleCloseModal = () => {
