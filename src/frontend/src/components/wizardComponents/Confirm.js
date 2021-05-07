@@ -4,7 +4,6 @@ import BookingDataService from '../../api/BookingDataService.js'
 import {Link, useHistory} from 'react-router-dom'
 import DotLoader from 'react-spinners/DotLoader'
 
-
 /**
  * Represents the confirmation page
  * @param props Object that represents the current booking
@@ -46,7 +45,8 @@ export default function Confirm(props) {
                 history.push('/done')
             }).catch(error => {
                 alert('Någonting gick fel')
-                history.goBack()
+                history.push('/')
+                history.go()
             })
         }
     }
