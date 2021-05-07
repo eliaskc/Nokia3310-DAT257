@@ -74,9 +74,7 @@ function BookingTimeSlotComponent(props) {
         <tr className={timeSlotIsExpanded ? 'BookingTimeSlotComponent expandedParent' : 'BookingTimeSlotComponent closedParent'}>
             <td>{props.inputTime}</td>
             <td>{numberOfBookings}</td>
-            <td>
-                <Button onClick={handleOpenCloseTimeSlot}>{timeSlotIsExpanded ? 'Stäng' : 'Öppna'}</Button>
-            </td>
+            <td><Button onClick={handleOpenCloseTimeSlot}>{timeSlotIsExpanded ? 'Stäng' : 'Öppna'}</Button></td>
             <Table className={timeSlotIsExpanded ? 'expanded' : 'closed'}>
                 <thead>
                     <tr>

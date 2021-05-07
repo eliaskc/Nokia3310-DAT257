@@ -171,24 +171,30 @@
   display: flex
   flex-direction: column
   align-items: center
+  text-align: center
 
   form
-    width: 30vw
+    width: 100%
     display: flex
-    flex-direction: column
+    flex-direction: row
     align-items: center
+    button, a
+      margin: 20px
 
   .table-responsive
-    width: 70vw
+    width: 60vw
+
 
 .BookingTimeSlotComponent
+  td
+    text-align: center
   .closed
     display: none
   .expanded
     left: 25%
     margin-top: 50px
     width: inherit
-    position: fixed
+    position: absolute
     text-align: center
     thead tr th
       border-bottom: none

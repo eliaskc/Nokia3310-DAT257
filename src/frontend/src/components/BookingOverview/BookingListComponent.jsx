@@ -11,7 +11,7 @@ import BookingTimeSlotComponent from './BookingTimeSlotComponent.jsx';
  */
 function BookingListComponent() {
     const [timeSlots, setTimeSlots] = useState([]);
-    const [date, setDate] = useState(moment(new Date("2021-05-05")).format('YYYY-MM-DD'));
+    const [date, setDate] = useState(moment(new Date()).format('YYYY-MM-DD'));
 
     useEffect(() => {
         console.log(date)
@@ -46,6 +46,7 @@ function BookingListComponent() {
                     {
                         () => (
                             <Form>
+                                <Button href="/">Tillbaka</Button>
                                 <fieldset className="form-group">
                                     <Field className="form-control" type="date" name="date" />
                                 </fieldset>
@@ -61,6 +62,7 @@ function BookingListComponent() {
                     <tr>
                         <th>Tid</th>
                         <th>Antal bord</th>
+                        <th></th>
                     </tr>
                 </thead>
                 <tbody>
@@ -72,7 +74,6 @@ function BookingListComponent() {
                     }
                 </tbody>
             </Table>
-            <Button href="/">Tillbaka</Button>
         </div>
     )
 }
