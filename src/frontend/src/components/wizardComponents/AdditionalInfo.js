@@ -14,7 +14,14 @@ import * as Yup from 'yup'
  */
 export default function AdditionalInfo(props){
     const history = useHistory()
-    const numberRegExp = /^[0-9\b]+$/
+    const numberRegExp = /^[0-9 \b]+$/
+
+    function saveValues(values){
+        props.booking.name = values.name
+        props.booking.email = values.email
+        props.booking.tel = values.tel
+        props.booking.info = values.info
+    }
     
     const validationSchema = Yup.object().shape({
         name: Yup.string()
@@ -114,7 +121,7 @@ export default function AdditionalInfo(props){
                             ): null}
                         </Form.Group>
                     </div>
-                    <Link className='prevLink' to='/timelist'>
+                    <Link className='prevLink' to='/timelist' onClick={() => saveValues(values)}>
                         <Button>
                             Tillbaka
                         </Button>

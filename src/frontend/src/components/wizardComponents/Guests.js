@@ -23,8 +23,9 @@ export default function Guests(props) {
     })
 
     function handleSelect(item){
-        console.log(item)
         props.booking.guests = item
+        //If nr of guests change, reset chosen date
+        props.booking.date = ''
         setDropDownTitle('Antal gäster: ' + item)
         setDisabled(false)
     }

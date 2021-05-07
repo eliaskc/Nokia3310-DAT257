@@ -43,9 +43,9 @@ export default function CalendarFunc(props) {
         }
     }
 
-    function displayDate(date){
-        console.log(date)
+    function handleSelect(date){
         props.booking.date = date.toLocaleDateString()
+        props.booking.time = ''
         setDisabled(false)
     }
 
@@ -60,7 +60,7 @@ export default function CalendarFunc(props) {
             minDate={new Date()}
             minDetail='month'
             defaultValue={selectedDate}
-            onChange={(value) => displayDate(value)}>
+            onChange={(value) => handleSelect(value)}>
             </Calendar>
             }
             <div>

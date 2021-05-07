@@ -40,7 +40,6 @@ export default function Timelist(props) {
     }, [])
 
     function handleSelect(item){
-        console.log(item)
         props.booking.time = item
         setDropDownTitle('Tid: ' + item)
         setDisabled(false)
