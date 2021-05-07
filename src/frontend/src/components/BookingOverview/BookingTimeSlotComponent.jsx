@@ -12,6 +12,7 @@ function BookingTimeSlotComponent(props) {
     const [deleteConfirmation, setDeleteConfirmation] = useState(true);
     const [showModal, setShowModal] = useState(false);
     const [modalBooking, setModalBooking] = useState({
+        bookingID: 0,
         guestName: "placeholder name",
         guestEmail: "placeholder email",
         guestTelNr: "placeholder tel number",
@@ -47,8 +48,10 @@ function BookingTimeSlotComponent(props) {
     }
 
     const startDeleteConfirmation = () => setDeleteConfirmation(false);
-    function confirmDelete() {
-        console.log("HUR KUNDE DU TA BORT MIGG????");
+
+    function confirmDelete(bookingID) {
+        BookingDataService.deleteBooking(bookingID);
+        window.location.reload();
     }
 
     const handleCloseModal = () => {
@@ -103,6 +106,7 @@ function BookingTimeSlotComponent(props) {
                     <p><b>Epost: </b> {modalBooking.guestEmail}</p>
                     <p><b>Telefonnummer: </b>{modalBooking.guestTelNr}</p>
                     <p><b>Antal gäster: </b>{modalBooking.nrOfPeople}</p>
+                    <p><b>id: </b>{modalBooking.bookingID}</p>
                     {modalBooking.additionalInfo != null ?
                         <p><b>Övrig info: </b>{modalBooking.additionalInfo}</p>
                         : <p><b>Övrig info: </b>Ingen info angiven</p>
@@ -114,7 +118,7 @@ function BookingTimeSlotComponent(props) {
                     </Button>
                     {deleteConfirmation ? <Button variant="danger" onClick={startDeleteConfirmation}>
                         Ta bort
-                    </Button> : <Button variant="danger" onClick={confirmDelete}>
+                    </Button> : <Button variant="danger" onClick={() => confirmDelete(modalBooking.bookingID)}>
                         Är du säker?
                     </Button>}
                 </Modal.Footer>

@@ -14,13 +14,11 @@ function BookingListComponent() {
     const [date, setDate] = useState(moment(new Date()).format('YYYY-MM-DD'));
 
     useEffect(() => {
-        console.log(date)
         refreshTimeSlots(date);
     }, [date]);
 
     const refreshTimeSlots = (inputDate) => {
         inputDate = moment(inputDate).format('YYYY-MM-DD');
-        console.log(inputDate)
         BookingDataService.getTimeSlotsByDate(inputDate)
             .then(
                 (response) => {
