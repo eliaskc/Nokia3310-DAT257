@@ -74,7 +74,7 @@ function BookingTimeSlotComponent(props) {
     }
 
     return (
-        <tr className={timeSlotIsExpanded ? 'BookingTimeSlotComponent expandedParent' : 'BookingTimeSlotComponent closedParent'}>
+        <tr style={timeSlotIsExpanded ? {height: 111 + bookings.length * 49 + 'px'} : {height: 'auto'}} className="BookingTimeSlotComponent">
             <td>{props.inputTime}</td>
             <td>{numberOfBookings}</td>
             <td><Button onClick={handleOpenCloseTimeSlot}>{timeSlotIsExpanded ? 'Stäng' : 'Öppna'}</Button></td>
