@@ -43,6 +43,16 @@ public class BookingController {
     }
 
     /**
+     * Fetches all available days
+     * @param guests
+     * @return
+     */
+    @GetMapping("/availableDays")
+    public List<Date> getAllAvailableDays(int guests){
+        return DatabaseController.fetchAvailableDays(guests);
+    }
+
+    /**
      * Fetches specified booking
      * @return Booking object
      */
