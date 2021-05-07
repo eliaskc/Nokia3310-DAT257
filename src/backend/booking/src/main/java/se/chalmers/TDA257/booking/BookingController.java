@@ -5,6 +5,7 @@ import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import javax.xml.crypto.Data;
 import java.net.URI;
@@ -79,13 +80,13 @@ public class BookingController {
      * The id must be 0, as it will be assigned by the database
      * @param booking
      */
-    @PostMapping("/bookings")
-    public int addBooking(@RequestBody Booking booking) {
-        return DatabaseController.insertNewBooking(booking);
-        //Booking b = bookings.saveBooking(booking);
-        //URI uri = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}")
-                //.buildAndExpand(b.getId()).toUri();
-        //return ResponseEntity.created(uri).build();
+    @PostMapping("/bookings/{booking}")
+    public ResponseEntity<Booking> addBooking(@PathVariable Booking booking) {
+        DatabaseController.insertNewBooking(booking);
+        Booking b = DatabaseController.fetchBookingByEmailDateTime(booking.getGuestEmail(),booking.getBookingDate(),booking.getStartTime());
+        URI uri = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}")
+                .buildAndExpand(b.getBookingID()).toUri();
+        return ResponseEntity.created(uri).build();
     }
 
     @GetMapping("/bookings/date/{date}")

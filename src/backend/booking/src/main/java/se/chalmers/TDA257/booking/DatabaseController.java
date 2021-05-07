@@ -76,8 +76,8 @@ public class DatabaseController {
      */
     @Autowired
     public static int insertNewBooking(Booking booking) {
-        String sqlQuery = ("INSERT INTO BookingsView (" + "bookingDate, " + "startTime, " + "tableID, " + "guestEmail, " +
-            "guestName, " + "guestTelNr, " + "nrOfPeople, " + "additionalInfo) VALUES (?, ?, ?, ?, ?, ?, ?, ?)" );
+        String sqlQuery = ("INSERT INTO BookingsView (" + "bookingDate, " + "startTime, " + "tableID, " + "bookingID," + "guestEmail, " +
+            "guestName, " + "guestTelNr, " + "nrOfPeople, " + "additionalInfo) VALUES (?, ?, ?, 0, ?, ?, ?, ?, ?)" );
         
         Object[] params = new Object[] {booking.getBookingDate(),booking.getStartTime(), 0, booking.getGuestEmail(), 
             booking.getGuestName(), booking.getGuestTelNr(), booking.getNrOfPeople(), booking.getAdditionalInfo()};
@@ -149,10 +149,16 @@ public class DatabaseController {
         return jdbcTemplate.update(sqlQuery,params);
     }
 
+    @Autowired public static Booking fetchBookingByEmailDateTime(String email,Date date, LocalTime time){
+        String sqlQuery = ("SELECT FROM BookingsView WHERE guestemail = ? AND bookingDate = ? AND bookingTime = ?");
+        Object[] params = new Object[] {email,date,time};
+        return jdbcTemplate.queryForObject(sqlQuery,Booking.class,params);
+    }
+
 
     @Autowired
     public void setDataSource(DataSource dataSource) {
-        this.jdbcTemplate = new JdbcTemplate(dataSource); 
+        this.jdbcTemplate = new JdbcTemplate(dataSource);
     }
 
     /** 
