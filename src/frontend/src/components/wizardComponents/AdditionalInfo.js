@@ -29,7 +29,7 @@ export default function AdditionalInfo(props){
         .max(100, '*Namn kan inte vara mer än 100 tecken')
         .required('*Du måste ange ett namn'),
         email: Yup.string()
-        .email('*E-post är inte giltigt')
+        .email('*E-post adressen är inte giltig')
         .max(100, '*E-post kan inte vara mer än 100 tecken')
         .required('*Du måste ange en e-postadress'),
         tel: Yup.string()
