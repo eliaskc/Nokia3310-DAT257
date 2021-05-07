@@ -40,8 +40,8 @@ public class DatabaseController {
         return jdbcTemplate.query("select * from Bookings", new RowMapper<Booking>() {
             @Override
             public Booking mapRow(ResultSet rs, int rownumber) throws SQLException {
-                return new Booking(rs.getString(1), rs.getString(2), rs.getString(3), rs.getInt(4),
-                        rs.getDate(5), rs.getTime(6).toLocalTime(), rs.getString(7));
+                return new Booking(rs.getInt(4), rs.getString(6), rs.getString(5), rs.getString(7),
+                        rs.getInt(8), rs.getDate(1), rs.getTime(2).toLocalTime(), rs.getString(9));
             }
         });
     }
@@ -112,8 +112,8 @@ public class DatabaseController {
         RowMapper rowMapper = new RowMapper<Booking>() {
             @Override
             public Booking mapRow(ResultSet rs, int rownumber) throws SQLException {
-                return new Booking(rs.getString(5), rs.getString(4), rs.getString(6), rs.getInt(7),
-                        rs.getDate(1), rs.getTime(2).toLocalTime(), rs.getString(8));
+                return new Booking(rs.getInt(4), rs.getString(6), rs.getString(5), rs.getString(7),
+                        rs.getInt(8), rs.getDate(1), rs.getTime(2).toLocalTime(), rs.getString(9));
             }};
         return jdbcTemplate.query(sqlQuery,rowMapper,params);
     }
@@ -125,8 +125,8 @@ public class DatabaseController {
     public static List<Booking> fetchBookingsByDateAndTime(Date date, Time time) {
         String sqlQuery = ("SELECT DISTINCT ON(bookingID) * from BookingsView WHERE bookingDate = ? AND starttime = ? AND bookingID IS NOT NULL");
         Object[] params = new Object[] {date,time};
-        RowMapper rowMapper = (RowMapper<Booking>) (rs, rownumber) -> new Booking(rs.getString(6), rs.getString(5), rs.getString(7), rs.getInt(8),
-                rs.getDate(1), rs.getTime(2).toLocalTime(), rs.getString(9));
+        RowMapper rowMapper = (RowMapper<Booking>) (rs, rownumber) -> new Booking(rs.getInt(4), rs.getString(6), rs.getString(5), rs.getString(7),
+                rs.getInt(8), rs.getDate(1), rs.getTime(2).toLocalTime(), rs.getString(9));
         return jdbcTemplate.query(sqlQuery,rowMapper,params);
     }
 

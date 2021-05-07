@@ -80,8 +80,8 @@ public class BookingController {
      * The id must be 0, as it will be assigned by the database
      * @param booking
      */
-    @PostMapping("/bookings/{booking}")
-    public ResponseEntity<Booking> addBooking(@PathVariable Booking booking) {
+    @PostMapping("/bookings")
+    public ResponseEntity<Booking> addBooking(@RequestBody Booking booking) {
         DatabaseController.insertNewBooking(booking);
         Booking b = DatabaseController.fetchBookingByEmailDateTime(booking.getGuestEmail(),booking.getBookingDate(),booking.getStartTime());
         URI uri = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}")

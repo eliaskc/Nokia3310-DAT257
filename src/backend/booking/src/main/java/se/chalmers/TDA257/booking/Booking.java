@@ -4,7 +4,6 @@ import lombok.Getter;
 import lombok.Setter;
 
 import java.sql.Date;
-import java.sql.Time;
 import java.time.LocalTime;
 
 /**
@@ -22,9 +21,9 @@ public class Booking {
     private LocalTime startTime;
     private String additionalInfo;
     
-    public Booking(String guestName, String guestEmail, String guestTelNr, int nrOfPeople, Date bookingDate,
-            LocalTime startTime, String additionalInfo) {
-        this.bookingID = 0;
+    public Booking(int bookingID, String guestName, String guestEmail, String guestTelNr, int nrOfPeople, Date bookingDate,
+                   LocalTime startTime, String additionalInfo) {
+        this.bookingID = bookingID;
         this.guestName = guestName;
         this.guestEmail = guestEmail;
         this.guestTelNr = guestTelNr;
