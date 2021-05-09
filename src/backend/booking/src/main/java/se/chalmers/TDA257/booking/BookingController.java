@@ -122,5 +122,16 @@ public class BookingController {
         return DatabaseController.fetchNumberOfBookingByDateAndTime(date,sqlTime);
     }
 
+    /**
+     * Updates the booking with specified id with the values from updatedBooking
+     * @param bookingID
+     * @param updatedBooking
+     * @return
+     */
+    @PutMapping("/bookings/{id}")
+    public int updateBooking(@PathVariable int bookingID, @RequestBody Booking updatedBooking) {
+        return DatabaseController.updateBooking(bookingID,updatedBooking);
+    }
+
 }
 

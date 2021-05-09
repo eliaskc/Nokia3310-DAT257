@@ -172,6 +172,12 @@ public class DatabaseController {
         return jdbcTemplate.queryForObject(sqlQuery,Booking.class,params);
     }
 
+    @Autowired
+    public static int updateBooking(int bookingID, Booking updatedBooking) {
+        deleteBookingByID(bookingID);
+        return insertNewBooking(updatedBooking);
+    }
+
 
     @Autowired
     public void setDataSource(DataSource dataSource) {
