@@ -74,17 +74,6 @@ public class BookingController {
     }
 
     /**
-     * Updates the specified booking with the provided booking
-     * @param id
-     * @param booking
-     */
-    @PutMapping("/bookings/{id}")
-    public ResponseEntity<Booking> updateBooking(@PathVariable long id, @RequestBody Booking booking) {
-        Booking b = bookings.saveBooking(booking);
-        return new ResponseEntity<>(b, HttpStatus.OK);
-    }
-
-    /**
      * Adds a new booking
      * 
      * The id must be 0, as it will be assigned by the database
