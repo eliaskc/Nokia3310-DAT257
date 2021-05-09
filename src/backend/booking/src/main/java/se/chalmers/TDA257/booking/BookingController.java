@@ -113,13 +113,14 @@ public class BookingController {
 
     /**
      * Updates the booking with specified id with the values from updatedBooking
-     * @param bookingID
+     * @param id
      * @param updatedBooking
      * @return
      */
     @PutMapping("/bookings/{id}")
-    public int updateBooking(@PathVariable int bookingID, @RequestBody Booking updatedBooking) {
-        return DatabaseController.updateBooking(bookingID,updatedBooking);
+    public int updateBooking(@PathVariable int id, @RequestBody Booking updatedBooking) {
+        System.out.println(updatedBooking.toString());
+        return DatabaseController.updateBooking(id,updatedBooking);
     }
 
 }
