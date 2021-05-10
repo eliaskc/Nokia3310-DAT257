@@ -44,7 +44,7 @@ $insertBooking$ LANGUAGE plpgsql;
 
 CREATE OR REPLACE FUNCTION deleteBooking() RETURNS trigger AS $deleteBooking$
     BEGIN
-        DELETE FROM Bookings WHERE OLD.bookingID = bookingID;
+        DELETE FROM Bookings WHERE OLD.bookingID = bookingID OR OLD.guestEmail = guestEmail;
         RETURN OLD;
     END 
 $deleteBooking$ LANGUAGE plpgsql;

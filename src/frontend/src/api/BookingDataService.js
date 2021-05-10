@@ -70,7 +70,7 @@ class BookingDataService {
      * @param {Number} id
      */
     deleteBooking(id) {
-        return axios.delete(`http://localhost:8080/bookings/${id}`);
+        return axios.delete(`http://localhost:8080/bookings/id/${id}`);
     }
 
     getBookingsByDate(date){
@@ -89,6 +89,7 @@ class BookingDataService {
     getNumberOfBookingsByDateAndTime(date,time){
         return axios.get(`http://localhost:8080/bookings/count/${date}/${time}`);
     }
+
 
 
 }

@@ -4,7 +4,6 @@ import lombok.Getter;
 import lombok.Setter;
 
 import java.sql.Date;
-import java.sql.Time;
 import java.time.LocalTime;
 
 /**
@@ -13,7 +12,7 @@ import java.time.LocalTime;
  */
 @Getter @Setter
 public class Booking {
-    private long id = 0;
+    private int bookingID;
     private String guestName;
     private String guestEmail;
     private String guestTelNr;
@@ -22,8 +21,9 @@ public class Booking {
     private LocalTime startTime;
     private String additionalInfo;
     
-    public Booking(String guestName, String guestEmail, String guestTelNr, int nrOfPeople, Date bookingDate,
-            LocalTime startTime, String additionalInfo) {
+    public Booking(int bookingID, String guestName, String guestEmail, String guestTelNr, int nrOfPeople, Date bookingDate,
+                   LocalTime startTime, String additionalInfo) {
+        this.bookingID = bookingID;
         this.guestName = guestName;
         this.guestEmail = guestEmail;
         this.guestTelNr = guestTelNr;
@@ -36,7 +36,7 @@ public class Booking {
     @Override
     public String toString() {
         return "Booking{" +
-                "id=" + id +
+                "id=" + bookingID +
                 ", guestName='" + guestName + '\'' +
                 ", guestEmail='" + guestEmail + '\'' +
                 ", guestTelNr='" + guestTelNr + '\'' +

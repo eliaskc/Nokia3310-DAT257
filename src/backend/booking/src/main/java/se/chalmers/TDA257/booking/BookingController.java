@@ -5,6 +5,7 @@ import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import javax.xml.crypto.Data;
 import java.net.URI;
@@ -63,10 +64,10 @@ public class BookingController {
     /**
      * Deletes specified booking if it exists
      */
-    @DeleteMapping("/bookings/{id}")
-    public ResponseEntity<Void> deleteBooking(@PathVariable long id) {
-        Booking booking = bookings.deleteBooking(id);
-        if (booking == null) {
+    @DeleteMapping("/bookings/id/{id}")
+    public ResponseEntity<Void> deleteBooking(@PathVariable int id) {
+        int success = DatabaseController.deleteBookingByID(id);
+        if (success != 0) {
             return ResponseEntity.noContent().build();
         }
         return ResponseEntity.notFound().build();
@@ -90,13 +91,12 @@ public class BookingController {
      * @param booking
      */
     @PostMapping("/bookings")
-    public int addBooking(@RequestBody Booking booking) {
-        System.out.println(booking);
-        return DatabaseController.insertNewBooking(booking);
-        //Booking b = bookings.saveBooking(booking);
-        //URI uri = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}")
-                //.buildAndExpand(b.getId()).toUri();
-        //return ResponseEntity.created(uri).build();
+    public ResponseEntity<Booking> addBooking(@RequestBody Booking booking) {
+        DatabaseController.insertNewBooking(booking);
+        Booking b = DatabaseController.fetchBookingByEmailDateTime(booking.getGuestEmail(),booking.getBookingDate(),booking.getStartTime());
+        URI uri = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}")
+                .buildAndExpand(b.getBookingID()).toUri();
+        return ResponseEntity.created(uri).build();
     }
 
     @GetMapping("/bookings/date/{date}")
@@ -121,5 +121,6 @@ public class BookingController {
         Time sqlTime = Time.valueOf(time);
         return DatabaseController.fetchNumberOfBookingByDateAndTime(date,sqlTime);
     }
+
 }
 

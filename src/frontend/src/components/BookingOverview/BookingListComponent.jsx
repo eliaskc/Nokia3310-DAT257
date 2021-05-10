@@ -14,13 +14,11 @@ function BookingListComponent() {
     const [date, setDate] = useState(moment(new Date()).format('YYYY-MM-DD'));
 
     useEffect(() => {
-        console.log(date)
         refreshTimeSlots(date);
     }, [date]);
 
     const refreshTimeSlots = (inputDate) => {
         inputDate = moment(inputDate).format('YYYY-MM-DD');
-        console.log(inputDate)
         BookingDataService.getTimeSlotsByDate(inputDate)
             .then(
                 (response) => {
@@ -48,14 +46,15 @@ function BookingListComponent() {
                             <Form>
                                 <Button href="/">Tillbaka</Button>
                                 <fieldset className="form-group">
+                                    Välj datum:
                                     <Field className="form-control" type="date" name="date" />
                                 </fieldset>
-                                <Button variant="primary" className="btn btn-success" type="submit" >Uppdatera</Button>
+                                <Button variant="primary" className="btn btn-success" type="submit" >Uppdatera datum</Button>
                             </Form>
                         )
                     }
                 </Formik>
-                <h2>{date}</h2>
+                <h2>Visar tider för: {date}</h2>
             </div>
             <Table responsive>
                 <thead>
