@@ -67,19 +67,19 @@ export default function Guests(props) {
                   <Modal.Body className='Popup'>
                     <div className="Instruction">
                         <h4>1. Tryck på knappen som pilen pekar på</h4>
-                        <img className='instructionImg' src="/images/guidance/safariStep1.PNG"></img>
+                        <img className='instructionImg' src="/images/guidance/safariStep1.jpeg"></img>
                     </div>
                     <div className="Instruction">
                         <h4>2. Välj "Lägg till på hemskärmen"</h4>
-                        <img className='instructionImg' src="/images/guidance/safariStep2.jpg"></img>
+                        <img className='instructionImg' src="/images/guidance/safariStep2.jpeg"></img>
                     </div>
                     <div className="Instruction">
                         <h4>3. Tryck på "Lägg till"</h4>
-                        <img className='instructionImg' src="/images/guidance/safariStep3.PNG"></img>
+                        <img className='instructionImg' src="/images/guidance/safariStep3.jpeg"></img>
                     </div>
                     <div className="Instruction">
                         <h4>4. Nu ligger den på hemskärmen!</h4>
-                        <img className='instructionImg' src="/images/guidance/safariStep4.jpg"></img>
+                        <img className='instructionImg' src="/images/guidance/safariStep4.jpeg"></img>
                     </div>
                     </Modal.Body>
                 </Modal>
