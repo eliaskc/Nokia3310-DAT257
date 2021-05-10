@@ -29,19 +29,23 @@ export default function Guests(props) {
                   <Modal.Body className='Popup'>
                     <div className="Instruction">
                         <h4>1. Klicka på de tre punkterna</h4>
-                        <img className='instructionImg' src="/images/guidance/safariStep1.PNG"></img>
+                        <img className='instructionImg' src="/images/guidance/chromeStep1.jpg"></img>
                     </div>
                     <div className="Instruction">
                         <h4>2.Välj lägg till på startskärmen</h4>
-                        <img className='instructionImg' src="/images/guidance/safariStep2.PNG"></img>
+                        <img className='instructionImg' src="/images/guidance/chromeStep2.jpg"></img>
                     </div>
                     <div className="Instruction">
                         <h4>3. Tryck på "Lägg till"</h4>
-                        <img className='instructionImg' src="/images/guidance/safariStep3.PNG"></img>
+                        <img className='instructionImg' src="/images/guidance/chromeStep3.jpg"></img>
                     </div>
                     <div className="Instruction">
-                        <h4>4. Nu ligger den på hemskärmen!</h4>
-                        <img className='instructionImg' src="/images/guidance/safariStep4.jpg"></img>
+                        <h4>4. Tryck på "LÄGG TILL"</h4>
+                        <img className='instructionImg' src="/images/guidance/chromeStep4.jpg"></img>
+                    </div>
+                    <div className="Instruction">
+                        <h4>5. Nu ligger den på hemskärmen!</h4>
+                        <img className='instructionImg' src="/images/guidance/chromeStep5.jpg"></img>
                     </div>
                     </Modal.Body>
                 </Modal>
