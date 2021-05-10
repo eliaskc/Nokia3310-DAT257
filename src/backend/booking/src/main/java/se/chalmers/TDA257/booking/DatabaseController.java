@@ -167,7 +167,7 @@ public class DatabaseController {
     }
 
     @Autowired public static Booking fetchBookingByEmailDateTime(String email,Date date, LocalTime time){
-        String sqlQuery = ("SELECT FROM BookingsView WHERE guestemail = ? AND bookingDate = ? AND bookingTime = ?");
+        String sqlQuery = ("SELECT FROM BookingsView WHERE guestemail = ? AND bookingDate = ? AND startTime = ?");
         Object[] params = new Object[] {email,date,time};
         return jdbcTemplate.queryForObject(sqlQuery,Booking.class,params);
     }
