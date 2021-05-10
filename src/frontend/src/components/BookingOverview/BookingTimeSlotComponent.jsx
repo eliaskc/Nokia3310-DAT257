@@ -14,7 +14,6 @@ function BookingTimeSlotComponent(props) {
     const [modalBooking, setModalBooking] = useState({
         bookingID: 0,
         guestName: "placeholder name",
-        guestEmail: "placeholder email",
         guestTelNr: "placeholder tel number",
         nrOfPeople: 0,
         bookingDate: "2020-01-01",
@@ -63,6 +62,7 @@ function BookingTimeSlotComponent(props) {
     const handleShowModal = (booking) => {
         setShowModal(true);
         setModalBooking(booking);
+        console.log(booking)
     }
 
     function refreshNumberOfGuests(date, time) {
@@ -79,7 +79,6 @@ function BookingTimeSlotComponent(props) {
         let testBooking = {
             bookingID: 0,
             guestName: "placeholder name",
-            guestEmail: "placeholder email",
             guestTelNr: "placeholder tel number",
             nrOfPeople: 2,
             bookingDate: moment(new Date()).format('YYYY-MM-DD'),
@@ -105,7 +104,7 @@ function BookingTimeSlotComponent(props) {
                 <thead>
                     <tr>
                         <th>Namn:</th>
-                        <th>Epost:</th>
+                        <th>Telefonnummer:</th>
                         <th>Antal gäster:</th>
                     </tr>
                 </thead>
@@ -114,7 +113,7 @@ function BookingTimeSlotComponent(props) {
                         booking =>
                             <tr className="booking" onClick={() => handleShowModal(booking)}>
                                 <td>{booking.guestName}</td>
-                                <td>{booking.guestEmail}</td>
+                                <td>{booking.guestTelNr}</td> 
                                 <td>{booking.nrOfPeople}</td>
                             </tr>
                     )}
@@ -126,7 +125,6 @@ function BookingTimeSlotComponent(props) {
                 </Modal.Header>
                 <Modal.Body>
                     <p><b>Namn: </b>{modalBooking.guestName}</p>
-                    <p><b>Epost: </b> {modalBooking.guestEmail}</p>
                     <p><b>Telefonnummer: </b>{modalBooking.guestTelNr}</p>
                     <p><b>Antal gäster: </b>{modalBooking.nrOfPeople}</p>
                     {modalBooking.additionalInfo != null ?
