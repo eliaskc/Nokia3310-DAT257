@@ -41,7 +41,7 @@ export default function calendar(props) {
                 prev2Label={""}
             ></Calendar>
 
-            <h5>OBS! Det går endast att boka tre veckor framåt via appen</h5>
+            
         </div>
     )
 }

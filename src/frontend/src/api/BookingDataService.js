@@ -16,8 +16,21 @@ class BookingDataService {
     /**
      * @returns A JSON array of booking objects
      */
-     retrieveAllAvailableTimes() {
-        return axios.get(`http://localhost:8080/availableTimes`);
+     retrieveAllAvailableTimes(date, time, guests) {
+        return axios.get(`http://localhost:8080/availableTimes`, {params: {
+            'date': date,
+            'time': time,
+            'guests': guests}
+        });
+    }
+
+    /**
+     * @returns A JSON array of booking objects
+     */
+     retrieveAllAvailableDays(guests) {
+        return axios.get(`http://localhost:8080/availableDays`, {params: {
+            'guests': guests}
+        });
     }
 
     /**
@@ -57,8 +70,26 @@ class BookingDataService {
      * @param {Number} id
      */
     deleteBooking(id) {
-        return axios.delete(`http://localhost:8080/bookings/${id}`);
+        return axios.delete(`http://localhost:8080/bookings/id/${id}`);
     }
+
+    getBookingsByDate(date){
+        return axios.get(`http://localhost:8080/bookings/date/${date}`);
+    }
+
+    getBookingsByDateAndTime(date,time){
+        return axios.get(`http://localhost:8080/bookings/date/${date}/${time}`);
+    }
+
+
+    getTimeSlotsByDate(date){
+        return axios.get(`http://localhost:8080/timeslots/date/${date}`);
+    }
+
+    getNumberOfBookingsByDateAndTime(date,time){
+        return axios.get(`http://localhost:8080/bookings/count/${date}/${time}`);
+    }
+
 
 
 }
