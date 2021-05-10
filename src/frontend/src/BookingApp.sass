@@ -37,7 +37,7 @@
     font-size: calc(10px + 2vmin)
     color: black
 
-  .Confirm
+  .text_box
     background-color: white
     padding-right: 50px
     padding-left: 50px
@@ -46,17 +46,9 @@
     border: 1px solid #E0E0E0
     opacity: .9
     width: 80%
-
-  .AdditionalInfo
-    background-color: white
-    width: 80%
-    margin-top: 10px
-    padding-right: 50px
-    padding-left: 50px
-    padding-top: 30px
-    padding-bottom: 20px
-    border: 1px solid #E0E0E0
-    opacity: .9
+    min-width: 30vw
+    width: 40vw
+    border-radius: 25px
 
   .btn-primary
     color: #ebebeb
@@ -119,18 +111,16 @@
     color: #5C5858
     font-size: 22px
     font-family: 'Roboto', sans-serif
+
+  .has-error 
+    border: 2px solid #FF6565
   
-  .thanks_div
-    background-color: white
-    width: 60%
-    height: 40%
-    margin-bottom: 20px
-    padding-right: 50px
-    padding-left: 50px
-    padding-top: 30px
-    padding-bottom: 30px
-    border: 1px solid #E0E0E0
-    opacity: .9
+  .error-message 
+    color: #FF6565
+    padding: .5em .2em
+    height: 1em
+    font-size: .8em
+  
 
 .prevLink
   color: white
@@ -178,6 +168,10 @@
   flex-direction: column
   max-width: 95%
   align-items: center
+
+.loader
+  display: flex
+  max-width: 95%
 
 .BookingListComponent
   display: flex

@@ -2,8 +2,10 @@ import React,{useState, useEffect, useRef} from 'react';
 import Calendar from 'react-calendar';
 import 'react-calendar/dist/Calendar.css';
 import DotLoader from 'react-spinners/DotLoader'
+import {Link} from 'react-router-dom'
+import Button from 'react-bootstrap/Button'
 
-import BookingDataService from '../api/BookingDataService'
+import BookingDataService from '../../api/BookingDataService'
 
 /**
  * Represents the calendar page
@@ -14,8 +16,15 @@ export default function CalendarFunc(props) {
     let loading = useRef(true)
     const [reload, setReload] = useState(false) //behövs denna?
     const [dayList, setDayList] = useState([])
+    const [disabled, setDisabled] = useState(true)
+    const [selectedDate, setSelectedDate] = useState(null)
 
     useEffect(() => {
+        if (props.booking.date !== ''){
+            setSelectedDate(new Date(props.booking.date))
+            setDisabled(false)
+        }
+        
         BookingDataService.retrieveAllAvailableDays(props.booking.guests)
             .then(
                 (response) => {
@@ -30,9 +39,10 @@ export default function CalendarFunc(props) {
         return !(dayList.includes(date.toLocaleDateString()))
     }
 
-    function displayDate(date){
-        console.log(date)
+    function handleSelect(date){
         props.booking.date = date.toLocaleDateString()
+        props.booking.time = ''
+        setDisabled(false)
     }
 
     return (
@@ -45,9 +55,23 @@ export default function CalendarFunc(props) {
             tileDisabled={tileDisabled}
             minDate={new Date()}
             minDetail='month'
-            onChange={(value) => displayDate(value)}>
+            defaultValue={selectedDate}
+            onChange={(value) => handleSelect(value)}>
             </Calendar>
             }
+            <div>
+                <Link className='prevLink' to={'/guests'}>
+                    <Button>
+                        Tillbaka
+                    </Button>
+                </Link>
+                <Link className='nextLink' to={'/timelist'}>
+                    <Button disabled={disabled}>
+                        Nästa
+                    </Button>
+                </Link> 
+            </div>
+            
         </div>
     )
 }
