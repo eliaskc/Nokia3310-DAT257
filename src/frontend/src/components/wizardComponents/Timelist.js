@@ -47,13 +47,11 @@ export default function Timelist(props) {
 
     return (
         <div className="Timelist">
-            <div>
                 <DropdownButton title={dropdownTitle} id="dropdown-menu" onSelect={handleSelect}>
                     {timelist.map(n => (
                         <Dropdown.Item key={n.toString()} eventKey={n.slice(0, -3)}> {n.slice(0, -3)} </Dropdown.Item>
                     ))}
                 </DropdownButton>
-            </div>
             <div>
                 <Link className='prevLink' to={'/date'}>
                     <Button>
