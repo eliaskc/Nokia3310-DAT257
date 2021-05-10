@@ -38,13 +38,14 @@ function HomeComponent() {
                                     </div> : null
                                 }
                             </div>
+                            <DownloadInstructions />
                         </Route>
                         <Route path='/guests'>
                             <Wizard />
                         </Route>
                     </Switch>
                 </Router>
-                <DownloadInstructions />
+                
             </header>
         </div>
     );
