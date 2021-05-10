@@ -80,8 +80,8 @@ public class DatabaseController {
                 + "bookingID," + "guestName, " + "guestTelNr, " + "nrOfPeople, "
                 + "additionalInfo) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)");
 
-        Object[] params = new Object[] { booking.getBookingDate(), booking.getStartTime(), 0, booking.getGuestName(),
-                booking.getGuestTelNr(), booking.getNrOfPeople(), booking.getAdditionalInfo() };
+        Object[] params = new Object[] { booking.getBookingDate(), booking.getStartTime(), booking.getStartTime(), 0, 0,
+                booking.getGuestName(), booking.getGuestTelNr(), booking.getNrOfPeople(), booking.getAdditionalInfo() };
 
         // String sqlQuery = "INSERT INTO Tables (tableID, nrOfSeats) VALUES (150, 2)";
 
@@ -101,7 +101,7 @@ public class DatabaseController {
                 return rs.getTime(4);
             }
         };
-        return jdbcTemplate.query(sqlQuery,rowMapper,params);
+        return jdbcTemplate.query(sqlQuery, rowMapper, params);
     }
 
     /**
@@ -129,7 +129,7 @@ public class DatabaseController {
         String sqlQuery = ("SELECT DISTINCT ON(bookingID) * from BookingsView WHERE bookingDate = ? AND timeSlot = ? AND bookingID IS NOT NULL");
         Object[] params = new Object[] { date, time };
         RowMapper rowMapper = (RowMapper<Booking>) (rs, rownumber) -> new Booking(rs.getInt(5), rs.getString(6),
-                rs.getString(7), rs.getInt(8),  rs.getDate(1), rs.getTime(2).toLocalTime(), rs.getString(9));
+                rs.getString(7), rs.getInt(8), rs.getDate(1), rs.getTime(2).toLocalTime(), rs.getString(9));
         return jdbcTemplate.query(sqlQuery, rowMapper, params);
     }
 
@@ -156,7 +156,7 @@ public class DatabaseController {
 
     @Autowired
     public static Booking fetchBookingByTelNrDateTime(String telNr, Date date, LocalTime time) {
-        String sqlQuery = ("SELECT * FROM BookingsView WHERE guestTelNr= ? AND bookingDate = ? AND bookingTime = ?");
+        String sqlQuery = ("SELECT * FROM BookingsView WHERE guestTelNr= ? AND bookingDate = ? AND startTime = ?");
         Object[] params = new Object[] { telNr, date, time };
         return jdbcTemplate.queryForObject(sqlQuery, Booking.class, params);
     }

@@ -15,7 +15,6 @@ export default function Confirm(props) {
 
     function checkBookingComplete() {
         return !(props.booking.name === '' ||
-            props.booking.email === '' ||
             props.booking.tel === '' ||
             props.booking.guests === '' ||
             props.booking.date === '' ||
@@ -27,7 +26,6 @@ export default function Confirm(props) {
      */
     let booking = {
         guestName: props.booking.name,
-        guestEmail: props.booking.email,
         guestTelNr: props.booking.tel,
         nrOfPeople: props.booking.guests,
         bookingDate: props.booking.date,
@@ -63,9 +61,6 @@ export default function Confirm(props) {
                     <h2>Översikt</h2>
                     <h3 className="confirmName">
                         Namn: {props.booking.name}
-                    </h3>
-                    <h3 className="confirmEmail">
-                        E-post: {props.booking.email}
                     </h3>
                     <h3 className="confirmTel">
                         Telefonnummer: {props.booking.tel}
