@@ -74,17 +74,6 @@ public class BookingController {
     }
 
     /**
-     * Updates the specified booking with the provided booking
-     * @param id
-     * @param booking
-     */
-    @PutMapping("/bookings/{id}")
-    public ResponseEntity<Booking> updateBooking(@PathVariable long id, @RequestBody Booking booking) {
-        Booking b = bookings.saveBooking(booking);
-        return new ResponseEntity<>(b, HttpStatus.OK);
-    }
-
-    /**
      * Adds a new booking
      * 
      * The id must be 0, as it will be assigned by the database
@@ -120,6 +109,18 @@ public class BookingController {
     public int getNumberOfBookingByDateAndTime(@PathVariable Date date, @PathVariable String time) {
         Time sqlTime = Time.valueOf(time);
         return DatabaseController.fetchNumberOfBookingByDateAndTime(date,sqlTime);
+    }
+
+    /**
+     * Updates the booking with specified id with the values from updatedBooking
+     * @param id
+     * @param updatedBooking
+     * @return
+     */
+    @PutMapping("/bookings/{id}")
+    public int updateBooking(@PathVariable int id, @RequestBody Booking updatedBooking) {
+        System.out.println(updatedBooking.toString());
+        return DatabaseController.updateBooking(id,updatedBooking);
     }
 
 }
