@@ -57,7 +57,6 @@ public class BookingController {
      */
     @GetMapping("/bookings/{id}")
     public Booking getBooking(@PathVariable long id) {
-
         return bookings.getBooking(id);
     }
 
@@ -98,6 +97,29 @@ public class BookingController {
         //URI uri = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}")
                 //.buildAndExpand(b.getId()).toUri();
         //return ResponseEntity.created(uri).build();
+    }
+
+    @GetMapping("/bookings/date/{date}")
+    public List<Booking> getBookingByDate(@PathVariable Date date) {
+        return DatabaseController.fetchBookingsByDate(date);
+    }
+
+    @GetMapping("/bookings/date/{date}/{time}")
+    public List<Booking> getBookingByDateAndTime(@PathVariable Date date, @PathVariable String time) {
+        Time sqlTime = Time.valueOf(time);
+        return DatabaseController.fetchBookingsByDateAndTime(date,sqlTime);
+    }
+
+
+    @GetMapping("/timeslots/date/{date}")
+    public List<Time> getTimeSlotsByDate(@PathVariable Date date) {
+        return DatabaseController.fetchTimeSlotsByDate(date);
+    }
+
+    @GetMapping("/bookings/count/{date}/{time}")
+    public int getNumberOfBookingByDateAndTime(@PathVariable Date date, @PathVariable String time) {
+        Time sqlTime = Time.valueOf(time);
+        return DatabaseController.fetchNumberOfBookingByDateAndTime(date,sqlTime);
     }
 }
 

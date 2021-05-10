@@ -104,6 +104,57 @@ public class DatabaseController {
         return jdbcTemplate.update(sqlQuery, params);
     }
 
+    /**
+     * Fetches all timeslots for a specific date
+     */
+    @Autowired
+    public static List<Time> fetchTimeSlotsByDate(Date date) {
+        String sqlQuery = ("SELECT * FROM TimeSlots WHERE bookingDate = ? AND tableID = 1");
+        Object[] params = new Object[] {date};
+        RowMapper rowMapper = new RowMapper<Time>() {
+            @Override
+            public Time mapRow(ResultSet rs, int rownumber) throws SQLException {
+                return rs.getTime(4);
+            }};
+        return jdbcTemplate.query(sqlQuery,rowMapper,params);
+    }
+
+    /**
+     * Fetches all bookings for a specific date
+     */
+    @Autowired
+    public static List<Booking> fetchBookingsByDate(Date date) {
+        String sqlQuery = ("SELECT * FROM BookingsView WHERE bookingDate = ? AND guestEmail IS NOT NULL");
+        Object[] params = new Object[] {date};
+        RowMapper rowMapper = new RowMapper<Booking>() {
+            @Override
+            public Booking mapRow(ResultSet rs, int rownumber) throws SQLException {
+                return new Booking(rs.getString(5), rs.getString(4), rs.getString(6), rs.getInt(7),
+                        rs.getDate(1), rs.getTime(2).toLocalTime(), rs.getString(8));
+            }};
+        return jdbcTemplate.query(sqlQuery,rowMapper,params);
+    }
+
+    /**
+     * Fetches all bookings for a specific date and time
+     */
+    @Autowired
+    public static List<Booking> fetchBookingsByDateAndTime(Date date, Time time) {
+        String sqlQuery = ("SELECT DISTINCT ON(bookingID) * from BookingsView WHERE bookingDate = ? AND starttime = ? AND bookingID IS NOT NULL");
+        Object[] params = new Object[] {date,time};
+        RowMapper rowMapper = (RowMapper<Booking>) (rs, rownumber) -> new Booking(rs.getString(6), rs.getString(5), rs.getString(7), rs.getInt(8),
+                rs.getDate(1), rs.getTime(2).toLocalTime(), rs.getString(9));
+        return jdbcTemplate.query(sqlQuery,rowMapper,params);
+    }
+
+    @Autowired
+    public static int fetchNumberOfBookingByDateAndTime(Date date, Time time) {
+        String sqlQuery = ("SELECT COUNT(*) FROM occupiedtimeslots WHERE bookingDate = ? AND starttime = ?");
+        Object[] params = new Object[] {date,time};
+        return jdbcTemplate.queryForObject(sqlQuery,Integer.class,params);
+    }
+
+
     @Autowired
     public void setDataSource(DataSource dataSource) {
         this.jdbcTemplate = new JdbcTemplate(dataSource); 

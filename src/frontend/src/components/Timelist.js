@@ -29,7 +29,7 @@ export default function Timelist(props) {
                     setTimelist(response.data)
                 }
             )
-    }, [])
+    });
 
     function handleSelect(item){
         console.log(item)
