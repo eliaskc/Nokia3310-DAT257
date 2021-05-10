@@ -13,7 +13,7 @@ import java.util.List;
 @Service
 public class BookingsTest {
     @Getter private static List<Booking> bookings = new ArrayList<>();
-    private static long idCounter = 0;
+    private static int idCounter = 0;
     static {
         /*
         bookings.add(new Booking(++idCounter,new Date(),1,"email@email1.com"));
@@ -32,7 +32,7 @@ public class BookingsTest {
 
     public Booking getBooking(long id) {
         for (Booking b: bookings) {
-            if(id == b.getId()){
+            if(id == b.getBookingID()){
                 return b;
             }
         }
@@ -41,7 +41,7 @@ public class BookingsTest {
 
     public Booking deleteBooking(long id){
         for (Booking b: bookings) {
-            if(id == b.getId()){
+            if(id == b.getBookingID()){
                 bookings.remove(b);
                 return b;
             }
@@ -50,11 +50,11 @@ public class BookingsTest {
     }
 
     public Booking saveBooking(Booking booking) {
-        if(0 >= booking.getId()){
-            booking.setId(++idCounter);
+        if(0 >= booking.getBookingID()){
+            booking.setBookingID(++idCounter);
             bookings.add(booking);
         } else {
-            deleteBooking(booking.getId());
+            deleteBooking(booking.getBookingID());
             bookings.add(booking);
         }
         return null;

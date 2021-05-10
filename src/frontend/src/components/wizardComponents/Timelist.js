@@ -37,7 +37,7 @@ export default function Timelist(props) {
                     setTimelist(response.data)
                 }
             )
-    }, [])
+    });
 
     function handleSelect(item){
         props.booking.time = item

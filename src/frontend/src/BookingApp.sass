@@ -18,8 +18,7 @@
   justify-content: center
   font-size: calc(10px + 2vmin)
   color: black
-  
-  
+
   .App-header
     backdrop-filter: blur(5px)
     top: 0
@@ -38,24 +37,20 @@
     font-size: calc(10px + 2vmin)
     color: black
 
-
   .text_box
     background-color: white
-    margin-top: 10px
-    margin: 0 auto
     padding-right: 50px
     padding-left: 50px
     padding-top: 30px
     padding-bottom: 20px
     border: 1px solid #E0E0E0
     opacity: .9
+    width: 80%
     min-width: 30vw
     width: 40vw
     border-radius: 25px
- 
-    
 
-  .btn-primary 
+  .btn-primary
     color: #ebebeb
     background-color: #5e92da
     background-color: cutom-color
@@ -70,21 +65,17 @@
     font-size: 25px
     font-family: 'Roboto', sans-serif
 
-    
-
-  .contact-btn 
+  .contact-btn
     color: #5e92da
     background-color: #ebebeb
     background-color: cutom-color
     border-color: #ebebeb
     border-color: cutom-cor
-  
+
   #dropdown-menu
     font-size: 33px
     border-radius: 10px
 
-    
- 
   .dropdown .dropdown-menu
     background-color: transparent
     width: calc(100% - 29px)
@@ -102,7 +93,6 @@
     margin-top: -10px
     padding-: 10px
     color: #5C5858
-
 
   h2
     color: #5C5858
@@ -132,7 +122,6 @@
     font-size: .8em
   
 
-
 .prevLink
   color: white
   margin: 10px
@@ -148,9 +137,7 @@
   font-size: 24px
   font-family: 'Roboto', sans-serif
 
-  
-
-.react-calendar__month-view__weekdays__weekday abbr[title] 
+.react-calendar__month-view__weekdays__weekday abbr[title]
   font-size: 15px
   color: #5C5858
   text-decoration: none
@@ -159,7 +146,6 @@
 .react-calendar__tile--active
   background: #004E7C
   color: white
-  
 
 .react-calendar__tile--active:enabled:hover,
 .react-calendar__tile--active:enabled:focus
@@ -177,7 +163,6 @@
 .react-calendar
   margin: 20px
 
-
 .calendar
   display: flex
   flex-direction: column
@@ -187,3 +172,49 @@
 .loader
   display: flex
   max-width: 95%
+
+.BookingListComponent
+  display: flex
+  flex-direction: column
+  align-items: center
+  text-align: center
+
+  form
+    width: 100%
+    display: flex
+    flex-direction: row
+    align-items: center
+    margin-top: 20px
+    button, a
+      margin: 20px
+
+  .table-responsive
+    width: 60vw
+    box-shadow: 2px 2px 10px rgba(0,0,0,0.5) 
+    margin: 20px
+
+
+.BookingTimeSlotComponent
+  td
+    text-align: center
+  .closed
+    display: none
+  .expanded
+    left: 25vw
+    margin-top: 50px
+    width: 50vw
+    position: absolute
+    text-align: center
+    thead tr th
+      border: none
+  .booking
+    margin-top: 10px
+    border: 1px solid black
+    td
+      border: none
+  .booking:hover
+    background-color: #b0b0b0
+    cursor: pointer
+
+.BookingTimeSlotComponent.expandedParent
+  height: 50vh

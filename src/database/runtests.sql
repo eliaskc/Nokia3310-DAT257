@@ -27,7 +27,6 @@ INSERT INTO Tables VALUES (20, 2);
 /*Adding times until 22:30 since those will be booked by the last bookable time of 21:00.
 The limit of bookingtimes is set in Available reservations(?)*/
 
-INSERT INTO BookingTimes VALUES (CURRENT_DATE + INTERVAL '-1 days', '17:00:00');
 INSERT INTO BookingTimes VALUES (CURRENT_DATE, '17:00:00');
 INSERT INTO BookingTimes VALUES (CURRENT_DATE, '17:30:00');
 INSERT INTO BookingTimes VALUES (CURRENT_DATE, '18:00:00');
@@ -198,6 +197,7 @@ INSERT INTO BookingTimes VALUES (CURRENT_DATE + INTERVAL '13 days', '22:00:00');
 INSERT INTO BookingTimes VALUES (CURRENT_DATE + INTERVAL '13 days', '22:30:00');
 
 --Inserting bookings, each booking books 4 timeslots
+/*
 INSERT INTO Bookings VALUES ('Ida', 'ida@live.com', '0761022440', 4, CURRENT_DATE, '17:00:00');
 INSERT INTO Bookings VALUES ('Ida', 'ida@live.com', '0761022440', 4, CURRENT_DATE, '17:30:00');
 INSERT INTO Bookings VALUES ('Ida', 'ida@live.com', '0761022440', 4, CURRENT_DATE, '18:00:00');
@@ -232,7 +232,9 @@ INSERT INTO BookedTables VALUES (4, CURRENT_DATE, '18:30:00', 'lisa@live.com');
 INSERT INTO BookedTables VALUES (4, CURRENT_DATE, '19:00:00', 'lisa@live.com');
 
 --INSERT INTO BookedTables VALUES (1, CURRENT_DATE, '17:30:00', 'lisa@live.com');
+*/
 
-
-INSERT INTO BookingsView VALUES (CURRENT_DATE, '17:00:00', 1, 'dieter@live.com', 'Dieter',  0761022445, 2);
-INSERT INTO BookingsView VALUES (CURRENT_DATE, '21:00:00', 1, 'elias@live', 'Elias',  0761099883, 2);
+INSERT INTO BookingsView VALUES (CURRENT_DATE, '17:00:00', 1, 1, 'dieter@live.com', 'Dieter',  0761022445, 2, 'some info');
+INSERT INTO BookingsView VALUES (CURRENT_DATE, '21:00:00', 1, 1, 'elias@live.com', 'Elias',  0761099883, 2);
+INSERT INTO BookingsView VALUES (CURRENT_DATE, '18:00:00', 1, 1, 'ida@live.com', 'Ida',  0761099883, 4);
+INSERT INTO BookingsView VALUES (CURRENT_DATE, '21:00:00', 1, 1, 'lisa@live.com', 'Lisa',  0761099883, 2, 'some other info');

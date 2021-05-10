@@ -40,8 +40,8 @@ public class DatabaseController {
         return jdbcTemplate.query("select * from Bookings", new RowMapper<Booking>() {
             @Override
             public Booking mapRow(ResultSet rs, int rownumber) throws SQLException {
-                return new Booking(rs.getString(1), rs.getString(2), rs.getString(3), rs.getInt(4),
-                        rs.getDate(5), rs.getTime(6).toLocalTime(), rs.getString(7));
+                return new Booking(rs.getInt(4), rs.getString(6), rs.getString(5), rs.getString(7),
+                        rs.getInt(8), rs.getDate(1), rs.getTime(2).toLocalTime(), rs.getString(9));
             }
         });
     }
@@ -93,8 +93,8 @@ public class DatabaseController {
      */
     @Autowired
     public static int insertNewBooking(Booking booking) {
-        String sqlQuery = ("INSERT INTO BookingsView (" + "bookingDate, " + "startTime, " + "tableID, " + "guestEmail, " +
-            "guestName, " + "guestTelNr, " + "nrOfPeople, " + "additionalInfo) VALUES (?, ?, ?, ?, ?, ?, ?, ?)" );
+        String sqlQuery = ("INSERT INTO BookingsView (" + "bookingDate, " + "startTime, " + "tableID, " + "bookingID," + "guestEmail, " +
+            "guestName, " + "guestTelNr, " + "nrOfPeople, " + "additionalInfo) VALUES (?, ?, ?, 0, ?, ?, ?, ?, ?)" );
         
         Object[] params = new Object[] {booking.getBookingDate(),booking.getStartTime(), 0, booking.getGuestEmail(), 
             booking.getGuestName(), booking.getGuestTelNr(), booking.getNrOfPeople(), booking.getAdditionalInfo()};
@@ -104,9 +104,84 @@ public class DatabaseController {
         return jdbcTemplate.update(sqlQuery, params);
     }
 
+    /**
+     * Fetches all timeslots for a specific date
+     */
+    @Autowired
+    public static List<Time> fetchTimeSlotsByDate(Date date) {
+        String sqlQuery = ("SELECT * FROM TimeSlots WHERE bookingDate = ? AND tableID = 1");
+        Object[] params = new Object[] {date};
+        RowMapper rowMapper = new RowMapper<Time>() {
+            @Override
+            public Time mapRow(ResultSet rs, int rownumber) throws SQLException {
+                return rs.getTime(4);
+            }};
+        return jdbcTemplate.query(sqlQuery,rowMapper,params);
+    }
+
+    /**
+     * Fetches all bookings for a specific date
+     */
+    @Autowired
+    public static List<Booking> fetchBookingsByDate(Date date) {
+        String sqlQuery = ("SELECT * FROM BookingsView WHERE bookingDate = ? AND guestEmail IS NOT NULL");
+        Object[] params = new Object[] {date};
+        RowMapper rowMapper = new RowMapper<Booking>() {
+            @Override
+            public Booking mapRow(ResultSet rs, int rownumber) throws SQLException {
+                return new Booking(rs.getInt(4), rs.getString(6), rs.getString(5), rs.getString(7),
+                        rs.getInt(8), rs.getDate(1), rs.getTime(2).toLocalTime(), rs.getString(9));
+            }};
+        return jdbcTemplate.query(sqlQuery,rowMapper,params);
+    }
+
+    /**
+     * Fetches all bookings for a specific date and time
+     */
+    @Autowired
+    public static List<Booking> fetchBookingsByDateAndTime(Date date, Time time) {
+        String sqlQuery = ("SELECT DISTINCT ON(bookingID) * from BookingsView WHERE bookingDate = ? AND starttime = ? AND bookingID IS NOT NULL");
+        Object[] params = new Object[] {date,time};
+        RowMapper rowMapper = (RowMapper<Booking>) (rs, rownumber) -> new Booking(rs.getInt(4), rs.getString(6), rs.getString(5), rs.getString(7),
+                rs.getInt(8), rs.getDate(1), rs.getTime(2).toLocalTime(), rs.getString(9));
+        return jdbcTemplate.query(sqlQuery,rowMapper,params);
+    }
+
+    @Autowired
+    public static int fetchNumberOfBookingByDateAndTime(Date date, Time time) {
+        String sqlQuery = ("SELECT COUNT(*) FROM occupiedtimeslots WHERE bookingDate = ? AND starttime = ?");
+        Object[] params = new Object[] {date,time};
+        return jdbcTemplate.queryForObject(sqlQuery,Integer.class,params);
+    }
+
+    @Autowired public static int deleteBookingByID(int bookingID){
+        String sqlQuery = ("DELETE FROM BookingsView WHERE bookingID = ?");
+        Object[] params = new Object[] {bookingID};
+        return jdbcTemplate.update(sqlQuery,params);
+    }
+
+    @Autowired public static int deleteBookingByEmail(String email){
+        String sqlQuery = ("DELETE FROM BookingsView WHERE guestemail = ?");
+        Object[] params = new Object[] {email};
+        return jdbcTemplate.update(sqlQuery,params);
+    }
+
+    @Autowired public static Booking fetchBookingByEmailDateTime(String email,Date date, LocalTime time){
+        String sqlQuery = ("SELECT FROM BookingsView WHERE guestemail = ? AND bookingDate = ? AND bookingTime = ?");
+        Object[] params = new Object[] {email,date,time};
+        return jdbcTemplate.queryForObject(sqlQuery,Booking.class,params);
+    }
+
+    @Autowired
+    public static int updateBooking(int bookingID, Booking updatedBooking) {
+        deleteBookingByID(bookingID);
+        return insertNewBooking(updatedBooking);
+    }
+
+
     @Autowired
     public void setDataSource(DataSource dataSource) {
-        this.jdbcTemplate = new JdbcTemplate(dataSource); 
+        this.jdbcTemplate = new JdbcTemplate(dataSource);
     }
 
     /** 
@@ -115,7 +190,6 @@ public class DatabaseController {
      */
     @Scheduled(cron = "0 0 0 * * *")
 	void dailyInsertBookingTimesDB() throws InterruptedException {
-		System.out.println("LOL*");
         String insertSqlQuery = ("INSERT INTO BookingTimes (" + "bookingDate, " + "startTime) VALUES (?, ?);");
         LocalDate dateToAdd = LocalDate.now().plusWeeks(3);
         List<LocalTime> bookingTimes = Arrays.asList(LocalTime.parse("17:00:00"), LocalTime.parse("17:30:00"), LocalTime.parse("18:00:00"), LocalTime.parse("18:30:00"),
@@ -133,7 +207,6 @@ public class DatabaseController {
      */
     @Scheduled(cron = "0 0 0 * * *")
 	void dailyDeleteBookingTimesDB() throws InterruptedException {
-		System.out.println("asdfa");
         String deleteSqlQuery = ("DELETE FROM BookingTimes WHERE bookingdate =" + "?" + " AND startTime =" + "?"+ ";");
         LocalDate dateToDelete = LocalDate.now().minusDays(3);
         List<LocalTime> bookingTimes = Arrays.asList(LocalTime.parse("17:00:00"), LocalTime.parse("17:30:00"), LocalTime.parse("18:00:00"), LocalTime.parse("18:30:00"),
