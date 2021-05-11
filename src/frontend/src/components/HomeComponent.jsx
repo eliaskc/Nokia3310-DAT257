@@ -1,18 +1,32 @@
 import Button from 'react-bootstrap/Button'
-import React, { useState, useRef } from 'react'
+import React, { useState, useRef, useEffect } from 'react'
 import Modal from 'react-bootstrap/Modal'
 import Form from 'react-bootstrap/Form'
 import { BrowserRouter as Router, Route, Switch, Link, Redirect } from 'react-router-dom'
 import DownloadInstructions from './DownloadInstructions';
-import StaffLogin from './StaffLogin'
 import Wizard from './Wizard'
+import BookingDataService from '../api/BookingDataService'
 
 /**
  * Component for the Home page 
  */
 function HomeComponent() {
+    const [userPass, setUserPass] = useState('')
     const [showLogin, setShowLogin] = useState(false)
     const [showContact, setShowContact] = useState(false)
+
+    function comparePass(){
+        BookingDataService.checkPass()
+            .then(
+                (response) => {
+                    console.log(userPass)
+                    if (userPass === response.data){
+                        console.log('password matched')
+                    }
+                }
+            )
+    }
+
     return (
         <div className="App">
             <div className='background-image'>
@@ -46,10 +60,11 @@ function HomeComponent() {
                                 <Modal.Title>Skriv in lösenord</Modal.Title>
                             </Modal.Header>
                             <Modal.Body className='Popup'>
-                                <Form>
+                                <Form onSubmit={comparePass}>
                                     <Form.Control 
                                         type='password'
                                         name='password'
+                                        onChange={e => setUserPass(e.target.value)}
                                     />
                                     <Button>
                                         Bekräfta	

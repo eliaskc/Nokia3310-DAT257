@@ -8,6 +8,8 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import javax.xml.crypto.Data;
+
+
 import java.net.URI;
 import java.sql.Time;
 import java.time.LocalTime;
@@ -122,6 +124,12 @@ public class BookingController {
         System.out.println(updatedBooking.toString());
         return DatabaseController.updateBooking(id,updatedBooking);
     }
+
+    @GetMapping("/checkpass")
+    public String checkPass() {
+        String pass = "12345";
+        return pass;
+    }  
 
 }
 

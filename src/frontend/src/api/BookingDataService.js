@@ -90,7 +90,9 @@ class BookingDataService {
         return axios.get(`http://localhost:8080/bookings/count/${date}/${time}`);
     }
 
-
+    checkPass(){
+        return axios.get('http://localhost:8080/checkpass')
+    }
 
 }
 
