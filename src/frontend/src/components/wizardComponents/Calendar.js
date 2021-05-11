@@ -14,7 +14,7 @@ import BookingDataService from '../../api/BookingDataService'
  */
 export default function CalendarFunc(props) {
     let loading = useRef(true)
-    const [reload, setReload] = useState(false) //behövs denna?
+    const [reload, setReload] = useState(false)
     const [dayList, setDayList] = useState([])
     const [disabled, setDisabled] = useState(true)
     const [selectedDate, setSelectedDate] = useState(null)
@@ -33,7 +33,7 @@ export default function CalendarFunc(props) {
                     setReload(true)
                 }
             )
-    }, [props.booking.guests])
+    }, [])
 
     function tileDisabled({date}) {
         console.log(dayList)

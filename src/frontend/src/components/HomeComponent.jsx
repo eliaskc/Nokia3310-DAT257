@@ -1,6 +1,6 @@
 import Button from 'react-bootstrap/Button'
-import React, { useState, useRef } from 'react'
-import { BrowserRouter as Router, Route, Switch, Link, Redirect } from 'react-router-dom'
+import React, { useState } from 'react'
+import { BrowserRouter as Router, Route, Switch } from 'react-router-dom'
 import DownloadInstructions from './DownloadInstructions';
 import Wizard from './Wizard'
 
@@ -21,7 +21,7 @@ function HomeComponent() {
                     <Switch>
                         <Route exact path='/'>
                             <Button href="/guests">Boka bord</Button>
-                            <Button href="/bookings">Se bokningar</Button>
+                            <Button href="/bookings">Se bokningar (för personal)</Button>
                             <div>
                                 <Button className='contact-btn' onClick={() => setShow(!show)}>Kontakt</Button>
 
