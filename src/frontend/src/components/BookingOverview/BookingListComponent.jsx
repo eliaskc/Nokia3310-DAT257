@@ -23,7 +23,7 @@ function BookingListComponent() {
             .then(
                 (response) => {
                     setTimeSlots(response.data);
-                    setDate(inputDate);
+                    setDate(inputDate)
                 }
             );
     }
