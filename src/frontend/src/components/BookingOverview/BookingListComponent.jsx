@@ -5,6 +5,7 @@ import moment from 'moment'
 import { Formik, Form, Field } from 'formik'
 import BookingDataService from '../../api/BookingDataService.js'
 import BookingTimeSlotComponent from './BookingTimeSlotComponent.jsx';
+import BookingInputComponent from './BookingInputComponent.jsx';
 
 /**
  * Component that shows a list of all bookings
@@ -49,12 +50,14 @@ function BookingListComponent() {
                                     Välj datum:
                                     <Field className="form-control" type="date" name="date" />
                                 </fieldset>
-                                <Button variant="primary" className="btn btn-success" type="submit" >Uppdatera datum</Button>
+                                <Button variant="primary" className="btn btn-success" type="submit" >Ändra datum</Button>
                             </Form>
                         )
                     }
                 </Formik>
-                <h2>Visar tider för: {date}</h2>
+                <Button variant="primary" className="btn btn-success" >Lägg till bokning</Button>
+                <BookingInputComponent/>
+                <h2>Visar bokningar för: {date}</h2>
             </div>
             <Table responsive>
                 <thead>
