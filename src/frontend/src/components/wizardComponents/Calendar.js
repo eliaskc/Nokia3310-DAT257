@@ -36,6 +36,7 @@ export default function CalendarFunc(props) {
     }, [props.booking.guests])
 
     function tileDisabled({date}) {
+        console.log(dayList)
         return !(dayList.includes(date.toLocaleDateString()))
     }
 

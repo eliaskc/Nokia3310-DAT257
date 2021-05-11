@@ -11,10 +11,10 @@ CREATE OR REPLACE FUNCTION insertBooking() RETURNS trigger AS $insertBooking$
     BEGIN
         tempBookingID := (SELECT COALESCE(MAX(bookingID),0) FROM Bookings) + 1;
 
-        INSERT INTO Bookings VALUES (tempBookingID, NEW.guestName, NEW.guestEmail, NEW.guestTelNr, NEW.nrOfPeople, NEW.bookingDate, NEW.startTime + INTERVAL '90 minutes', NEW.additionalInfo);
-        INSERT INTO Bookings VALUES (tempBookingID, NEW.guestName, NEW.guestEmail, NEW.guestTelNr, NEW.nrOfPeople, NEW.bookingDate, NEW.startTime + INTERVAL '60 minutes', NEW.additionalInfo);
-        INSERT INTO Bookings VALUES (tempBookingID, NEW.guestName, NEW.guestEmail, NEW.guestTelNr, NEW.nrOfPeople, NEW.bookingDate, NEW.startTime + INTERVAL '30 minutes', NEW.additionalInfo);
-        INSERT INTO Bookings VALUES (tempBookingID, NEW.guestName, NEW.guestEmail, NEW.guestTelNr, NEW.nrOfPeople, NEW.bookingDate, NEW.startTime, NEW.additionalInfo);
+        INSERT INTO Bookings VALUES (tempBookingID, NEW.guestName, NEW.guestTelNr, NEW.nrOfPeople, NEW.bookingDate, NEW.startTime, NEW.startTime + INTERVAL '90 minutes', NEW.additionalInfo);
+        INSERT INTO Bookings VALUES (tempBookingID, NEW.guestName, NEW.guestTelNr, NEW.nrOfPeople, NEW.bookingDate, NEW.startTime, NEW.startTime + INTERVAL '60 minutes', NEW.additionalInfo);
+        INSERT INTO Bookings VALUES (tempBookingID, NEW.guestName, NEW.guestTelNr, NEW.nrOfPeople, NEW.bookingDate, NEW.startTime, NEW.startTime + INTERVAL '30 minutes', NEW.additionalInfo);
+        INSERT INTO Bookings VALUES (tempBookingID, NEW.guestName, NEW.guestTelNr, NEW.nrOfPeople, NEW.bookingDate, NEW.startTime, NEW.startTime, NEW.additionalInfo);
         
         --gör exception som fångar upp om man försöker boka in timeslots senare än 21
         seatsLeft = NEW.nrOfPeople;
@@ -24,13 +24,13 @@ CREATE OR REPLACE FUNCTION insertBooking() RETURNS trigger AS $insertBooking$
             IF EXISTS (
                 SELECT *
                 FROM AvailableTimeSlots AS ats
-                WHERE ats.tableID=tempTableID AND ats.bookingDate=NEW.bookingDate AND ats.startTime=NEW.startTime
+                WHERE ats.tableID=tempTableID AND ats.bookingDate=NEW.bookingDate AND ats.timeSlot=NEW.startTime
             )
             THEN 
-                INSERT INTO BookedTables VALUES (tempTableID, NEW.bookingDate, NEW.startTime + INTERVAL '90 minutes', NEW.guestEmail);
-                INSERT INTO BookedTables VALUES (tempTableID, NEW.bookingDate, NEW.startTime + INTERVAL '60 minutes', NEW.guestEmail);
-                INSERT INTO BookedTables VALUES (tempTableID, NEW.bookingDate, NEW.startTime + INTERVAL '30 minutes', NEW.guestEmail);
-                INSERT INTO BookedTables VALUES (tempTableID, NEW.bookingDate, NEW.startTime, NEW.guestEmail);
+                INSERT INTO BookedTables VALUES (tempTableID, NEW.bookingDate, NEW.startTime + INTERVAL '90 minutes', NEW.guestTelNr);
+                INSERT INTO BookedTables VALUES (tempTableID, NEW.bookingDate, NEW.startTime + INTERVAL '60 minutes', NEW.guestTelNr);
+                INSERT INTO BookedTables VALUES (tempTableID, NEW.bookingDate, NEW.startTime + INTERVAL '30 minutes', NEW.guestTelNr);
+                INSERT INTO BookedTables VALUES (tempTableID, NEW.bookingDate, NEW.startTime, NEW.guestTelNr);
                 seatsLeft = seatsLeft-2;
             
             END IF;
@@ -44,7 +44,7 @@ $insertBooking$ LANGUAGE plpgsql;
 
 CREATE OR REPLACE FUNCTION deleteBooking() RETURNS trigger AS $deleteBooking$
     BEGIN
-        DELETE FROM Bookings WHERE OLD.bookingID = bookingID OR OLD.guestEmail = guestEmail;
+        DELETE FROM Bookings WHERE OLD.bookingID = bookingID OR OLD.guestTelNr = guestTelNr;
         RETURN OLD;
     END 
 $deleteBooking$ LANGUAGE plpgsql;
