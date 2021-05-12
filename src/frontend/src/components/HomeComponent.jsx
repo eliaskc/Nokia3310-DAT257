@@ -1,31 +1,16 @@
 import Button from 'react-bootstrap/Button'
-import React, { useState, useRef, useEffect } from 'react'
-import Modal from 'react-bootstrap/Modal'
-import Form from 'react-bootstrap/Form'
-import { BrowserRouter as Router, Route, Switch, Link, Redirect } from 'react-router-dom'
+import React, { useState } from 'react'
+import { BrowserRouter as Router, Route, Switch } from 'react-router-dom'
 import DownloadInstructions from './DownloadInstructions';
 import Wizard from './Wizard'
-import BookingDataService from '../api/BookingDataService'
+import LoginForm from './LoginForm'
 
 /**
  * Component for the Home page 
  */
 function HomeComponent() {
-    const [userPass, setUserPass] = useState('')
     const [showLogin, setShowLogin] = useState(false)
     const [showContact, setShowContact] = useState(false)
-
-    function comparePass(){
-        BookingDataService.checkPass()
-            .then(
-                (response) => {
-                    console.log(userPass)
-                    if (userPass === response.data){
-                        console.log('password matched')
-                    }
-                }
-            )
-    }
 
     return (
         <div className="App">
@@ -33,7 +18,9 @@ function HomeComponent() {
                 <div className="blur" />
             </div>
             <header className="App-header">
-                <img src="/hamncafet_logo.png" alt="Hamncafét logga" className="main_logo" />
+                <a href='/'>
+                    <img src="/hamncafet_logo.png" alt="Hamncafét logga" className="main_logo"/>
+                </a>
 
                 <Router>
                     <Switch>
@@ -41,6 +28,7 @@ function HomeComponent() {
                             <Button href="/guests">Boka bord</Button>
                             <Button href="/bookings">Se bokningar</Button>
                             <Button className='login-btn' onClick={() => setShowLogin(true)}>🔑</Button>
+
                             <div>
                                 <Button className='contact-btn' onClick={() => setShowContact(!showContact)}>Kontakt</Button>
                                 {showContact ? 
@@ -55,31 +43,20 @@ function HomeComponent() {
                                     </div>
                                 </div> : null}
                             </div>
-                            <Modal show={showLogin} onHide={() => setShowLogin(false)}>
-                            <Modal.Header closeButton>
-                                <Modal.Title>Skriv in lösenord</Modal.Title>
-                            </Modal.Header>
-                            <Modal.Body className='Popup'>
-                                <Form onSubmit={comparePass}>
-                                    <Form.Control 
-                                        type='password'
-                                        name='password'
-                                        onChange={e => setUserPass(e.target.value)}
-                                    />
-                                    <Button>
-                                        Bekräfta	
-                                    </Button>
-                                </Form>
-                            </Modal.Body>
-                        </Modal>
-                        <DownloadInstructions />
+                            
+                            {showLogin ? 
+                            <LoginForm showLoginProp={showLogin} setShowLoginProp={setShowLogin}/>
+                            : null}
+
+                            <DownloadInstructions/>
                         </Route>
+
                         <Route path='/guests'>
                             <Wizard/>
                         </Route>
+
                     </Switch>
                 </Router>
-                
             </header>
         </div>
     );

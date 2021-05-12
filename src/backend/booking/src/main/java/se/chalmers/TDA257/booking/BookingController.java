@@ -9,6 +9,9 @@ import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import javax.xml.crypto.Data;
 
+import com.auth0.jwt.JWT;
+import com.auth0.jwt.algorithms.Algorithm;
+import com.auth0.jwt.exceptions.JWTCreationException;
 
 import java.net.URI;
 import java.sql.Time;
@@ -125,11 +128,35 @@ public class BookingController {
         return DatabaseController.updateBooking(id,updatedBooking);
     }
 
-    @GetMapping("/checkpass")
-    public String checkPass() {
-        String pass = "12345";
-        return pass;
-    }  
+    @GetMapping("/checkpassword")
+    public Boolean checkPassword(String password) {
+        String pass = System.getenv("BookingAppPassword");
+        if (pass == null){
+            System.out.println("A password is not set in environment variables");
+            return false;
+        }
+        createJWT();
+        return pass.equals(password);
+    }
 
+    @GetMapping("/checkauthorizeuser")
+    public Boolean checkAuthorizeUser(){
+        return true;
+    }
+
+    public void createJWT(){
+        try {
+            Algorithm algorithm = Algorithm.HMAC256("secret");
+            String token = JWT.create()
+                .withIssuer("auth0")
+                .sign(algorithm);
+            System.out.println(token);
+        } catch (JWTCreationException exception){
+            System.out.println("Invalid signing configuration");
+        }
+    }
+
+    public Boolean verifyJWT(){
+        return true;
+    }
 }
-

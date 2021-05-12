@@ -15,7 +15,6 @@ export default function Guests(props) {
     const handleShow = () => setShow(true);
 
     if (isChrome) {
-        console.log('Det här är chrome');
         return (
             <>
                 <Button className='instructions-lnk' onClick={handleShow}>
@@ -53,7 +52,6 @@ export default function Guests(props) {
         )
     } 
     if (is_safari ) {
-        console.log('Det här är safari')
         return (
             <>
                 <Button className='instructions-lnk' onClick={handleShow}>
