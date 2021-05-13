@@ -168,9 +168,10 @@ public class BookingController {
     }
 
     public String createJWT(){
-        LocalDate date = LocalDate.now().plusDays(1);
+        LocalDate date = LocalDate.now();
         ZoneId zoneId = ZoneId.systemDefault();
         long epoch = date.atStartOfDay(zoneId).toEpochSecond();
+        epoch = (epoch + 86400);
 
         try {
             Algorithm algorithm = Algorithm.HMAC256("LFThe3UVEK");
