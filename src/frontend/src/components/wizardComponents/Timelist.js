@@ -4,6 +4,7 @@ import DropdownButton from 'react-bootstrap/DropdownButton';
 import BookingDataService from '../../api/BookingDataService.js'
 import { Link } from 'react-router-dom'
 import Button from 'react-bootstrap/Button'
+import moment from 'moment';
 
 /**
  * Represents the page for selecting time
@@ -22,7 +23,7 @@ export default function Timelist(props) {
         if (props.booking.date !== dateTime.toLocaleDateString()) {
             dateTime.setTime(0, 0, 0, 0)
         }
-        return dateTime.toLocaleTimeString()
+        return moment(dateTime).format('HH:mm:ss')
     }
 
     useEffect(() => {
@@ -37,7 +38,7 @@ export default function Timelist(props) {
                     setTimelist(response.data)
                 }
             )
-    });
+    },[]);
 
     function handleSelect(item) {
         props.booking.time = item
