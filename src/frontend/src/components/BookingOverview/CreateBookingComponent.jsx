@@ -12,14 +12,14 @@ export default function CreateBookingComponent(props) {
     /**
      * Javascript object created with the values of props, in order for the backend to be able to handle it
      */
-    const [booking, setBooking] = useState({
+    let booking = {
         guestName: '',
         guestTelNr: '',
         nrOfPeople: 0,
         bookingDate: '',
         startTime: '',
         additionalInfo: ''
-    })
+    };
     const [showModal, setShowModal] = useState(true);
     const [dateDisabled, setDateDisabled] = useState(true);
     const [timeDisabled, setTimeDisabled] = useState(true);
@@ -34,20 +34,36 @@ export default function CreateBookingComponent(props) {
     }
 
     function insertBooking() {
-        BookingDataService.createBooking(booking).catch(error => {
-            alert('Någonting gick fel. Försök igen senare.')
-        })
+        if (!checkBookingComplete)
+            alert('Det saknas information')
+        else
+            BookingDataService.createBooking(booking).then(() => {
+                handleCloseModal();
+                window.location.reload();
+            }
+            ).catch(error => {
+                alert('Någonting gick fel. Försök igen senare.')
+            })
     }
 
+    function checkBookingComplete() {
+        return !(
+            booking.guestName === '' ||
+            booking.guestTelNr === '' ||
+            booking.nrOfPeople === 0 ||
+            booking.bookingDate === '' ||
+            booking.startTime === ''
+        )
+    };
+
     function saveValues(values) {
-        setBooking({
-            guestName: values.name,
-            guestTelNr: values.tel,
-            nrOfPeople: values.guests,
-            bookingDate: values.date,
-            startTime: values.time,
-            additionalInfo: values.info
-        });
+        booking.guestName = values.name
+        booking.guestTelNr = values.tel
+        booking.nrOfPeople = values.guests
+        booking.bookingDate = values.date
+        booking.startTime = values.time
+        booking.additionalInfo = values.info
+
     }
 
     //If the date we are trying to get times for is today, input the current time
@@ -70,7 +86,7 @@ export default function CreateBookingComponent(props) {
     }
 
     function fetchAvailableTimes(date) {
-        BookingDataService.retrieveAllAvailableTimes(date, getDateTime(date), booking.guests)
+        BookingDataService.retrieveAllAvailableTimes(date, getDateTime(date), booking.nrOfPeople)
             .then(
                 (response) => {
                     setTimeList(response.data);
@@ -124,7 +140,7 @@ export default function CreateBookingComponent(props) {
                     onSubmit={(values, { setSubmitting }) => {
                         setSubmitting(true);
                         saveValues(values);
-                        insertBooking()
+                        insertBooking();
                         setSubmitting(false);
                     }}
                 >
@@ -227,10 +243,10 @@ export default function CreateBookingComponent(props) {
                                     <div className="error-message">{errors.info}</div>
                                 ) : null}
                             </Form.Group>
-                            <Button variant='danger' onClick={handleCloseModal}>
+                            <Button variant='danger' onClick={() => handleCloseModal()}>
                                 Avbryt
                             </Button>
-                            <Button variant='primary' type='submit' disabled={isSubmitting}>
+                            <Button variant='primary' type="submit">
                                 Bekräfta
                             </Button>
                         </Form>
