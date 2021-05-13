@@ -94,6 +94,10 @@ class BookingDataService {
         return axios.get('http://localhost:8080/checkpassword', {params: {'password': password}})
     }
 
+    checkAuthorizeUser(jwt){
+        return axios.get('http://localhost:8080/checkauthorizeuser', {params: {'jwt': jwt}})
+    }
+
 }
 
 export default new BookingDataService();

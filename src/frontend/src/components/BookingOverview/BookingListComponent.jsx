@@ -5,17 +5,30 @@ import moment from 'moment'
 import { Formik, Form, Field } from 'formik'
 import BookingDataService from '../../api/BookingDataService.js'
 import BookingTimeSlotComponent from './BookingTimeSlotComponent.jsx';
+import {useHistory} from 'react-router-dom'
 
 /**
  * Component that shows a list of all bookings
  */
 function BookingListComponent() {
+    const history = useHistory();
     const [timeSlots, setTimeSlots] = useState([]);
     const [date, setDate] = useState(moment(new Date()).format('YYYY-MM-DD'));
 
-    console.log(localStorage.getItem('token'))
-
     useEffect(() => {
+        BookingDataService.checkAuthorizeUser(localStorage.getItem('token'))
+            .then(
+                (response) => {
+                    if (response.data !== true){
+                        console.log('not authorized!!!')
+                        history.push('/')
+                        history.go()
+                    } else {
+                        console.log('Authorized! yipeee')
+                    }
+                }
+            )
+
         refreshTimeSlots(date);
     }, [date]);
 
