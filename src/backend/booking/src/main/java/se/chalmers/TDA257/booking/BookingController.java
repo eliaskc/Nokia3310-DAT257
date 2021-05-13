@@ -150,16 +150,19 @@ public class BookingController {
 
     @GetMapping("/checkauthorizeuser")
     public Boolean checkAuthorizeUser(String jwt){
+        //If the user doesn't have a JWT saved and tries to access restricted pages
+        if (jwt == null){
+            return false;
+        }
+
         try {
             Algorithm algorithm = Algorithm.HMAC256("LFThe3UVEK");
             JWTVerifier verifier = JWT.require(algorithm)
                 .withIssuer("auth0")
                 .build();
             DecodedJWT decodedJwt = verifier.verify(jwt);
-            System.out.println(decodedJwt);
             return true;
         } catch (JWTVerificationException exception){
-            System.out.println(exception);
             return false;
         }
     }
