@@ -110,7 +110,6 @@ public class BookingController {
      */
     @PutMapping("/bookings/{id}")
     public int updateBooking(@PathVariable int id, @RequestBody Booking updatedBooking) {
-        System.out.println(updatedBooking.toString());
         return DatabaseController.updateBooking(id,updatedBooking);
     }
 

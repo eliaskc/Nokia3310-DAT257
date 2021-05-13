@@ -1,6 +1,6 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import BookingDataService from '../../api/BookingDataService.js'
-import Modal from 'react-bootstrap/Modal'
+
 import { Formik } from 'formik'
 import * as Yup from 'yup'
 import { Button, Form, Col } from 'react-bootstrap'
@@ -20,30 +20,40 @@ export default function CreateBookingComponent(props) {
         startTime: '',
         additionalInfo: ''
     };
-    const [showModal, setShowModal] = useState(true);
     const [dateDisabled, setDateDisabled] = useState(true);
     const [timeDisabled, setTimeDisabled] = useState(true);
     const [dayList, setDayList] = useState([])
     const [timeList, setTimeList] = useState([])
 
-    const handleCloseModal = () => {
-        setShowModal(false);
-    }
-    const handleShowModal = () => {
-        setShowModal(true);
-    }
+    useEffect(() => {
+        if (props.booking.nrOfPeople > 0) {
+            setDateDisabled(false)
+            setTimeDisabled(false)
+            fetchAvailableDays(props.booking.nrOfPeople)
+            fetchAvailableTimes(props.booking.bookingDate)
+        }
+    }, []);
 
-    function insertBooking() {
+    function submitBooking() {
         if (!checkBookingComplete)
             alert('Det saknas information')
-        else
+        else if (props.creating === true) {
             BookingDataService.createBooking(booking).then(() => {
-                handleCloseModal();
+                //handleCloseModal();
                 window.location.reload();
             }
             ).catch(error => {
                 alert('Någonting gick fel. Försök igen senare.')
             })
+        } else {
+            BookingDataService.updateBooking(props.booking.bookingID, booking).then(() => {
+                //handleCloseModal();
+                window.location.reload();
+            }
+            ).catch(error => {
+                alert('Någonting gick fel. Försök igen senare.')
+            })
+        }
     }
 
     function checkBookingComplete() {
@@ -96,8 +106,8 @@ export default function CreateBookingComponent(props) {
 
     function guestsChange(handleChange, event) {
         booking.guests = event.target.value;
-        if (event.target.value != '') {
-            if (dateDisabled == true)
+        if (event.target.value !== '') {
+            if (dateDisabled === true)
                 setDateDisabled(false);
             fetchAvailableDays(event.target.value);
         }
@@ -106,8 +116,8 @@ export default function CreateBookingComponent(props) {
 
     function dateChange(handleChange, event) {
         booking.date = event.target.value;
-        if (event.target.value != '') {
-            if (timeDisabled == true)
+        if (event.target.value !== '') {
+            if (timeDisabled === true)
                 setTimeDisabled(false);
             fetchAvailableTimes(event.target.value);
         }
@@ -129,132 +139,124 @@ export default function CreateBookingComponent(props) {
     })
 
     return (
-        <Modal show={showModal} onHide={handleCloseModal}>
-            <Modal.Header closeButton>
-                <Modal.Title>Skapa bokning</Modal.Title>
-            </Modal.Header>
-            <Modal.Body>
-                <Formik
-                    initialValues={{ name: '', tel: '', info: '', guests: '', date: '', time: '' }}
-                    validationSchema={validationSchema}
-                    onSubmit={(values, { setSubmitting }) => {
-                        setSubmitting(true);
-                        saveValues(values);
-                        insertBooking();
-                        setSubmitting(false);
-                    }}
-                >
-                    {({ values,
-                        errors,
-                        touched,
-                        handleChange,
-                        handleSubmit,
-                        isSubmitting }) => (
-                        <Form onSubmit={handleSubmit}>
-                            <Form.Row>
-                                <Form.Group as={Col} controlId="formGuests">
+        <Formik
+            initialValues={{
+                name: props.booking.guestName, tel: props.booking.guestTelNr, info: props.booking.additionalInfo,
+                guests: props.booking.nrOfPeople, date: props.booking.bookingDate, time: props.booking.startTime.slice(0, 5)
+            }}
+            validationSchema={validationSchema}
+            onSubmit={(values, { setSubmitting }) => {
+                setSubmitting(true);
+                saveValues(values);
+                submitBooking();
+                setSubmitting(false);
+            }}
+        >
+            {({ values,
+                errors,
+                touched,
+                handleChange,
+                handleSubmit,
+                isSubmitting }) => (
+                <Form onSubmit={handleSubmit}>
+                    <Form.Row>
+                        <Form.Group as={Col} controlId="formGuests">
 
-                                    <Form.Label>Antal Gäster</Form.Label>
-                                    <Form.Control
-                                        type='number'
-                                        name='guests'
-                                        placeholder='Ange antal'
-                                        onChange={e => guestsChange(handleChange, e)}
-                                        value={values.guests}
-                                        className={touched.guests}
-                                    >
-                                    </Form.Control>
-                                </Form.Group>
-                                <Form.Group as={Col} controlId="formDate">
+                            <Form.Label>Antal Gäster</Form.Label>
+                            <Form.Control
+                                name='guests'
+                                type='number'
+                                placeholder='Ange antal'
+                                onChange={e => guestsChange(handleChange, e)}
+                                defaultValue={props.booking.nrOfPeople}
+                                value={values.guests}
+                                className={touched.guests}
+                            >
+                            </Form.Control>
+                        </Form.Group>
+                        <Form.Group as={Col} controlId="formDate">
 
-                                    <Form.Label>Datum</Form.Label>
-                                    <Form.Control as="select" disabled={dateDisabled}
-                                        type='text'
-                                        name='date'
-                                        onChange={e => dateChange(handleChange, e)}
-                                        value={values.date}
-                                        className={touched.date}
-                                    >
-                                        <option>Välj datum</option>
-                                        {dayList.map(date => (
-                                            <option>{date}</option>
-                                        ))}
-                                    </Form.Control>
-                                </Form.Group>
+                            <Form.Label>Datum</Form.Label>
+                            <Form.Control as="select" disabled={dateDisabled}
+                                type='text'
+                                name='date'
+                                onChange={e => dateChange(handleChange, e)}
+                                value={values.date}
+                                className={touched.date}
+                            >
+                                <option>Välj datum</option>
+                                {dayList.map(date => (
+                                    <option>{date}</option>
+                                ))}
+                            </Form.Control>
+                        </Form.Group>
 
-                                <Form.Group as={Col} controlId="formTime">
+                        <Form.Group as={Col} controlId="formTime">
 
-                                    <Form.Label>Tid</Form.Label>
-                                    <Form.Control as="select" disabled={timeDisabled}
-                                        type='text'
-                                        name='time'
-                                        placeholder='Välj tid'
-                                        onChange={handleChange}
-                                        value={values.time}
-                                        className={touched.time}
-                                    >
-                                        <option>Välj tid</option>
-                                        {timeList.map(time => (
-                                            <option>{time.slice(0, 5)}</option>
-                                        ))}
-                                    </Form.Control>
-                                </Form.Group>
-                            </Form.Row>
-                            <Form.Group controlId="formName">
-                                <Form.Label>Namn</Form.Label>
-                                <Form.Control
-                                    type='text'
-                                    name='name'
-                                    placeholder='Skriv in namn'
-                                    onChange={handleChange}
-                                    value={values.name}
-                                    className={touched.name && errors.name ? "has-error" : null}
-                                />
-                                {touched.name && errors.name ? (
-                                    <div className="error-message">{errors.name}</div>
-                                ) : null}
-                            </Form.Group>
-                            <Form.Group controlId="tel">
-                                <Form.Label>Telefonnummer</Form.Label>
-                                <Form.Control
-                                    type='text'
-                                    name='tel'
-                                    placeholder='Skriv in telefonnummer'
-                                    onChange={handleChange}
-                                    value={values.tel}
-                                    className={touched.tel && errors.tel ? "has-error" : null}
-                                />
-                                {touched.tel && errors.tel ? (
-                                    <div className="error-message">{errors.tel}</div>
-                                ) : null}
-                            </Form.Group>
-                            <Form.Group controlId="info">
-                                <Form.Label>Övrig information</Form.Label>
-                                <Form.Control
-                                    as='textarea'
-                                    type='text'
-                                    name='info'
-                                    placeholder='Allergier, etc.'
-                                    onChange={handleChange}
-                                    value={values.info}
-                                    className={touched.info && errors.info ? "has-error" : null}
-                                />
-                                {touched.info && errors.info ? (
-                                    <div className="error-message">{errors.info}</div>
-                                ) : null}
-                            </Form.Group>
-                            <Button variant='danger' onClick={() => handleCloseModal()}>
-                                Avbryt
-                            </Button>
-                            <Button variant='primary' type="submit">
-                                Bekräfta
-                            </Button>
-                        </Form>
-                    )}
-                </Formik>
-            </Modal.Body>
-            <Modal.Footer>
-            </Modal.Footer>
-        </Modal>
+                            <Form.Label>Tid</Form.Label>
+                            <Form.Control as="select" disabled={timeDisabled}
+                                type='text'
+                                name='time'
+                                placeholder='Välj tid'
+                                onChange={handleChange}
+                                value={values.time}
+                                className={touched.time}
+                            >
+                                <option>Välj tid</option>
+                                {timeList.map(time => (
+                                    <option>{time.slice(0, 5)}</option>
+                                ))}
+                            </Form.Control>
+                        </Form.Group>
+                    </Form.Row>
+                    <Form.Group controlId="formName">
+                        <Form.Label>Namn</Form.Label>
+                        <Form.Control
+                            type='text'
+                            name='name'
+                            placeholder='Skriv in namn'
+                            onChange={handleChange}
+                            value={values.name}
+                            className={touched.name && errors.name ? "has-error" : null}
+                        />
+                        {touched.name && errors.name ? (
+                            <div className="error-message">{errors.name}</div>
+                        ) : null}
+                    </Form.Group>
+                    <Form.Group controlId="tel">
+                        <Form.Label>Telefonnummer</Form.Label>
+                        <Form.Control
+                            type='text'
+                            name='tel'
+                            placeholder='Skriv in telefonnummer'
+                            onChange={handleChange}
+                            value={values.tel}
+                            className={touched.tel && errors.tel ? "has-error" : null}
+                        />
+                        {touched.tel && errors.tel ? (
+                            <div className="error-message">{errors.tel}</div>
+                        ) : null}
+                    </Form.Group>
+                    <Form.Group controlId="info">
+                        <Form.Label>Övrig information</Form.Label>
+                        <Form.Control
+                            as='textarea'
+                            type='text'
+                            name='info'
+                            placeholder='Allergier, etc.'
+                            onChange={handleChange}
+                            value={values.info}
+                            className={touched.info && errors.info ? "has-error" : null}
+                        />
+                        {touched.info && errors.info ? (
+                            <div className="error-message">{errors.info}</div>
+                        ) : null}
+                    </Form.Group>
+                    <Button variant='success' type="submit">
+                        Bekräfta
+                    </Button>
+                </Form>
+            )}
+        </Formik>
     )
 }

@@ -6,6 +6,7 @@ import { Formik, Form, Field } from 'formik'
 import BookingDataService from '../../api/BookingDataService.js'
 import BookingTimeSlotComponent from './BookingTimeSlotComponent.jsx';
 import CreateBookingComponent from './CreateBookingComponent.jsx';
+import Modal from 'react-bootstrap/Modal'
 
 /**
  * Component that shows a list of all bookings
@@ -13,6 +14,16 @@ import CreateBookingComponent from './CreateBookingComponent.jsx';
 function BookingListComponent() {
     const [timeSlots, setTimeSlots] = useState([]);
     const [date, setDate] = useState(moment(new Date()).format('YYYY-MM-DD'));
+    const [showCreateModal, setShowCreateModal] = useState(false);
+    let modalBooking = {
+        bookingID: 0,
+        guestName: "",
+        guestTelNr: "",
+        nrOfPeople: "",
+        bookingDate: "",
+        startTime: "",
+        additionalInfo: ""
+    };
 
     useEffect(() => {
         refreshTimeSlots(date);
@@ -31,6 +42,13 @@ function BookingListComponent() {
 
     const submitDate = (values) => {
         refreshTimeSlots(values.date);
+    }
+
+    const handleCloseCreateModal = () => {
+        setShowCreateModal(false);
+    }
+    const handleShowCreateModal = () => {
+        setShowCreateModal(true);
     }
 
 
@@ -55,8 +73,15 @@ function BookingListComponent() {
                         )
                     }
                 </Formik>
-                <Button variant="primary" className="btn btn-success" >Skapa bokning</Button>
-                <CreateBookingComponent/>
+                <Button variant="primary" className="btn btn-success" onClick={() => handleShowCreateModal()}>Skapa bokning</Button>
+                <Modal show={showCreateModal} onHide={handleCloseCreateModal}>
+                    <Modal.Header closeButton>
+                        <Modal.Title>Skapa bokning</Modal.Title>
+                    </Modal.Header>
+                    <Modal.Body>
+                        <CreateBookingComponent booking={modalBooking}/>
+                    </Modal.Body>
+                </Modal>
                 <h2>Visar bokningar för: {date}</h2>
             </div>
             <Table responsive>
