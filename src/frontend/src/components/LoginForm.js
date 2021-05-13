@@ -4,8 +4,10 @@ import Modal from 'react-bootstrap/Modal'
 import Form from 'react-bootstrap/Form'
 import Button from 'react-bootstrap/Button'
 import 'bootstrap/dist/css/bootstrap.min.css';
+import {useHistory} from 'react-router-dom'
 
 export default function LoginForm(props){
+    const history = useHistory()
     const [userPass, setUserPass] = useState('')
     const [passError, setPassError] = useState(false)
 
@@ -13,10 +15,12 @@ export default function LoginForm(props){
         BookingDataService.checkPassword(userPass)
             .then(
                 (response) => {
-                    if (response.data == true){
-                        setPassError(false)
+                    if (response.data){
+                        localStorage.setItem('token', response.data)
+                        history.push('/bookings')
+                        history.go()
                     } else {
-                        setPassError(true)
+                        console.log('Password is incorrect')
                     }
                 }
             )

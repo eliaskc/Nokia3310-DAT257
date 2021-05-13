@@ -13,6 +13,8 @@ function BookingListComponent() {
     const [timeSlots, setTimeSlots] = useState([]);
     const [date, setDate] = useState(moment(new Date()).format('YYYY-MM-DD'));
 
+    console.log(localStorage.getItem('token'))
+
     useEffect(() => {
         refreshTimeSlots(date);
     }, [date]);

@@ -18,6 +18,7 @@ import java.sql.Time;
 import java.time.LocalTime;
 import java.time.LocalDate;
 import java.sql.Date;
+import java.util.HashMap;
 import java.util.List;
 /**
  * Controller for the backend which acts as a RESTful API
@@ -129,14 +130,18 @@ public class BookingController {
     }
 
     @GetMapping("/checkpassword")
-    public Boolean checkPassword(String password) {
+    public String checkPassword(String password) {
         String pass = System.getenv("BookingAppPassword");
         if (pass == null){
             System.out.println("A password is not set in environment variables");
-            return false;
+            return null;
         }
-        createJWT();
-        return pass.equals(password);
+        
+        if (pass.equals(password)){
+            return createJWT();
+        } else {
+            return null;
+        }
     }
 
     @GetMapping("/checkauthorizeuser")
@@ -144,19 +149,19 @@ public class BookingController {
         return true;
     }
 
-    public void createJWT(){
+    public String createJWT(){
         try {
-            Algorithm algorithm = Algorithm.HMAC256("secret");
+            Algorithm algorithm = Algorithm.HMAC256("LFThe3UVEK");
+            HashMap<String, Object> payloadClaims = new HashMap<>();
+            payloadClaims.put("authorized", "true");
             String token = JWT.create()
+                .withPayload(payloadClaims)
                 .withIssuer("auth0")
                 .sign(algorithm);
-            System.out.println(token);
+            return token;
         } catch (JWTCreationException exception){
             System.out.println("Invalid signing configuration");
+            return "";
         }
-    }
-
-    public Boolean verifyJWT(){
-        return true;
     }
 }
