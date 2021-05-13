@@ -76,6 +76,7 @@ public class DatabaseController {
      */
     @Autowired
     public static int insertNewBooking(Booking booking) {
+        System.out.println(booking);
         String sqlQuery = ("INSERT INTO BookingsView (" + "bookingDate, " + "startTime, " + "timeSlot," + "tableID, "
                 + "bookingID," + "guestName, " + "guestTelNr, " + "nrOfPeople, "
                 + "additionalInfo) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)");

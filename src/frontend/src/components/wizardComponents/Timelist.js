@@ -18,9 +18,9 @@ export default function Timelist(props) {
 
     //If the date we are trying to get times for is today, input the current time
     //Else we input 00:00:00
-    function getDateTime() {
+    function getDateTime(date) {
         let dateTime = new Date()
-        if (props.booking.date !== dateTime.toLocaleDateString()) {
+        if (date !== moment(dateTime).format('HH:mm:ss')) {
             dateTime.setTime(0, 0, 0, 0)
         }
         return moment(dateTime).format('HH:mm:ss')
