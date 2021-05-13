@@ -27,7 +27,6 @@ function HomeComponent() {
                         <Route exact path='/'>
                             <Button href="/guests">Boka bord</Button>
                             <Button className='login-btn' onClick={() => setShowLogin(true)}>🔑</Button>
-
                             <div>
                                 <Button className='contact-btn' onClick={() => setShowContact(!showContact)}>Kontakt</Button>
                                 {showContact ? 

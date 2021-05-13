@@ -16,13 +16,13 @@ public class BookingsTest {
     private static int idCounter = 0;
     static {
         /*
-        bookings.add(new Booking(++idCounter,new Date(),1,"email@email1.com"));
-        bookings.add(new Booking(++idCounter,new Date(),5,"email@email2.com"));
-        bookings.add(new Booking(++idCounter,new Date(),3,"email@email3.com"));
-        bookings.add(new Booking(++idCounter,new Date(),3,"email@email4.com"));
-        bookings.add(new Booking(++idCounter,new Date(),2,"email@email5.com"));
-        bookings.add(new Booking(++idCounter,new Date(),1,"email@email6.com"));
-        bookings.add(new Booking(++idCounter,new Date(),4,"email@email7.com"));
+        bookings.add(new Booking(++idCounter,new Date(),1,"081777200"));
+        bookings.add(new Booking(++idCounter,new Date(),5,"081777201"));
+        bookings.add(new Booking(++idCounter,new Date(),3,"081777202));
+        bookings.add(new Booking(++idCounter,new Date(),3,"081777203"));
+        bookings.add(new Booking(++idCounter,new Date(),2,"081777204));
+        bookings.add(new Booking(++idCounter,new Date(),1,"081777205"));
+        bookings.add(new Booking(++idCounter,new Date(),4,"081777206));
          */
     }
 

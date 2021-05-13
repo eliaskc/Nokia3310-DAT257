@@ -28,23 +28,23 @@ export default function Guests(props) {
                   <Modal.Body className='Popup'>
                     <div className="Instruction">
                         <h4>1. Klicka på de tre punkterna</h4>
-                        <img className='instructionImg' src="/images/guidance/chromeStep1.jpg"></img>
+                        <img className='instructionImg' alt="Instructions how to add to homepage on Chrome mobile" src="/images/guidance/chromeStep1.jpeg"></img>
                     </div>
                     <div className="Instruction">
                         <h4>2.Välj lägg till på startskärmen</h4>
-                        <img className='instructionImg' src="/images/guidance/chromeStep2.png"></img>
+                        <img className='instructionImg' alt="Instructions how to add to homepage on Chrome mobile" src="/images/guidance/chromeStep2.jpeg"></img>
                     </div>
                     <div className="Instruction">
                         <h4>3. Tryck på "Lägg till"</h4>
-                        <img className='instructionImg' src="/images/guidance/chromeStep3.jpg"></img>
+                        <img className='instructionImg' alt="Instructions how to add to homepage on Chrome mobile" src="/images/guidance/chromeStep3.jpeg"></img>
                     </div>
                     <div className="Instruction">
                         <h4>4. Tryck på "LÄGG TILL"</h4>
-                        <img className='instructionImg' src="/images/guidance/chromeStep4.jpg"></img>
+                        <img className='instructionImg' alt="Instructions how to add to homepage on Chrome mobile" src="/images/guidance/chromeStep4.jpeg"></img>
                     </div>
                     <div className="Instruction">
                         <h4>5. Nu ligger den på hemskärmen!</h4>
-                        <img className='instructionImg' src="/images/guidance/chromeStep5.png"></img>
+                        <img className='instructionImg' alt="Instructions how to add to homepage on Chrome mobile" src="/images/guidance/chromeStep5.jpeg"></img>
                     </div>
                     </Modal.Body>
                 </Modal>
@@ -65,19 +65,19 @@ export default function Guests(props) {
                   <Modal.Body className='Popup'>
                     <div className="Instruction">
                         <h4>1. Tryck på knappen som pilen pekar på</h4>
-                        <img className='instructionImg' src="/images/guidance/safariStep1.jpeg"></img>
+                        <img className='instructionImg' alt="Instructions how to add to homepage on Safari mobile" src="/images/guidance/safariStep1.jpeg"></img>
                     </div>
                     <div className="Instruction">
                         <h4>2. Välj "Lägg till på hemskärmen"</h4>
-                        <img className='instructionImg' src="/images/guidance/safariStep2.jpeg"></img>
+                        <img className='instructionImg' alt="Instructions how to add to homepage on Safari mobile" src="/images/guidance/safariStep2.jpeg"></img>
                     </div>
                     <div className="Instruction">
                         <h4>3. Tryck på "Lägg till"</h4>
-                        <img className='instructionImg' src="/images/guidance/safariStep3.jpeg"></img>
+                        <img className='instructionImg' alt="Instructions how to add to homepage on Safari mobile" src="/images/guidance/safariStep3.jpeg"></img>
                     </div>
                     <div className="Instruction">
                         <h4>4. Nu ligger den på hemskärmen!</h4>
-                        <img className='instructionImg' src="/images/guidance/safariStep4.jpeg"></img>
+                        <img className='instructionImg' alt="Instructions how to add to homepage on Safari mobile" src="/images/guidance/safariStep4.jpeg"></img>
                     </div>
                     </Modal.Body>
                 </Modal>

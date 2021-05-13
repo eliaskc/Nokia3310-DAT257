@@ -14,18 +14,16 @@ import java.time.LocalTime;
 public class Booking {
     private int bookingID;
     private String guestName;
-    private String guestEmail;
     private String guestTelNr;
     private int nrOfPeople;
     private Date bookingDate;
     private LocalTime startTime;
     private String additionalInfo;
     
-    public Booking(int bookingID, String guestName, String guestEmail, String guestTelNr, int nrOfPeople, Date bookingDate,
+    public Booking(int bookingID, String guestName, String guestTelNr, int nrOfPeople, Date bookingDate,
                    LocalTime startTime, String additionalInfo) {
         this.bookingID = bookingID;
         this.guestName = guestName;
-        this.guestEmail = guestEmail;
         this.guestTelNr = guestTelNr;
         this.nrOfPeople = nrOfPeople;
         this.bookingDate = bookingDate;
@@ -38,7 +36,6 @@ public class Booking {
         return "Booking{" +
                 "id=" + bookingID +
                 ", guestName='" + guestName + '\'' +
-                ", guestEmail='" + guestEmail + '\'' +
                 ", guestTelNr='" + guestTelNr + '\'' +
                 ", nrOfPeople=" + nrOfPeople +
                 ", bookingDate=" + bookingDate +

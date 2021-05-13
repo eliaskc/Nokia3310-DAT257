@@ -48,7 +48,8 @@ class BookingDataService {
      * Updates the specified booking object
      * 
      * @param {Number} id 
-     * @param booking JSON object of a booking containing id, BookingDate, numberOfPeople, email 
+     * @param booking JSON object of a booking containing guest name (String), booking date (Date), numberOfPeople (int), 
+     * phone number (String), booking time (Time), and possible additional info
      */
     updateBooking(id,booking) {
         return axios.put(`http://localhost:8080/bookings/${id}`, booking);
@@ -58,7 +59,8 @@ class BookingDataService {
      * Creates and adds new booking object
      * 
      * Value of id should always be 0, as it will be assigned by the backend
-     * @param booking JSON object of a booking containing id, BookingDate, numberOfPeople, email
+     * @param booking JSON object of a booking containing guest name (String), booking date (Date), numberOfPeople (int), 
+     * phone number (String), booking time (Time), and possible additional info
      */
     createBooking(booking) {
         return axios.post(`http://localhost:8080/bookings`, booking);

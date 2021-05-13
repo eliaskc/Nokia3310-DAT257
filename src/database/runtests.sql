@@ -233,8 +233,7 @@ INSERT INTO BookedTables VALUES (4, CURRENT_DATE, '19:00:00', 'lisa@live.com');
 
 --INSERT INTO BookedTables VALUES (1, CURRENT_DATE, '17:30:00', 'lisa@live.com');
 */
-
-INSERT INTO BookingsView VALUES (CURRENT_DATE, '17:00:00', 1, 1, 'dieter@live.com', 'Dieter',  0761022445, 2, 'some info');
-INSERT INTO BookingsView VALUES (CURRENT_DATE, '21:00:00', 1, 1, 'elias@live.com', 'Elias',  0761099883, 2);
-INSERT INTO BookingsView VALUES (CURRENT_DATE, '18:00:00', 1, 1, 'ida@live.com', 'Ida',  0761099883, 4);
-INSERT INTO BookingsView VALUES (CURRENT_DATE, '21:00:00', 1, 1, 'lisa@live.com', 'Lisa',  0761099883, 2, 'some other info');
+INSERT INTO BookingsView VALUES (CURRENT_DATE, '17:00:00', '17:00:00',  1, 1, 'Dieter',  0761022445, 2, 'some info');
+INSERT INTO BookingsView VALUES (CURRENT_DATE, '21:00:00', '17:00:00',  1, 1, 'Elias',  0761092883, 2);
+INSERT INTO BookingsView VALUES (CURRENT_DATE, '18:00:00', '17:00:00',  1, 1, 'Ida',  0761099383, 4);
+INSERT INTO BookingsView VALUES (CURRENT_DATE, '21:00:00', '17:00:00',  1, 1, 'Lisa',  0761099583, 2, 'some other info');

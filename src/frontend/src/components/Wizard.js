@@ -11,7 +11,6 @@ import Done from './wizardComponents/Done';
 export default function Wizard(){
     const bookingJSON = useRef({
         'name': '',
-        'email': '',
         'tel': '',
         'info': '',
         'guests': 0,

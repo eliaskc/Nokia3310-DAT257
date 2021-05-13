@@ -35,15 +35,6 @@ public class BookingController {
     private BookingsTest bookings;
 
     /**
-     * Fetches all bookings
-     * @return list of Bookings
-     */
-    @GetMapping("/bookings")
-    public List<Booking> getAllBookings() {
-        return DatabaseController.fetchAllBookings();
-    }
-
-    /**
      * Fetches all available times
      * @return list of Times
      */
@@ -92,7 +83,7 @@ public class BookingController {
     @PostMapping("/bookings")
     public ResponseEntity<Booking> addBooking(@RequestBody Booking booking) {
         DatabaseController.insertNewBooking(booking);
-        Booking b = DatabaseController.fetchBookingByEmailDateTime(booking.getGuestEmail(),booking.getBookingDate(),booking.getStartTime());
+        Booking b = DatabaseController.fetchBookingByTelNrDateTime(booking.getGuestTelNr(),booking.getBookingDate(),booking.getStartTime());
         URI uri = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}")
                 .buildAndExpand(b.getBookingID()).toUri();
         return ResponseEntity.created(uri).build();
