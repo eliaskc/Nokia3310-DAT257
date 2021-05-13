@@ -55,7 +55,7 @@ function BookingListComponent() {
                         )
                     }
                 </Formik>
-                <Button variant="primary" className="btn btn-success" >Lägg till bokning</Button>
+                <Button variant="primary" className="btn btn-success" >Skapa bokning</Button>
                 <BookingInputComponent/>
                 <h2>Visar bokningar för: {date}</h2>
             </div>
