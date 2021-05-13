@@ -26,7 +26,6 @@ function HomeComponent() {
                     <Switch>
                         <Route exact path='/'>
                             <Button href="/guests">Boka bord</Button>
-                            <Button href="/bookings">Se bokningar</Button>
                             <Button className='login-btn' onClick={() => setShowLogin(true)}>🔑</Button>
 
                             <div>

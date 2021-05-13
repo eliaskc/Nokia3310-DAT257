@@ -43,16 +43,23 @@ function BookingListComponent() {
             );
     }
 
+    function logOut(){
+        localStorage.removeItem('token')
+        setIsAuthenticated(false)
+    }
+
     const submitDate = (values) => {
         refreshTimeSlots(values.date);
     }
-
 
     return (
         <div>
             {isAuthenticated && !loading && 
             <div className="BookingListComponent">
                 <div>
+                    <Button onClick={() => logOut()}>
+                        Logga ut
+                    </Button>
                     <Formik
                         initialValues={{ date: date }}
                         onSubmit={submitDate}

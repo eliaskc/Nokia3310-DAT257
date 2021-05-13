@@ -167,6 +167,11 @@ public class BookingController {
         }
     }
 
+
+    /**
+     * Creates a JSON Web Token used to authorize users 
+     * @return
+     */
     public String createJWT(){
         LocalDate date = LocalDate.now();
         ZoneId zoneId = ZoneId.systemDefault();
