@@ -20,7 +20,7 @@ export default function LoginForm(props){
                         history.push('/bookings')
                         history.go()
                     } else {
-                        console.log('Password is incorrect')
+                        setPassError(true)
                     }
                 }
             )
