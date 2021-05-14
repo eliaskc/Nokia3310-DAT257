@@ -1,9 +1,10 @@
 import Button from 'react-bootstrap/Button'
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom'
 import DownloadInstructions from './DownloadInstructions';
 import Wizard from './Wizard'
 import LoginForm from './LoginForm'
+import UserAuth from './UserAuth'
 
 /**
  * Component for the Home page 
@@ -11,6 +12,19 @@ import LoginForm from './LoginForm'
 function HomeComponent() {
     const [showLogin, setShowLogin] = useState(false)
     const [showContact, setShowContact] = useState(false)
+    const [isAuthenticated, setIsAuthenticated] = useState(false)
+
+    useEffect(() => {
+        UserAuth.isUserAuthenticated().then((authenticated) => {
+            setIsAuthenticated(authenticated)
+        })
+    })
+
+    function logOut(){
+        UserAuth.logOutUser()
+        setShowLogin(false)
+        setIsAuthenticated(false)
+    }
 
     return (
         <div className="App">
@@ -26,12 +40,16 @@ function HomeComponent() {
                     <Switch>
                         <Route exact path='/'>
                             <Button href="/guests">Boka bord</Button>
-                            <Button className='login-btn' onClick={() => setShowLogin(true)}>🔑</Button>
+
+                            {!isAuthenticated && <Button className='login-btn' onClick={() => setShowLogin(true)}>🔑</Button>}
+                            {isAuthenticated && <Button className='logout-btn' onClick={() => logOut()}>Logga ut</Button>}
+                            {isAuthenticated && <Button className='bookings-btn' href='/bookings'>Se bokningar</Button>}
+
                             <div>
                                 <Button className='contact-btn' onClick={() => setShowContact(!showContact)}>Kontakt</Button>
                                 {showContact ? 
-                                <div class="card" className="contact-card">
-                                    <div class="card-body">
+                                <div className="card" className="contact-card">
+                                    <div className="card-body">
                                         <div className="italictext">
                                             <em>Har ni några frågor eller vill hellre boka via telefon eller mail? Tveka inte att kontakta oss!<br />
                                             </em></div>

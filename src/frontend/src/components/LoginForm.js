@@ -1,5 +1,5 @@
 import React,{useState} from 'react'
-import BookingDataService from '../api/BookingDataService'
+import UserAuth from './UserAuth'
 import Modal from 'react-bootstrap/Modal'
 import Form from 'react-bootstrap/Form'
 import Button from 'react-bootstrap/Button'
@@ -11,19 +11,23 @@ export default function LoginForm(props){
     const [userPass, setUserPass] = useState('')
     const [passError, setPassError] = useState(false)
 
-    function authenticateUser(){
-        BookingDataService.checkPassword(userPass)
-            .then(
-                (response) => {
-                    if (response.data){
-                        localStorage.setItem('token', response.data)
-                        history.push('/bookings')
-                        history.go()
-                    } else {
-                        setPassError(true)
-                    }
-                }
-            )
+    function authenticate(){
+        UserAuth.authenticateUser(userPass).then((authenticated) => {
+            if (authenticated){
+                history.push('/bookings')
+                history.go()
+            } else {
+                setPassError(true)
+            }
+        })
+    }
+
+    function onKeyUp(event) {
+        if (event.key === "Enter") {
+            event.preventDefault()
+            setUserPass(event.target.value)
+            authenticate()
+        }
     }
 
     return (
@@ -39,9 +43,10 @@ export default function LoginForm(props){
                             type='password'
                             name='password'
                             onChange={e => setUserPass(e.target.value)}
+                            onKeyPress={e => onKeyUp(e)}
                             className={passError ? 'has-error' : null}
                         />
-                        <Button variant='primary' onClick={() => authenticateUser()}>
+                        <Button variant='primary' onClick={() => authenticate()}>
                             Bekräfta
                         </Button>
                     </Form>

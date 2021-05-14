@@ -7,6 +7,7 @@ import BookingDataService from '../../api/BookingDataService.js'
 import BookingTimeSlotComponent from './BookingTimeSlotComponent.jsx';
 import { Redirect} from 'react-router-dom'
 import DotLoader from 'react-spinners/DotLoader'
+import UserAuth from '../UserAuth.js'
 
 /**
  * Component that shows a list of all bookings
@@ -14,20 +15,14 @@ import DotLoader from 'react-spinners/DotLoader'
 function BookingListComponent() {
     const [timeSlots, setTimeSlots] = useState([]);
     const [date, setDate] = useState(moment(new Date()).format('YYYY-MM-DD'));
-
     const [loading, setLoading] = useState(true)
     const [isAuthenticated, setIsAuthenticated] = useState(false)
 
     useEffect(() => {
-        BookingDataService.checkAuthorizeUser(localStorage.getItem('token'))
-            .then(
-                (response) => {
-                    setIsAuthenticated(response.data)
-                    setLoading(false)
-                }
-            ).catch(error => {
-                console.log('No token in local storage')
-            })
+        UserAuth.isUserAuthenticated().then((authenticated) => {
+            setIsAuthenticated(authenticated)
+            setLoading(false)
+        })
 
         refreshTimeSlots(date);
     }, [date]);
@@ -44,7 +39,7 @@ function BookingListComponent() {
     }
 
     function logOut(){
-        localStorage.removeItem('token')
+        UserAuth.logOutUser()
         setIsAuthenticated(false)
     }
 
@@ -101,7 +96,7 @@ function BookingListComponent() {
 
             {loading && !isAuthenticated &&
             <div className='bookingListRoot'>
-                <DotLoader size='100'/>
+                <DotLoader size='100px'/>
             </div>}
 
             {!loading && !isAuthenticated && 
