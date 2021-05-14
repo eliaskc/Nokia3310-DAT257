@@ -74,7 +74,13 @@ class BookingDataService {
     }
 
     getBookingsByDate(date){
-        return axios.get(`http://localhost:8080/bookings/date/${date}`);
+        return axios.get(`http://localhost:8080/bookings/date/${date}`,
+        {
+            headers:{
+                        'authorization': `Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJhZG1pbiIsImV4cCI6MTYyMDkzOTc1NCwiaWF0IjoxNjIwOTIxNzU0fQ.08Mv73Q_MbpFDe9AqwOLj9YXaAgrDSul0PzN-HdwfBTb2VFikhQlmUT8nXlI6jIr-Cpblt1_pedVbkXn_C0cOw`
+                    }
+        }
+        );
     }
 
     getBookingsByDateAndTime(date,time){
@@ -83,14 +89,18 @@ class BookingDataService {
 
 
     getTimeSlotsByDate(date){
-        return axios.get(`http://localhost:8080/timeslots/date/${date}`);
+        return axios.get(`http://localhost:8080/timeslots/date/${date}`,
+        {
+            headers:{
+                        'authorization': `Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJhZG1pbiIsImV4cCI6MTYyMDkzOTc1NCwiaWF0IjoxNjIwOTIxNzU0fQ.08Mv73Q_MbpFDe9AqwOLj9YXaAgrDSul0PzN-HdwfBTb2VFikhQlmUT8nXlI6jIr-Cpblt1_pedVbkXn_C0cOw`
+                    }
+        }
+        );
     }
 
     getNumberOfBookingsByDateAndTime(date,time){
         return axios.get(`http://localhost:8080/bookings/count/${date}/${time}`);
     }
-
-
 
 }
 
