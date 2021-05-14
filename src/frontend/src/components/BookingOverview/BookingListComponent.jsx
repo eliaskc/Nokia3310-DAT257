@@ -88,7 +88,8 @@ function BookingListComponent() {
                 <thead>
                     <tr>
                         <th>Tid</th>
-                        <th>Antal bord</th>
+                        <th>Antal inbokade gäster</th>
+                        <th>Antal bokade bord</th>
                         <th></th>
                     </tr>
                 </thead>

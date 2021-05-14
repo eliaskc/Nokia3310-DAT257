@@ -7,6 +7,8 @@ import Modal from 'react-bootstrap/Modal'
 import CreateBookingComponent from './CreateBookingComponent.jsx';
 
 function BookingTimeSlotComponent(props) {
+    const tableCapacity = 25;
+    const guestCapacity = tableCapacity*2;
     const prevProps = useRef();
     const [bookings, setBookings] = useState([]);
     const [timeSlotIsExpanded, setTimeSlotIsExpanded] = useState(false);
@@ -21,15 +23,19 @@ function BookingTimeSlotComponent(props) {
         startTime: "00:00",
         additionalInfo: "placeholder info"
     });
-    const [numberOfBookings, setNumberOfBookings] = useState(refreshNumberOfGuests(props.inputDate, props.inputTime));
+    const [numberOfBookings, setNumberOfBookings] = useState();
+    const [numberOfGuests, setNumberOfGuests] = useState();
     const [isChanging, setChanging] = useState(false)
 
     useEffect(() => {
         if (prevProps && (props !== prevProps)) {
+            console.log("test")
             setTimeSlotIsExpanded(false);
             refreshBookings(props.inputDate, props.inputTime)
+            refreshNumberOfBookedTables(props.inputDate, props.inputTime)
+            refreshNumberOfGuests(props.inputDate, props.inputTime)
         }
-    }, [props]);
+    }, [props.inputDate, props.inputTime]);
 
     const refreshBookings = (inputDate, inputTime) => {
         inputDate = moment(inputDate).format('YYYY-MM-DD')
@@ -69,12 +75,22 @@ function BookingTimeSlotComponent(props) {
         console.log(booking)
     }
 
-    function refreshNumberOfGuests(date, time) {
+    function refreshNumberOfBookedTables(date, time) {
         date = moment(date).format('YYYY-MM-DD')
-        BookingDataService.getNumberOfBookingsByDateAndTime(date, time)
+        BookingDataService.getNumberOfBookedTablesByDateAndTime(date, time)
             .then(
                 (response) => {
                     setNumberOfBookings(response.data)
+                }
+            )
+    }
+
+    function refreshNumberOfGuests(date, time) {
+        date = moment(date).format('YYYY-MM-DD')
+        BookingDataService.getNumberOfGuestsByDateAndTime(date, time)
+            .then(
+                (response) => {
+                    setNumberOfGuests(response.data)
                 }
             )
     }
@@ -102,7 +118,8 @@ function BookingTimeSlotComponent(props) {
     return (
         <tr style={timeSlotIsExpanded ? { height: 111 + bookings.length * 49 + 'px' } : { height: 'auto' }} className="BookingTimeSlotComponent">
             <td>{props.inputTime}</td>
-            <td>{numberOfBookings}</td>
+            <td>{numberOfGuests} av {guestCapacity}</td>
+            <td>{numberOfBookings} av {tableCapacity}</td>
             <td><Button onClick={handleOpenCloseTimeSlot}>{timeSlotIsExpanded ? 'Stäng' : 'Öppna'}</Button></td>
             <Table className={timeSlotIsExpanded ? 'expanded' : 'closed'}>
                 <thead>
@@ -129,7 +146,7 @@ function BookingTimeSlotComponent(props) {
                         <Modal.Title>Ändra bokning</Modal.Title>
                     </Modal.Header>
                     <Modal.Body>
-                        <CreateBookingComponent booking={modalBooking} creating={false}/>
+                        <CreateBookingComponent booking={modalBooking} creating={false} />
                     </Modal.Body>
                     <Button variant="primary" onClick={() => setChanging(false)}>
                         Avbryt
@@ -151,7 +168,7 @@ function BookingTimeSlotComponent(props) {
                             </div>
                             <div>
                                 <p><b>Tid</b></p>
-                                <p>{modalBooking.startTime.slice(0,5)}</p>
+                                <p>{modalBooking.startTime.slice(0, 5)}</p>
                             </div>
                         </div>
 

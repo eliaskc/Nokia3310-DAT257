@@ -94,10 +94,21 @@ public class BookingController {
         return databaseController.fetchTimeSlotsByDate(date);
     }
 
-    @GetMapping("/bookings/count/{date}/{time}")
-    public int getNumberOfBookingByDateAndTime(@PathVariable Date date, @PathVariable String time) {
+    @GetMapping("/bookings/count/bookedtables/{date}/{time}")
+    public int getNumberOfBookedTablesByDateAndTime(@PathVariable Date date, @PathVariable String time) {
         Time sqlTime = Time.valueOf(time);
-        return databaseController.fetchNumberOfBookingByDateAndTime(date,sqlTime);
+        return databaseController.fetchNumberOfBookedTablesByDateAndTime(date,sqlTime);
+    }
+
+    @GetMapping("/bookings/count/guests/{date}/{time}")
+    public int getNumberOfGuestsByDateAndTime(@PathVariable Date date, @PathVariable String time) {
+        int nrOfGuests = 0;
+        Time sqlTime = Time.valueOf(time);
+        List<Booking> bookings = databaseController.fetchBookingsByDateAndTime(date,sqlTime);
+        for (Booking b : bookings) {
+            nrOfGuests += b.getNrOfPeople();
+        }
+        return nrOfGuests;
     }
 
     /**

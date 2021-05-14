@@ -133,7 +133,7 @@ public class DatabaseController {
     }
 
     
-    public  int fetchNumberOfBookingByDateAndTime(Date date, Time time) {
+    public  int fetchNumberOfBookedTablesByDateAndTime(Date date, Time time) {
         String sqlQuery = ("SELECT COUNT(*) FROM occupiedtimeslots WHERE bookingDate = ? AND timeSlot = ?");
         Object[] params = new Object[] { date, time };
         return jdbcTemplate.queryForObject(sqlQuery, Integer.class, params);
