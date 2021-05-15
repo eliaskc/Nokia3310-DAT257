@@ -10,8 +10,10 @@ import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 import java.net.URI;
 import java.sql.Time;
 import java.time.LocalTime;
+import java.time.ZoneId;
 import java.time.LocalDate;
 import java.sql.Date;
+import java.util.HashMap;
 import java.util.List;
 /**
  * Controller for the backend which acts as a RESTful API
@@ -122,5 +124,64 @@ public class BookingController {
         return databaseController.updateBooking(id,updatedBooking);
     }
 
-}
+    @GetMapping("/checkpassword")
+    public String checkPassword(String password) {
+        String pass = System.getenv("BookingAppPassword");
+        if (pass == null){
+            System.out.println("A password is not set in environment variables");
+            return null;
+        }
+        
+        if (pass.equals(password)){
+            return createJWT();
+        } else {
+            return null;
+        }
+    }
 
+    @GetMapping("/checkauthorizeuser")
+    public Boolean checkAuthorizeUser(String jwt){
+        //If the user doesn't have a JWT saved and tries to access restricted pages
+        if (jwt == null){
+            return false;
+        }
+
+        try {
+            Algorithm algorithm = Algorithm.HMAC256("LFThe3UVEK");
+            JWTVerifier verifier = JWT.require(algorithm)
+                .withIssuer("auth0")
+                .build();
+            DecodedJWT decodedJwt = verifier.verify(jwt);
+            return true;
+        } catch (JWTVerificationException exception){
+            return false;
+        }
+    }
+
+
+    /**
+     * Creates a JSON Web Token used to authorize users 
+     * @return
+     */
+    public String createJWT(){
+        LocalDate date = LocalDate.now();
+        ZoneId zoneId = ZoneId.systemDefault();
+        long epoch = date.atStartOfDay(zoneId).toEpochSecond();
+        epoch = (epoch + 86400);
+
+        try {
+            Algorithm algorithm = Algorithm.HMAC256("LFThe3UVEK");
+            HashMap<String, Object> payloadClaims = new HashMap<>();
+            payloadClaims.put("authorized", "true");
+            payloadClaims.put("exp", epoch);
+            String token = JWT.create()
+                .withPayload(payloadClaims)
+                .withIssuer("auth0")
+                .sign(algorithm);
+            return token;
+        } catch (JWTCreationException exception){
+            System.out.println("Invalid signing configuration");
+            return "";
+        }
+    }
+}

@@ -8,13 +8,15 @@ export default function Guests(props) {
     let isChrome = /Chrome/.test(navigator.userAgent) && /Google Inc/.test(navigator.vendor);
     let is_safari = navigator.userAgent.toLowerCase().indexOf('safari/') > -1;
 
+    const ua = navigator.userAgent;
+    const isMobileOrTablet = (/(tablet|ipad|playbook|silk)|(android(?!.*mobi))/i.test(ua) || /Mobile|Android|iP(hone|od)|IEMobile|BlackBerry|Kindle|Silk-Accelerated|(hpw|web)OS|Opera M(obi|ini)/.test(ua));
+
 
     const [show, setShow] = useState(false);
-
     const handleClose = () => setShow(false);
     const handleShow = () => setShow(true);
 
-    if (isChrome) {
+    if (isChrome && isMobileOrTablet) {
         console.log('Det här är chrome');
         return (
             <>
@@ -52,7 +54,8 @@ export default function Guests(props) {
             </>
         )
     } 
-    if (is_safari ) {
+
+    if (is_safari && isMobileOrTablet) {
         console.log('Det här är safari')
         return (
             <>

@@ -83,7 +83,6 @@ class BookingDataService {
         return axios.get(`http://localhost:8080/bookings/date/${date}/${time}`);
     }
 
-
     getTimeSlotsByDate(date){
         return axios.get(`http://localhost:8080/timeslots/date/${date}`);
     }
@@ -96,7 +95,13 @@ class BookingDataService {
         return axios.get(`http://localhost:8080/bookings/count/guests/${date}/${time}`);
     }
 
+    checkPassword(password){
+        return axios.get('http://localhost:8080/checkpassword', {params: {'password': password}})
+    }
 
+    checkAuthorizeUser(jwt){
+        return axios.get('http://localhost:8080/checkauthorizeuser', {params: {'jwt': jwt}})
+    }
 
 }
 
