@@ -7,6 +7,15 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
+import javax.xml.crypto.Data;
+
+import com.auth0.jwt.JWT;
+import com.auth0.jwt.algorithms.Algorithm;
+import com.auth0.jwt.exceptions.JWTCreationException;
+import com.auth0.jwt.exceptions.JWTVerificationException;
+import com.auth0.jwt.interfaces.DecodedJWT;
+import com.auth0.jwt.interfaces.JWTVerifier;
+
 import java.net.URI;
 import java.sql.Time;
 import java.time.LocalTime;
@@ -15,6 +24,7 @@ import java.time.LocalDate;
 import java.sql.Date;
 import java.util.HashMap;
 import java.util.List;
+
 /**
  * Controller for the backend which acts as a RESTful API
  */
