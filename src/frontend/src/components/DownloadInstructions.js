@@ -54,6 +54,7 @@ export default function Guests(props) {
             </>
         )
     } 
+
     if (is_safari && isMobileOrTablet) {
         console.log('Det här är safari')
         return (
