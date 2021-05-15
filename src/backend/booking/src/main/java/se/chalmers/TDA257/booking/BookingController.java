@@ -24,15 +24,15 @@ import java.time.LocalDate;
 import java.sql.Date;
 import java.util.HashMap;
 import java.util.List;
+
 /**
  * Controller for the backend which acts as a RESTful API
  */
 @RestController
 @CrossOrigin(origins = "http://localhost:3000")
 public class BookingController {
-
     @Autowired
-    private BookingsTest bookings;
+    private DatabaseController databaseController;
 
     /**
      * Fetches all available times
@@ -40,7 +40,7 @@ public class BookingController {
      */
     @GetMapping("/availableTimes")
     public List<Time> getAllAvailableTimes(@DateTimeFormat(pattern = "yyyy-MM-dd") LocalDate date, @DateTimeFormat(pattern = "HH:mm:ss") LocalTime time, int guests){
-        return DatabaseController.fetchAvailableTimes(date, time, guests);
+        return databaseController.fetchAvailableTimes(date, time, guests);
     }
 
     /**
@@ -50,7 +50,7 @@ public class BookingController {
      */
     @GetMapping("/availableDays")
     public List<Date> getAllAvailableDays(int guests){
-        return DatabaseController.fetchAvailableDays(guests);
+        return databaseController.fetchAvailableDays(guests);
     }
 
     /**
@@ -67,7 +67,7 @@ public class BookingController {
      */
     @DeleteMapping("/bookings/id/{id}")
     public ResponseEntity<Void> deleteBooking(@PathVariable int id) {
-        int success = DatabaseController.deleteBookingByID(id);
+        int success = databaseController.deleteBookingByID(id);
         if (success != 0) {
             return ResponseEntity.noContent().build();
         }
@@ -82,8 +82,8 @@ public class BookingController {
      */
     @PostMapping("/bookings")
     public ResponseEntity<Booking> addBooking(@RequestBody Booking booking) {
-        DatabaseController.insertNewBooking(booking);
-        Booking b = DatabaseController.fetchBookingByTelNrDateTime(booking.getGuestTelNr(),booking.getBookingDate(),booking.getStartTime());
+        databaseController.insertNewBooking(booking);
+        Booking b = databaseController.fetchBookingByTelNrDateTime(booking.getGuestTelNr(),booking.getBookingDate(),booking.getStartTime());
         URI uri = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}")
                 .buildAndExpand(b.getBookingID()).toUri();
         return ResponseEntity.created(uri).build();
@@ -91,25 +91,36 @@ public class BookingController {
 
     @GetMapping("/bookings/date/{date}")
     public List<Booking> getBookingByDate(@PathVariable Date date) {
-        return DatabaseController.fetchBookingsByDate(date);
+        return databaseController.fetchBookingsByDate(date);
     }
 
     @GetMapping("/bookings/date/{date}/{time}")
     public List<Booking> getBookingByDateAndTime(@PathVariable Date date, @PathVariable String time) {
         Time sqlTime = Time.valueOf(time);
-        return DatabaseController.fetchBookingsByDateAndTime(date,sqlTime);
+        return databaseController.fetchBookingsByDateAndTime(date,sqlTime);
     }
 
 
     @GetMapping("/timeslots/date/{date}")
     public List<Time> getTimeSlotsByDate(@PathVariable Date date) {
-        return DatabaseController.fetchTimeSlotsByDate(date);
+        return databaseController.fetchTimeSlotsByDate(date);
     }
 
-    @GetMapping("/bookings/count/{date}/{time}")
-    public int getNumberOfBookingByDateAndTime(@PathVariable Date date, @PathVariable String time) {
+    @GetMapping("/bookings/count/bookedtables/{date}/{time}")
+    public int getNumberOfBookedTablesByDateAndTime(@PathVariable Date date, @PathVariable String time) {
         Time sqlTime = Time.valueOf(time);
-        return DatabaseController.fetchNumberOfBookingByDateAndTime(date,sqlTime);
+        return databaseController.fetchNumberOfBookedTablesByDateAndTime(date,sqlTime);
+    }
+
+    @GetMapping("/bookings/count/guests/{date}/{time}")
+    public int getNumberOfGuestsByDateAndTime(@PathVariable Date date, @PathVariable String time) {
+        int nrOfGuests = 0;
+        Time sqlTime = Time.valueOf(time);
+        List<Booking> bookings = databaseController.fetchBookingsByDateAndTime(date,sqlTime);
+        for (Booking b : bookings) {
+            nrOfGuests += b.getNrOfPeople();
+        }
+        return nrOfGuests;
     }
 
     /**
@@ -120,8 +131,7 @@ public class BookingController {
      */
     @PutMapping("/bookings/{id}")
     public int updateBooking(@PathVariable int id, @RequestBody Booking updatedBooking) {
-        System.out.println(updatedBooking.toString());
-        return DatabaseController.updateBooking(id,updatedBooking);
+        return databaseController.updateBooking(id,updatedBooking);
     }
 
     @GetMapping("/checkpassword")

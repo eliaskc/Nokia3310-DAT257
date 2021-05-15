@@ -5,7 +5,6 @@ import {Formik} from 'formik'
 import {useHistory} from 'react-router-dom'
 import * as Yup from 'yup'
 
-
 /**
  * Represents the page for inputting information
  * @param {*} props Object that represents the current booking

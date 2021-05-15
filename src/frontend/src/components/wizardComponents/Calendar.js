@@ -4,7 +4,7 @@ import 'react-calendar/dist/Calendar.css';
 import DotLoader from 'react-spinners/DotLoader'
 import {Link} from 'react-router-dom'
 import Button from 'react-bootstrap/Button'
-
+import moment from 'moment'
 import BookingDataService from '../../api/BookingDataService'
 
 /**
@@ -24,7 +24,6 @@ export default function CalendarFunc(props) {
             setSelectedDate(new Date(props.booking.date))
             setDisabled(false)
         }
-        
         BookingDataService.retrieveAllAvailableDays(props.booking.guests)
             .then(
                 (response) => {
@@ -36,12 +35,12 @@ export default function CalendarFunc(props) {
     }, [])
 
     function tileDisabled({date}) {
-        console.log(dayList)
-        return !(dayList.includes(date.toLocaleDateString()))
+        date = moment(date).format('YYYY-MM-DD')
+        return !(dayList.includes(date))
     }
 
     function handleSelect(date){
-        props.booking.date = date.toLocaleDateString()
+        props.booking.date = moment(date).format("YYYY-MM-DD")
         props.booking.time = ''
         setDisabled(false)
     }
