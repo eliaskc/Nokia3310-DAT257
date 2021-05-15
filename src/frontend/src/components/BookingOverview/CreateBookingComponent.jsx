@@ -106,9 +106,11 @@ export default function CreateBookingComponent(props) {
 
     function guestsChange(handleChange, event) {
         booking.guests = event.target.value;
-        if (event.target.value < 0) {
-            event.target.value = 0
-            if (event.target.value !== '') {
+        if (event.target.value !== '') {
+            
+            if (event.target.value < 0) {
+                event.target.value = ''
+            } else {
                 if (dateDisabled === true)
                     setDateDisabled(false);
                 fetchAvailableDays(event.target.value);

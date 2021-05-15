@@ -95,26 +95,6 @@ function BookingTimeSlotComponent(props) {
             )
     }
 
-    function updateBooking(id) {
-        let testBooking = {
-            bookingID: 0,
-            guestName: "placeholder name",
-            guestTelNr: "placeholder tel number",
-            nrOfPeople: 2,
-            bookingDate: moment(new Date()).format('YYYY-MM-DD'),
-            startTime: "18:00:00",
-            additionalInfo: "placeholder info"
-        }
-        BookingDataService.updateBooking(id, testBooking)
-            .then(
-                () => {
-                    window.location.reload();
-                }
-            )
-    }
-
-
-
     return (
         <tr style={timeSlotIsExpanded ? { height: 111 + bookings.length * 49 + 'px' } : { height: 'auto' }} className="BookingTimeSlotComponent">
             <td>{props.inputTime}</td>
