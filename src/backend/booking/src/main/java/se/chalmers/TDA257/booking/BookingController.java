@@ -34,29 +34,16 @@ public class BookingController {
     @Autowired
     private DatabaseController databaseController;
 
-    /**
-     * Fetches all available times
-     * @return list of all available Times
-     */
     @GetMapping("/availableTimes")
     public List<Time> getAllAvailableTimes(@DateTimeFormat(pattern = "yyyy-MM-dd") LocalDate date, @DateTimeFormat(pattern = "HH:mm:ss") LocalTime time, int guests){
         return databaseController.fetchAvailableTimes(date, time, guests);
     }
 
-    /**
-     * Fetches all available days
-     * @param guests
-     * @return List of all available Dates
-     */
     @GetMapping("/availableDays")
     public List<Date> getAllAvailableDays(int guests){
         return databaseController.fetchAvailableDays(guests);
     }
 
-    /**
-     * Fetches specified booking
-     * @return Booking object
-     */
     @GetMapping("/bookings/{id}")
     public Booking getBooking(@PathVariable long id) {
         return bookings.getBooking(id);
@@ -79,6 +66,7 @@ public class BookingController {
      * Adds a new booking, and creates an URI for the newly created booking
      * 
      * @param booking
+     * @return Responseentity describing for example if the deletion was succesful
      */
     @PostMapping("/bookings")
     public ResponseEntity<Booking> addBooking(@RequestBody Booking booking) {
@@ -89,48 +77,28 @@ public class BookingController {
         return ResponseEntity.created(uri).build();
     }
 
-    /**
-     * Fetches all bookings for a specific date
-     * @return List of all bookings for that date
-     */
     @GetMapping("/bookings/date/{date}")
-    public List<Booking> getBookingByDate(@PathVariable Date date) {
+    public List<Booking> getBookingsByDate(@PathVariable Date date) {
         return databaseController.fetchBookingsByDate(date);
     }
 
-    /**
-     * Fetches all bookings for a specific date and time
-     * @return List of all bookings for that date and
-     */
     @GetMapping("/bookings/date/{date}/{time}")
     public List<Booking> getBookingByDateAndTime(@PathVariable Date date, @PathVariable String time) {
         Time sqlTime = Time.valueOf(time);
         return databaseController.fetchBookingsByDateAndTime(date,sqlTime);
     }
 
-    /**
-     * Fetches all timeslots for a specific date
-     * @return List of all timeslots for that date
-     */
     @GetMapping("/timeslots/date/{date}")
     public List<Time> getTimeSlotsByDate(@PathVariable Date date) {
         return databaseController.fetchTimeSlotsByDate(date);
     }
 
-    /**
-     * Fetches the number of booked tables for a specific date and time
-     * @return List of all booked tables for the specified date and time
-     */
     @GetMapping("/bookings/count/bookedtables/{date}/{time}")
     public int getNumberOfBookedTablesByDateAndTime(@PathVariable Date date, @PathVariable String time) {
         Time sqlTime = Time.valueOf(time);
         return databaseController.fetchNumberOfBookedTablesByDateAndTime(date,sqlTime);
     }
 
-    /**
-     * Fetches the number of booked guests for a specific date and time
-     * @return List of all booked guests for the specified date and time
-     */
     @GetMapping("/bookings/count/guests/{date}/{time}")
     public int getNumberOfGuestsByDateAndTime(@PathVariable Date date, @PathVariable String time) {
         int nrOfGuests = 0;

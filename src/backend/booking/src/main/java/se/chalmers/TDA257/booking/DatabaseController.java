@@ -28,15 +28,6 @@ public class DatabaseController {
     @Autowired
     private JdbcTemplate jdbcTemplate;
 
-    /**
-     * Fetches all available times for the provided date, time and number of people
-     * from the database
-     * 
-     * @param date       LocalDate date to check
-     * @param time       Current time
-     * @param nrOfPeople Number of people to book
-     * @return List of all available times
-     */
     public List<Time> fetchAvailableTimes(LocalDate date, LocalTime time, int nrOfPeople) {
         String sqlQuery = ("SELECT bookingDate, timeSlot, nrOfAvailableSeats FROM AvailableReservations"
                 + " WHERE (?) <= nrOfAvailableSeats AND (?) = bookingDate AND (?) <= timeSlot");
@@ -53,13 +44,6 @@ public class DatabaseController {
         return jdbcTemplate.query(sqlQuery, rowMapper, params);
     }
 
-    /**
-     * Fetches all days where the number of available seats is higher than the
-     * specified amount of people
-     * 
-     * @param nrOfPeople Number of people to book
-     * @return List of all available days
-     */
     public List<Date> fetchAvailableDays(int nrOfPeople) {
         String sqlQuery = ("SELECT DISTINCT bookingDate FROM AvailableReservations"
                 + " WHERE (?) <= nrOfAvailableSeats;");
@@ -92,10 +76,6 @@ public class DatabaseController {
         return jdbcTemplate.update(sqlQuery, params);
     }
 
-    /**
-     * Fetches all timeslots for a specific date
-     * @return All timeslots for the specified date
-     */
     public List<Time> fetchTimeSlotsByDate(Date date) {
         String sqlQuery = ("SELECT * FROM TimeSlots WHERE bookingDate = ? AND tableID = 1;");
         Object[] params = new Object[] { date };
@@ -108,10 +88,6 @@ public class DatabaseController {
         return jdbcTemplate.query(sqlQuery, rowMapper, params);
     }
 
-    /**
-     * Fetches all bookings for a specific date
-     * @return all bookings for the specified date
-     */
     public List<Booking> fetchBookingsByDate(Date date) {
         String sqlQuery = ("SELECT * FROM BookingsView WHERE bookingDate = ? AND guestTelNr IS NOT NULL");
         Object[] params = new Object[] { date };
@@ -125,10 +101,6 @@ public class DatabaseController {
         return jdbcTemplate.query(sqlQuery, rowMapper, params);
     }
 
-    /**
-     * Fetches all bookings for a specific date and time
-     * @return all bookings for the specified date and time
-     */
     public List<Booking> fetchBookingsByDateAndTime(Date date, Time time) {
         String sqlQuery = ("SELECT DISTINCT ON(bookingID) * from BookingsView WHERE bookingDate = ? AND timeSlot = ? AND bookingID IS NOT NULL");
         Object[] params = new Object[] { date, time };
@@ -137,10 +109,6 @@ public class DatabaseController {
         return jdbcTemplate.query(sqlQuery, rowMapper, params);
     }
 
-    /**
-     * Fetches the number of booked tables for a specific date and time
-     * @return List of all booked tables for the specified date and time
-     */
     public int fetchNumberOfBookedTablesByDateAndTime(Date date, Time time) {
         String sqlQuery = ("SELECT COUNT(*) FROM occupiedtimeslots WHERE bookingDate = ? AND timeSlot = ?");
         Object[] params = new Object[] { date, time };
@@ -167,9 +135,6 @@ public class DatabaseController {
         return jdbcTemplate.update(sqlQuery, params);
     }
 
-    /**
-     * Fetches a booking specified by phonu number, date and time if it exists
-     */
     public Booking fetchBookingByTelNrDateTime(String telNr, Date date, LocalTime time) {
         String sqlQuery = ("SELECT * FROM BookingsView WHERE guestTelNr= ? AND bookingDate = ? AND startTime = ?");
         Object[] params = new Object[] { telNr, date, time };

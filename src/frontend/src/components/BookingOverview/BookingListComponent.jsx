@@ -5,7 +5,7 @@ import moment from 'moment'
 import { Formik, Form, Field } from 'formik'
 import BookingDataService from '../../api/BookingDataService.js'
 import BookingTimeSlotComponent from './BookingTimeSlotComponent.jsx';
-import CreateBookingComponent from './CreateBookingComponent.jsx';
+import CreateAndChangeBookingComponent from './CreateAndChangeBookingComponent.jsx';
 import Modal from 'react-bootstrap/Modal'
 import { Redirect } from 'react-router-dom'
 import DotLoader from 'react-spinners/DotLoader'
@@ -104,7 +104,7 @@ function BookingListComponent() {
                             <Modal.Title>Skapa bokning</Modal.Title>
                         </Modal.Header>
                         <Modal.Body>
-                            <CreateBookingComponent booking={modalBooking} />
+                            <CreateAndChangeBookingComponent booking={modalBooking} />
                         </Modal.Body>
                     </Modal>
                     <h2>Visar bokningar för: {date}</h2>
