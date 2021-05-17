@@ -30,12 +30,7 @@ CREATE VIEW AvailableTimeSlots AS
     EXCEPT (SELECT tableID, bookingDate, timeSlot - INTERVAL '90 minutes'
         FROM BookedTables)
     ORDER BY bookingDate, tableID, timeSlot;
-    
-    
 
-
---OBS!!!!! När hämtar i backend så måste queryn hämta "WHERE nrOfPeople >= nrOfAvailableSeats"
---Det är denna vi hämtar info om alla lediga tider med antal lediga platser till backend
 -- Shows all available seats per time and date. Takes all available timeslots, groups them together
 -- and adds a column for nr of available seats.
 CREATE VIEW AvailableReservations AS

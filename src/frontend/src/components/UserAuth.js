@@ -1,5 +1,7 @@
 import BookingDataService from '../api/BookingDataService'
-
+/**
+ * Class to determine if a user is authenticeted or make the user authenticated
+ */
 class UserAuth{
 
     /**
@@ -29,6 +31,10 @@ class UserAuth{
         localStorage.removeItem('token')
     }
 
+    /**
+     * Checks if user is authenticated 
+     * @returns true if the token is teh correct one othervise returns false
+     */
     isUserAuthenticated(){
         return new Promise((resolve, reject) => {
             BookingDataService.checkAuthorizeUser(localStorage.getItem('token')).then((response) => {

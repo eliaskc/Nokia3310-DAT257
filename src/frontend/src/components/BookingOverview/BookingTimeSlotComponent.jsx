@@ -4,10 +4,13 @@ import BookingDataService from '../../api/BookingDataService.js'
 import Button from 'react-bootstrap/Button';
 import Table from 'react-bootstrap/Table';
 import Modal from 'react-bootstrap/Modal'
-import CreateBookingComponent from './CreateBookingComponent.jsx';
+import CreateAndChangeBookingComponent from './CreateAndChangeBookingComponent.jsx';
 
+/**
+ * Component which shows all bookings for a specific timeslot, which can then be interacted with
+ */
 function BookingTimeSlotComponent(props) {
-    const tableCapacity = 25;
+    const tableCapacity = 20;
     const guestCapacity = tableCapacity*2;
     const prevProps = useRef();
     const [bookings, setBookings] = useState([]);
@@ -29,7 +32,6 @@ function BookingTimeSlotComponent(props) {
 
     useEffect(() => {
         if (prevProps && (props !== prevProps)) {
-            console.log("test")
             setTimeSlotIsExpanded(false);
             refreshBookings(props.inputDate, props.inputTime)
             refreshNumberOfBookedTables(props.inputDate, props.inputTime)
@@ -37,6 +39,11 @@ function BookingTimeSlotComponent(props) {
         }
     }, [props.inputDate, props.inputTime]);
 
+    /**
+     * Updates the bookings for the given date and time
+     * @param {String} inputDate 
+     * @param {String} inputTime 
+     */
     const refreshBookings = (inputDate, inputTime) => {
         inputDate = moment(inputDate).format('YYYY-MM-DD')
         BookingDataService.getBookingsByDateAndTime(inputDate, inputTime)
@@ -126,7 +133,7 @@ function BookingTimeSlotComponent(props) {
                         <Modal.Title>Ändra bokning</Modal.Title>
                     </Modal.Header>
                     <Modal.Body>
-                        <CreateBookingComponent booking={modalBooking} creating={false} />
+                        <CreateAndChangeBookingComponent booking={modalBooking} creating={false} />
                     </Modal.Body>
                     <Button variant="primary" onClick={() => setChanging(false)}>
                         Avbryt

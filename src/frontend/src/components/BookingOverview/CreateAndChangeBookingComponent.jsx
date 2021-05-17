@@ -7,11 +7,10 @@ import { Button, Form, Col } from 'react-bootstrap'
 import moment from 'moment';
 
 
-
-export default function CreateBookingComponent(props) {
-    /**
-     * Javascript object created with the values of props, in order for the backend to be able to handle it
-     */
+/**
+ * Component used to create and change bookings using a Modal and Form
+ */
+export default function CreateAndChangeBookingComponent(props) {
     let booking = {
         guestName: '',
         guestTelNr: '',
@@ -34,12 +33,14 @@ export default function CreateBookingComponent(props) {
         }
     }, []);
 
+    /**
+     * Creates a new booking or updates the current one depending on the situation
+     */
     function submitBooking() {
         if (!checkBookingComplete)
             alert('Det saknas information')
         else if (props.creating === true) {
             BookingDataService.createBooking(booking).then(() => {
-                //handleCloseModal();
                 window.location.reload();
             }
             ).catch(error => {
@@ -47,7 +48,6 @@ export default function CreateBookingComponent(props) {
             })
         } else {
             BookingDataService.updateBooking(props.booking.bookingID, booking).then(() => {
-                //handleCloseModal();
                 window.location.reload();
             }
             ).catch(error => {

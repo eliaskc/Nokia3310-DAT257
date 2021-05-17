@@ -7,8 +7,8 @@ import java.sql.Date;
 import java.time.LocalTime;
 
 /**
- * Class for the booking object containing information about what time the booking is as well
- * as information about the guest
+ * Class for the booking object containing details about the booking including who made it and
+ * their phone number as well as when it is.
  */
 @Getter @Setter
 public class Booking {

@@ -5,14 +5,14 @@ import moment from 'moment'
 import { Formik, Form, Field } from 'formik'
 import BookingDataService from '../../api/BookingDataService.js'
 import BookingTimeSlotComponent from './BookingTimeSlotComponent.jsx';
-import CreateBookingComponent from './CreateBookingComponent.jsx';
+import CreateAndChangeBookingComponent from './CreateAndChangeBookingComponent.jsx';
 import Modal from 'react-bootstrap/Modal'
 import { Redirect } from 'react-router-dom'
 import DotLoader from 'react-spinners/DotLoader'
 import UserAuth from '../UserAuth.js'
 
 /**
- * Component that shows a list of all bookings
+ * Component that shows a list of bookings for a specific date, which can be changed
  */
 function BookingListComponent() {
     const [timeSlots, setTimeSlots] = useState([]);
@@ -39,6 +39,10 @@ function BookingListComponent() {
         refreshTimeSlots(date);
     }, [date]);
 
+    /**
+     * Updates the timeslots for the specified date
+     * @param {String} inputDate 
+     */
     const refreshTimeSlots = (inputDate) => {
         inputDate = moment(inputDate).format('YYYY-MM-DD');
         BookingDataService.getTimeSlotsByDate(inputDate)
@@ -100,7 +104,7 @@ function BookingListComponent() {
                             <Modal.Title>Skapa bokning</Modal.Title>
                         </Modal.Header>
                         <Modal.Body>
-                            <CreateBookingComponent booking={modalBooking} />
+                            <CreateAndChangeBookingComponent booking={modalBooking} />
                         </Modal.Body>
                     </Modal>
                     <h2>Visar bokningar för: {date}</h2>

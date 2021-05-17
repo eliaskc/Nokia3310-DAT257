@@ -13,6 +13,7 @@ export default function Confirm(props) {
     const [loading, setLoading] = useState(false)
     const history = useHistory()
 
+    //Checks that there exists values for everything that is required
     function checkBookingComplete() {
         return !(props.booking.name === '' ||
             props.booking.tel === '' ||
@@ -32,7 +33,11 @@ export default function Confirm(props) {
         startTime: props.booking.time,
         additionalInfo: props.booking.info
     }
-
+    /*
+    Check that the booking is complete and that the database is able to recieve the booking
+    othervise send a alert to show that something is wrong.
+    Afterwards are you sent to the correct place depending on if the booking was recived correctly
+    */
     function onConfirm() {
         if (!checkBookingComplete()) {
             alert('Du måste fylla i all information')
@@ -48,7 +53,7 @@ export default function Confirm(props) {
             })
         }
     }
-
+    
     return (
         <div>
             {loading ? 

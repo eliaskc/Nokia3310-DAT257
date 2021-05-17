@@ -34,20 +34,11 @@ public class BookingController {
     @Autowired
     private DatabaseController databaseController;
 
-    /**
-     * Fetches all available times
-     * @return list of Times
-     */
     @GetMapping("/availableTimes")
     public List<Time> getAllAvailableTimes(@DateTimeFormat(pattern = "yyyy-MM-dd") LocalDate date, @DateTimeFormat(pattern = "HH:mm:ss") LocalTime time, int guests){
         return databaseController.fetchAvailableTimes(date, time, guests);
     }
 
-    /**
-     * Fetches all available days
-     * @param guests
-     * @return
-     */
     @GetMapping("/availableDays")
     public List<Date> getAllAvailableDays(int guests){
         return databaseController.fetchAvailableDays(guests);
@@ -55,6 +46,7 @@ public class BookingController {
 
     /**
      * Deletes specified booking if it exists
+     * @return Responseentity describing for example if the deletion was succesful
      */
     @DeleteMapping("/bookings/id/{id}")
     public ResponseEntity<Void> deleteBooking(@PathVariable int id) {
@@ -66,10 +58,10 @@ public class BookingController {
     }
 
     /**
-     * Adds a new booking
+     * Adds a new booking, and creates an URI for the newly created booking
      * 
-     * The id must be 0, as it will be assigned by the database
      * @param booking
+     * @return Responseentity describing for example if the deletion was succesful
      */
     @PostMapping("/bookings")
     public ResponseEntity<Booking> addBooking(@RequestBody Booking booking) {
@@ -81,7 +73,7 @@ public class BookingController {
     }
 
     @GetMapping("/bookings/date/{date}")
-    public List<Booking> getBookingByDate(@PathVariable Date date) {
+    public List<Booking> getBookingsByDate(@PathVariable Date date) {
         return databaseController.fetchBookingsByDate(date);
     }
 
@@ -90,7 +82,6 @@ public class BookingController {
         Time sqlTime = Time.valueOf(time);
         return databaseController.fetchBookingsByDateAndTime(date,sqlTime);
     }
-
 
     @GetMapping("/timeslots/date/{date}")
     public List<Time> getTimeSlotsByDate(@PathVariable Date date) {
@@ -118,13 +109,18 @@ public class BookingController {
      * Updates the booking with specified id with the values from updatedBooking
      * @param id
      * @param updatedBooking
-     * @return
+     * @return number of rows affected
      */
     @PutMapping("/bookings/{id}")
     public int updateBooking(@PathVariable int id, @RequestBody Booking updatedBooking) {
         return databaseController.updateBooking(id,updatedBooking);
     }
 
+    /**
+     * Checks if the given password is the correct one
+     * @param password
+     * @return JSON Web Token if password is correct and null otherwise
+     */
     @GetMapping("/checkpassword")
     public String checkPassword(String password) {
         String pass = System.getenv("BookingAppPassword");
@@ -140,6 +136,10 @@ public class BookingController {
         }
     }
 
+    /**
+     * Checks if the current user is authorized
+     * @return true if authorized, false if not
+     */
     @GetMapping("/checkauthorizeuser")
     public Boolean checkAuthorizeUser(String jwt){
         //If the user doesn't have a JWT saved and tries to access restricted pages
