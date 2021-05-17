@@ -12,7 +12,7 @@ import DotLoader from 'react-spinners/DotLoader'
 import UserAuth from '../UserAuth.js'
 
 /**
- * Component that shows a list of all bookings
+ * Component that shows a list of bookings for a specific date, which can be changed
  */
 function BookingListComponent() {
     const [timeSlots, setTimeSlots] = useState([]);
@@ -39,6 +39,10 @@ function BookingListComponent() {
         refreshTimeSlots(date);
     }, [date]);
 
+    /**
+     * Updates the timeslots for the specified date
+     * @param {String} inputDate 
+     */
     const refreshTimeSlots = (inputDate) => {
         inputDate = moment(inputDate).format('YYYY-MM-DD');
         BookingDataService.getTimeSlotsByDate(inputDate)
