@@ -59,8 +59,20 @@ function BookingListComponent() {
         setIsAuthenticated(false)
     }
 
-    const submitDate = (values) => {
-        refreshTimeSlots(values.date);
+    function onPreviousDate(){
+        let prevDate = new Date(date)
+        prevDate.setDate(prevDate.getDate() - 1)
+        changeDate(moment(prevDate).format('YYYY-MM-DD'))
+    }
+
+    function onNextDate(){
+        let nextDate = new Date(date)
+        nextDate.setDate(nextDate.getDate() + 1)
+        changeDate(moment(nextDate).format('YYYY-MM-DD'))
+    }
+
+    const changeDate = (newDate) => {
+        refreshTimeSlots(newDate);
     }
 
     const handleCloseCreateModal = () => {
@@ -76,27 +88,31 @@ function BookingListComponent() {
             {isAuthenticated && !loading &&
                 <div className="BookingListComponent">
                     <div>
-                        <Button onClick={() => logOut()}>
-                            Logga ut
-                        </Button>
+                        <Button onClick={() => logOut()}>Logga ut</Button>
+                        <Button href="/">Tillbaka</Button>
+
                         <Formik
                             initialValues={{ date: date }}
-                            onSubmit={submitDate}
-                            enableReinitialize={true}
-                        >
+                            enableReinitialize={true}>
                             {
                                 () => (
                                     <Form>
-                                        <Button href="/">Tillbaka</Button>
                                         <fieldset className="form-group">
                                             Välj datum:
-                                            <Field className="form-control" type="date" name="date" />
+                                            <Field className="form-control" 
+                                                   type="date" 
+                                                   name="date" 
+                                                   value={date} 
+                                                   onChange={e => changeDate(e.target.value)}/>
                                         </fieldset>
-                                        <Button variant="primary" className="btn btn-success" type="submit" >Ändra datum</Button>
                                     </Form>
                                 )
                             }
                         </Formik>
+
+                        <Button className='prev-date-btn' onClick={() => onPreviousDate()}> ❮ </Button>
+                        <Button className='next-date-btn' onClick={() => onNextDate()}> ❯ </Button>
+
                     </div>
                     <Button variant="primary" className="btn btn-success" onClick={() => handleShowCreateModal()}>Skapa bokning</Button>
                     <Modal show={showCreateModal} onHide={handleCloseCreateModal}>
