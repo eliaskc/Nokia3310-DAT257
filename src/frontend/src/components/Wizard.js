@@ -7,8 +7,15 @@ import Guests from './wizardComponents/Guests';
 import AdditionalInfo from './wizardComponents/AdditionalInfo';
 import Confirm from './wizardComponents/Confirm';
 import Done from './wizardComponents/Done';
-
+/**
+ * Represents how we route to the pages and what gets sent where
+ * @returns 
+ */
 export default function Wizard(){
+    
+    /**
+     * Javascript object that is what gets chenged as the user makes their booking
+     */
     const bookingJSON = useRef({
         'name': '',
         'tel': '',
