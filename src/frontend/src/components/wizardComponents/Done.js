@@ -12,9 +12,6 @@ export default function Done(){
                 <h2>
                 Tack för din bokning!
                 </h2>
-                {/*<h2>
-                    Ett bekräftelsemejl kommer till din e-post inom kort.
-                </h2>*/}
             </div>
             <Button href='/'>
                 TIllbaka till start

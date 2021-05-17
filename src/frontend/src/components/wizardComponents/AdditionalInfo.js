@@ -11,15 +11,17 @@ import * as Yup from 'yup'
  * @returns 
  */
 export default function AdditionalInfo(props){
-    const history = useHistory()
-    const numberRegExp = /^[0-9 \b]+$/
+    const history = useHistory()                    //Constant for pages that have the user have been on
+    const numberRegExp = /^[0-9 \b]+$/              //What is allowed in tel
 
+    //Saves values to current booking
     function saveValues(values){
         props.booking.name = values.name
         props.booking.tel = values.tel
         props.booking.info = values.info
     }
     
+    //The validation to go to the next page
     const validationSchema = Yup.object().shape({
         name: Yup.string()
         .min(2, '*Namn måste vara minst 2 tecken')
@@ -33,7 +35,7 @@ export default function AdditionalInfo(props){
     })
 
     return (
-        <div>
+        <div>                                       
             <Formik
                 initialValues={{ name:props.booking.name, tel:props.booking.tel, info:props.booking.info}}
                 validationSchema={validationSchema}
