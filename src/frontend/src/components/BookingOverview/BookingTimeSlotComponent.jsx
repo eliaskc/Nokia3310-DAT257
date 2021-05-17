@@ -7,7 +7,7 @@ import Modal from 'react-bootstrap/Modal'
 import CreateBookingComponent from './CreateBookingComponent.jsx';
 
 function BookingTimeSlotComponent(props) {
-    const tableCapacity = 25;
+    const tableCapacity = 20;
     const guestCapacity = tableCapacity*2;
     const prevProps = useRef();
     const [bookings, setBookings] = useState([]);
