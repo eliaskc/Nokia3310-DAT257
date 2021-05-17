@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react'
 import Dropdown from 'react-bootstrap/Dropdown';
 import DropdownButton from 'react-bootstrap/DropdownButton';
 import BookingDataService from '../../api/BookingDataService.js'
-import { Link } from 'react-router-dom'
+import { Link, useHistory } from 'react-router-dom'
 import Button from 'react-bootstrap/Button'
 import moment from 'moment';
 
@@ -12,9 +12,9 @@ import moment from 'moment';
  * @returns 
  */
 export default function Timelist(props) {
+    const history = useHistory()
     const [timelist, setTimelist] = useState([]);
     const [dropdownTitle, setDropDownTitle] = useState('Välj tid');
-    const [disabled, setDisabled] = useState(true)
 
     //If the date we are trying to get times for is today, input the current time
     //Else we input 00:00:00
@@ -30,7 +30,6 @@ export default function Timelist(props) {
     useEffect(() => {
         if (props.booking.time !== '') {
             setDropDownTitle('Tid: ' + props.booking.time)
-            setDisabled(false)
         }
 
         BookingDataService.retrieveAllAvailableTimes(props.booking.date, getDateTime(), props.booking.guests)
@@ -44,7 +43,7 @@ export default function Timelist(props) {
     function handleSelect(item) {
         props.booking.time = item
         setDropDownTitle('Tid: ' + item)
-        setDisabled(false)
+        history.push('/info')
     }
 
     return (
@@ -58,11 +57,6 @@ export default function Timelist(props) {
                 <Link className='prevLink' to={'/date'}>
                     <Button>
                         Tillbaka
-                    </Button>
-                </Link>
-                <Link className='nextLink' to={'/info'}>
-                    <Button disabled={disabled}>
-                        Nästa
                     </Button>
                 </Link>
             </div>
