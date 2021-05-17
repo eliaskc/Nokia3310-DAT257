@@ -8,7 +8,6 @@ GRANT ALL ON SCHEMA public TO postgres;
 \set QUIET false
 
 --A table of all the allowed booking times for a given date
--- ev lägga till i schemat och det
 CREATE TABLE BookingTimes (
     bookingDate DATE NOT NULL,
     timeSlot TIME NOT NULL,
@@ -21,8 +20,7 @@ CREATE TABLE Tables (
     CHECK (nrOfSeats=2)
 );
 
-/*Tog bort GuestParties pga finns ingen anledning att prata om GP som en 
-egen entitet i detta sammanhang*/
+-- Table with info about all bookings
 CREATE TABLE Bookings (
     bookingID INTEGER NOT NULL,
     guestName TEXT NOT NULL,
