@@ -54,15 +54,6 @@ public class BookingController {
     }
 
     /**
-     * Fetches specified booking
-     * @return Booking object
-     */
-    @GetMapping("/bookings/{id}")
-    public Booking getBooking(@PathVariable long id) {
-        return bookings.getBooking(id);
-    }
-
-    /**
      * Deletes specified booking if it exists
      */
     @DeleteMapping("/bookings/id/{id}")

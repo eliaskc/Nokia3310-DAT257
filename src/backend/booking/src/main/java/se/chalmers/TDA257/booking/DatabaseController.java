@@ -155,9 +155,11 @@ public class DatabaseController {
 
     
     public Booking fetchBookingByTelNrDateTime(String telNr, Date date, LocalTime time) {
-        String sqlQuery = ("SELECT * FROM BookingsView WHERE guestTelNr= ? AND bookingDate = ? AND startTime = ?");
+        String sqlQuery = ("SELECT DISTINCT ON(guestTelNr) * FROM BookingsView WHERE guestTelNr= ? AND bookingDate = ? AND timeslot = ?");
         Object[] params = new Object[] { telNr, date, time };
-        return jdbcTemplate.queryForObject(sqlQuery, Booking.class, params);
+        RowMapper<Booking> rowMapper = (rs, rownumber) -> new Booking(rs.getInt(5), rs.getString(6),
+                rs.getString(7), rs.getInt(8), rs.getDate(1), rs.getTime(2).toLocalTime(), rs.getString(9));
+        return jdbcTemplate.queryForObject(sqlQuery, rowMapper, params);
     }
 
     
