@@ -7,7 +7,7 @@ import Button from 'react-bootstrap/Button'
 import moment from 'moment';
 
 /**
- * Represents the page for selecting time
+ * Represents the page for selecting starttime
  * @param {*} props Object that represents the current booking
  * @returns 
  */
@@ -26,6 +26,7 @@ export default function Timelist(props) {
         return moment(dateTime).format('HH:mm:ss')
     }
 
+    //If you have already choosen time show it, then make so that avalible times are in teh dropbox
     useEffect(() => {
         if (props.booking.time !== '') {
             setDropDownTitle('Tid: ' + props.booking.time)

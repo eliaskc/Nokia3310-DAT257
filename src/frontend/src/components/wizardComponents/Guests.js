@@ -12,6 +12,7 @@ import Button from 'react-bootstrap/Button'
 export default function Guests(props) {
     const [dropdownTitle, setDropDownTitle] = useState('Välj antal gäster');
     const [disabled, setDisabled] = useState(true)
+    //The amount of guests that you are able to choose
     let guestsAmount = [1,2,3,4,5,6,7,8];
 
     //If a value was previously chosen

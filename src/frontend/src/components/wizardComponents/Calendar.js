@@ -13,12 +13,13 @@ import BookingDataService from '../../api/BookingDataService'
  * @returns 
  */
 export default function CalendarFunc(props) {
-    let loading = useRef(true)
+    let loading = useRef(true)                                          //For when the page is requesing the api
     const [reload, setReload] = useState(false)
     const [dayList, setDayList] = useState([])
     const [disabled, setDisabled] = useState(true)
     const [selectedDate, setSelectedDate] = useState(null)
 
+    //Gets all available days and puts the unavalible one as unavilable
     useEffect(() => {
         if (props.booking.date !== ''){
             setSelectedDate(new Date(props.booking.date))
