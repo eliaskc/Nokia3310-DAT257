@@ -6,11 +6,17 @@ import Button from 'react-bootstrap/Button'
 import 'bootstrap/dist/css/bootstrap.min.css';
 import {useHistory} from 'react-router-dom'
 
+/**
+ * 
+ * @param {*} props Object that represents the current booking
+ * @returns 
+ */
 export default function LoginForm(props){
-    const history = useHistory()
+    const history = useHistory()                            //Constant for pages that have the user have been on
     const [userPass, setUserPass] = useState('')
-    const [passError, setPassError] = useState(false)
+    const [passError, setPassError] = useState(false)       //If the password is false
 
+    //Authenticates the user if teh password is correct
     function authenticate(){
         UserAuth.authenticateUser(userPass).then((authenticated) => {
             if (authenticated){
@@ -22,6 +28,7 @@ export default function LoginForm(props){
         })
     }
 
+    //If enter is pressed check if password is correct
     function onKeyUp(event) {
         if (event.key === "Enter") {
             event.preventDefault()
