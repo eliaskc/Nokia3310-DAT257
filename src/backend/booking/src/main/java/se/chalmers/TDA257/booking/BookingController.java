@@ -44,11 +44,6 @@ public class BookingController {
         return databaseController.fetchAvailableDays(guests);
     }
 
-    @GetMapping("/bookings/{id}")
-    public Booking getBooking(@PathVariable long id) {
-        return bookings.getBooking(id);
-    }
-
     /**
      * Deletes specified booking if it exists
      * @return Responseentity describing for example if the deletion was succesful
