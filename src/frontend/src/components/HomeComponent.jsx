@@ -6,7 +6,7 @@ import LoginForm from './LoginForm'
 import UserAuth from './UserAuth'
 
 /**
- * Component for the Home page 
+ * Component for the Home/starting page 
  */
 function HomeComponent() {
     const [showLogin, setShowLogin] = useState(false)
@@ -15,6 +15,7 @@ function HomeComponent() {
     const [show, setShow] = useState(false)
     const [showCreateModal, setShowCreateModal] = useState(false);
 
+    //To show or hide the modal
     const handleCloseCreateModal = () => {
         setShowCreateModal(false);
     }
@@ -22,12 +23,14 @@ function HomeComponent() {
         setShowCreateModal(true);
     }
 
+    //Makes sure that the whole page knows that the user is authenticated
     useEffect(() => {
         UserAuth.isUserAuthenticated().then((authenticated) => {
             setIsAuthenticated(authenticated)
         })
     })
 
+    //Makes the user unauthenticated
     function logOut() {
         UserAuth.logOutUser()
         setShowLogin(false)
@@ -48,7 +51,6 @@ function HomeComponent() {
                     <Switch>
                         <Route exact path='/'>
                             <Button href="/guests">Boka bord</Button>
-
                             {!isAuthenticated && <Button className='login-btn' onClick={() => setShowLogin(true)}>🔑</Button>}
                             {isAuthenticated && <Button className='logout-btn' onClick={() => logOut()}>Logga ut</Button>}
                             {isAuthenticated && <Button className='bookings-btn' href='/bookings'>Se bokningar</Button>}
