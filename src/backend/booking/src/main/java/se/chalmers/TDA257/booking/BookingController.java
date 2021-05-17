@@ -36,7 +36,7 @@ public class BookingController {
 
     /**
      * Fetches all available times
-     * @return list of Times
+     * @return list of all available Times
      */
     @GetMapping("/availableTimes")
     public List<Time> getAllAvailableTimes(@DateTimeFormat(pattern = "yyyy-MM-dd") LocalDate date, @DateTimeFormat(pattern = "HH:mm:ss") LocalTime time, int guests){
@@ -46,7 +46,7 @@ public class BookingController {
     /**
      * Fetches all available days
      * @param guests
-     * @return
+     * @return List of all available Dates
      */
     @GetMapping("/availableDays")
     public List<Date> getAllAvailableDays(int guests){
@@ -64,6 +64,7 @@ public class BookingController {
 
     /**
      * Deletes specified booking if it exists
+     * @return Responseentity describing for example if the deletion was succesful
      */
     @DeleteMapping("/bookings/id/{id}")
     public ResponseEntity<Void> deleteBooking(@PathVariable int id) {
@@ -75,9 +76,8 @@ public class BookingController {
     }
 
     /**
-     * Adds a new booking
+     * Adds a new booking, and creates an URI for the newly created booking
      * 
-     * The id must be 0, as it will be assigned by the database
      * @param booking
      */
     @PostMapping("/bookings")
@@ -89,29 +89,48 @@ public class BookingController {
         return ResponseEntity.created(uri).build();
     }
 
+    /**
+     * Fetches all bookings for a specific date
+     * @return List of all bookings for that date
+     */
     @GetMapping("/bookings/date/{date}")
     public List<Booking> getBookingByDate(@PathVariable Date date) {
         return databaseController.fetchBookingsByDate(date);
     }
 
+    /**
+     * Fetches all bookings for a specific date and time
+     * @return List of all bookings for that date and
+     */
     @GetMapping("/bookings/date/{date}/{time}")
     public List<Booking> getBookingByDateAndTime(@PathVariable Date date, @PathVariable String time) {
         Time sqlTime = Time.valueOf(time);
         return databaseController.fetchBookingsByDateAndTime(date,sqlTime);
     }
 
-
+    /**
+     * Fetches all timeslots for a specific date
+     * @return List of all timeslots for that date
+     */
     @GetMapping("/timeslots/date/{date}")
     public List<Time> getTimeSlotsByDate(@PathVariable Date date) {
         return databaseController.fetchTimeSlotsByDate(date);
     }
 
+    /**
+     * Fetches the number of booked tables for a specific date and time
+     * @return List of all booked tables for the specified date and time
+     */
     @GetMapping("/bookings/count/bookedtables/{date}/{time}")
     public int getNumberOfBookedTablesByDateAndTime(@PathVariable Date date, @PathVariable String time) {
         Time sqlTime = Time.valueOf(time);
         return databaseController.fetchNumberOfBookedTablesByDateAndTime(date,sqlTime);
     }
 
+    /**
+     * Fetches the number of booked guests for a specific date and time
+     * @return List of all booked guests for the specified date and time
+     */
     @GetMapping("/bookings/count/guests/{date}/{time}")
     public int getNumberOfGuestsByDateAndTime(@PathVariable Date date, @PathVariable String time) {
         int nrOfGuests = 0;
@@ -127,13 +146,18 @@ public class BookingController {
      * Updates the booking with specified id with the values from updatedBooking
      * @param id
      * @param updatedBooking
-     * @return
+     * @return number of rows affected
      */
     @PutMapping("/bookings/{id}")
     public int updateBooking(@PathVariable int id, @RequestBody Booking updatedBooking) {
         return databaseController.updateBooking(id,updatedBooking);
     }
 
+    /**
+     * Checks if the given password is the correct one
+     * @param password
+     * @return JSON Web Token if password is correct and null otherwise
+     */
     @GetMapping("/checkpassword")
     public String checkPassword(String password) {
         String pass = System.getenv("BookingAppPassword");
@@ -149,6 +173,10 @@ public class BookingController {
         }
     }
 
+    /**
+     * Checks if the current user is authorized
+     * @return true if authorized, false if not
+     */
     @GetMapping("/checkauthorizeuser")
     public Boolean checkAuthorizeUser(String jwt){
         //If the user doesn't have a JWT saved and tries to access restricted pages
