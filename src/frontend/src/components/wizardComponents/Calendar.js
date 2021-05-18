@@ -2,7 +2,7 @@ import React,{useState, useEffect, useRef} from 'react';
 import Calendar from 'react-calendar';
 import 'react-calendar/dist/Calendar.css';
 import DotLoader from 'react-spinners/DotLoader'
-import {Link} from 'react-router-dom'
+import {Link, useHistory} from 'react-router-dom'
 import Button from 'react-bootstrap/Button'
 import moment from 'moment'
 import BookingDataService from '../../api/BookingDataService'
@@ -13,17 +13,16 @@ import BookingDataService from '../../api/BookingDataService'
  * @returns 
  */
 export default function CalendarFunc(props) {
+    const history = useHistory()
     let loading = useRef(true)                                          //For when the page is requesing the api
     const [reload, setReload] = useState(false)
     const [dayList, setDayList] = useState([])
-    const [disabled, setDisabled] = useState(true)
     const [selectedDate, setSelectedDate] = useState(null)
 
     //Gets all available days and puts the unavalible one as unavilable
     useEffect(() => {
         if (props.booking.date !== ''){
             setSelectedDate(new Date(props.booking.date))
-            setDisabled(false)
         }
         BookingDataService.retrieveAllAvailableDays(props.booking.guests)
             .then(
@@ -41,9 +40,12 @@ export default function CalendarFunc(props) {
     }
 
     function handleSelect(date){
+        //If date changes, reset chosen time
+        if (moment(date).format("YYYY-MM-DD") !== props.booking.date){
+            props.booking.time = ''
+        }
         props.booking.date = moment(date).format("YYYY-MM-DD")
-        props.booking.time = ''
-        setDisabled(false)
+        history.push('/timelist')
     }
 
     return (
@@ -66,11 +68,6 @@ export default function CalendarFunc(props) {
                         Tillbaka
                     </Button>
                 </Link>
-                <Link className='nextLink' to={'/timelist'}>
-                    <Button disabled={disabled}>
-                        Nästa
-                    </Button>
-                </Link> 
             </div>
             <h5>OBS! Det går endast att boka tre veckor framåt via appen</h5>
         </div>
