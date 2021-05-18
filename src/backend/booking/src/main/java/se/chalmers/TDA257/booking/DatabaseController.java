@@ -159,13 +159,13 @@ public class DatabaseController {
     }
 
     /**
-     * Scheduled method that once per day adds the booking times of the date two
+     * Scheduled method that once per day adds the booking times of the date four
      * weeks from the current day to the table BookingTimes in the database
      */
     @Scheduled(cron = "0 0 0 * * *")
     void dailyInsertBookingTimesDB() {
         String insertSqlQuery = ("INSERT INTO BookingTimes (" + "bookingDate, " + "startTime) VALUES (?, ?);");
-        LocalDate dateToAdd = LocalDate.now().plusWeeks(3);
+        LocalDate dateToAdd = LocalDate.now().plusWeeks(4);
         List<LocalTime> bookingTimes = Arrays.asList(LocalTime.parse("17:00:00"), LocalTime.parse("17:30:00"),
                 LocalTime.parse("18:00:00"), LocalTime.parse("18:30:00"), LocalTime.parse("19:00:00"),
                 LocalTime.parse("19:30:00"), LocalTime.parse("20:00:00"), LocalTime.parse("20:30:00"),
