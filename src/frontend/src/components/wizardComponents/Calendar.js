@@ -69,7 +69,7 @@ export default function CalendarFunc(props) {
                     </Button>
                 </Link>
             </div>
-            <h5>OBS! Det går endast att boka tre veckor framåt via appen</h5>
+            <h5>OBS! Det går endast att boka fyra veckor framåt via appen</h5>
         </div>
     )
 }
