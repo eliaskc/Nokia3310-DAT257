@@ -47,7 +47,7 @@ class BookingDataService {
      * @param booking JSON object of a booking
      */
     createBooking(booking) {
-        return axios.post(`http://localhost:8080/bookings`, booking);
+        return axios.post(`http://localhost:8080/bookings/create`, booking);
     }
 
     /**

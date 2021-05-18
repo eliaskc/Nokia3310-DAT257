@@ -63,7 +63,7 @@ public class BookingController {
      * @param booking
      * @return Responseentity describing for example if the deletion was succesful
      */
-    @PostMapping("/bookings")
+    @PostMapping("/bookings/create")
     public ResponseEntity<Booking> addBooking(@RequestBody Booking booking) {
         databaseController.insertNewBooking(booking);
         Booking b = databaseController.fetchBookingByTelNrDateTime(booking.getGuestTelNr(),booking.getBookingDate(),booking.getStartTime());
@@ -116,73 +116,4 @@ public class BookingController {
         return databaseController.updateBooking(id,updatedBooking);
     }
 
-    /**
-     * Checks if the given password is the correct one
-     * @param password
-     * @return JSON Web Token if password is correct and null otherwise
-     */
-    @GetMapping("/checkpassword")
-    public String checkPassword(String password) {
-        String pass = System.getenv("BookingAppPassword");
-        if (pass == null){
-            System.out.println("A password is not set in environment variables");
-            return null;
-        }
-        
-        if (pass.equals(password)){
-            return createJWT();
-        } else {
-            return null;
-        }
-    }
-
-    /**
-     * Checks if the current user is authorized
-     * @return true if authorized, false if not
-     */
-    @GetMapping("/checkauthorizeuser")
-    public Boolean checkAuthorizeUser(String jwt){
-        //If the user doesn't have a JWT saved and tries to access restricted pages
-        if (jwt == null){
-            return false;
-        }
-
-        try {
-            Algorithm algorithm = Algorithm.HMAC256("LFThe3UVEK");
-            JWTVerifier verifier = JWT.require(algorithm)
-                .withIssuer("auth0")
-                .build();
-            DecodedJWT decodedJwt = verifier.verify(jwt);
-            return true;
-        } catch (JWTVerificationException exception){
-            return false;
-        }
-    }
-
-
-    /**
-     * Creates a JSON Web Token used to authorize users 
-     * @return
-     */
-    public String createJWT(){
-        LocalDate date = LocalDate.now();
-        ZoneId zoneId = ZoneId.systemDefault();
-        long epoch = date.atStartOfDay(zoneId).toEpochSecond();
-        epoch = (epoch + 86400);
-
-        try {
-            Algorithm algorithm = Algorithm.HMAC256("LFThe3UVEK");
-            HashMap<String, Object> payloadClaims = new HashMap<>();
-            payloadClaims.put("authorized", "true");
-            payloadClaims.put("exp", epoch);
-            String token = JWT.create()
-                .withPayload(payloadClaims)
-                .withIssuer("auth0")
-                .sign(algorithm);
-            return token;
-        } catch (JWTCreationException exception){
-            System.out.println("Invalid signing configuration");
-            return "";
-        }
-    }
 }
