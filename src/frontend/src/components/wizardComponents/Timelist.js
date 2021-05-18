@@ -1,9 +1,7 @@
 import React, { useState, useEffect } from 'react'
-import Dropdown from 'react-bootstrap/Dropdown';
-import DropdownButton from 'react-bootstrap/DropdownButton';
+import { Button, Form } from 'react-bootstrap';
 import BookingDataService from '../../api/BookingDataService.js'
 import { Link, useHistory } from 'react-router-dom'
-import Button from 'react-bootstrap/Button'
 import moment from 'moment';
 
 /**
@@ -38,7 +36,7 @@ export default function Timelist(props) {
                     setTimelist(response.data)
                 }
             )
-    },[]);
+    }, [props.booking.time, props.booking.date, props.booking.guests]);
 
     function handleSelect(item) {
         props.booking.time = item
@@ -48,11 +46,19 @@ export default function Timelist(props) {
 
     return (
         <div className="Timelist">
-                <DropdownButton title={dropdownTitle} id="dropdown-menu" onSelect={handleSelect}>
-                    {timelist.map(n => (
-                        <Dropdown.Item key={n.toString()} eventKey={n.slice(0, -3)}> {n.slice(0, -3)} </Dropdown.Item>
-                    ))}
-                </DropdownButton>
+            <Form>
+                <Form.Group>
+                    <Form.Control as="select"
+                        name='date'
+                        onChange={e => handleSelect(e.target.value)}
+                    >
+                        <option selected disabled>{dropdownTitle}</option>
+                        {timelist.map(n => (
+                            <option key={n} value={n.slice(0, -3)}> {n.slice(0, -3)} </option>
+                        ))}
+                    </Form.Control>
+                </Form.Group>
+            </Form>
             <div>
                 <Link className='prevLink' to={'/date'}>
                     <Button>

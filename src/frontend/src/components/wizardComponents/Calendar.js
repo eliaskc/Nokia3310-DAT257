@@ -15,6 +15,7 @@ import BookingDataService from '../../api/BookingDataService'
 export default function CalendarFunc(props) {
     const history = useHistory()
     let loading = useRef(true)                                          //For when the page is requesing the api
+    // eslint-disable-next-line
     const [reload, setReload] = useState(false)
     const [dayList, setDayList] = useState([])
     const [selectedDate, setSelectedDate] = useState(null)
@@ -32,7 +33,7 @@ export default function CalendarFunc(props) {
                     setReload(true)
                 }
             )
-    }, [])
+    }, [props.booking.guests, props.booking.date]);
 
     function tileDisabled({date}) {
         date = moment(date).format('YYYY-MM-DD')
