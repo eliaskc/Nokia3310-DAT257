@@ -8,11 +8,10 @@ GRANT ALL ON SCHEMA public TO postgres;
 \set QUIET false
 
 --A table of all the allowed booking times for a given date
--- ev lägga till i schemat och det
 CREATE TABLE BookingTimes (
     bookingDate DATE NOT NULL,
-    startTime TIME NOT NULL,
-    PRIMARY KEY (bookingDate, startTime)
+    timeSlot TIME NOT NULL,
+    PRIMARY KEY (bookingDate, timeSlot)
 );
 
 CREATE TABLE Tables (
@@ -21,31 +20,29 @@ CREATE TABLE Tables (
     CHECK (nrOfSeats=2)
 );
 
-/*Tog bort GuestParties pga finns ingen anledning att prata om GP som en 
-egen entitet i detta sammanhang*/
+-- Table with info about all bookings
 CREATE TABLE Bookings (
     bookingID INTEGER NOT NULL,
     guestName TEXT NOT NULL,
-    guestEmail TEXT NOT NULL,
     guestTelNr TEXT NOT NULL,
     nrOfPeople INTEGER NOT NULL,
     bookingDate DATE NOT NULL,
     startTime TIME NOT NULL,
+    timeSlot TIME NOT NULL,
     additionalInfo TEXT,
-    PRIMARY KEY (bookingDate, startTime, guestEmail),
-    FOREIGN KEY (bookingDate, startTime) 
-        REFERENCES BookingTimes(bookingDate, startTime) ON DELETE CASCADE ON UPDATE CASCADE
+    PRIMARY KEY (bookingDate, timeSlot, guestTelNr),
+    FOREIGN KEY (bookingDate, timeSlot) 
+        REFERENCES BookingTimes(bookingDate, timeSlot) ON DELETE CASCADE ON UPDATE CASCADE
 );
-
 CREATE INDEX ON Bookings (bookingID);
 
 -- Connects the bookings made to specific tables
 CREATE TABLE BookedTables (
     tableID INT REFERENCES Tables(tableID),
     bookingDate DATE ,
-    startTime TIME,
-    guestEmail TEXT ,
-    FOREIGN KEY(bookingDate, startTime, guestEmail) 
-        REFERENCES Bookings(bookingDate, startTime, guestEmail) ON DELETE CASCADE ON UPDATE CASCADE,
-    PRIMARY KEY(tableID, bookingDate, startTime)
+    timeSlot TIME,
+    guestTelNr TEXT ,
+    FOREIGN KEY(bookingDate, timeSlot, guestTelNr) 
+        REFERENCES Bookings(bookingDate, timeSlot, guestTelNr) ON DELETE CASCADE ON UPDATE CASCADE,
+    PRIMARY KEY(tableID, bookingDate, timeSlot)
 );

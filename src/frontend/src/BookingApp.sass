@@ -1,34 +1,26 @@
 @import url('https://fonts.googleapis.com/css2?family=Roboto:wght@300&display=swap')
 
 .App
-  background-image: url(gullen1.jpeg)
-  posititon: absolute
-  top: 0
-  left: 0
-  height: 100%
-  width: 100%
-  background-size: cover
-  background-position: 50% 30%
-  transition: transform 0.3s ease-in-out
   min-height: 100vh
+  background-image: url(gullen1.jpeg)
+  background-size: 100vw 120vh
+  transition: transform 0.3s ease-in-out
   text-align: center
   display: flex
   flex-direction: column
   align-items: center
   justify-content: center
-  font-size: calc(10px + 2vmin)
-  color: black
 
   .App-header
     backdrop-filter: blur(5px)
     top: 0
     left: 0
     height: 100%
+    min-height: 100vh
     width: 100%
     background-size: cover
     background-position: 50% 50%
     transition: transform 0.3s ease-in-out
-    min-height: 100vh
     text-align: center
     display: flex
     flex-direction: column
@@ -37,26 +29,13 @@
     font-size: calc(10px + 2vmin)
     color: black
 
-  .Confirm
+  .text_box
     background-color: white
-    padding-right: 50px
-    padding-left: 50px
-    padding-top: 30px
-    padding-bottom: 20px
+    padding: 1.5rem
     border: 1px solid #E0E0E0
     opacity: .9
-    width: 80%
-
-  .AdditionalInfo
-    background-color: white
-    width: 80%
-    margin-top: 10px
-    padding-right: 50px
-    padding-left: 50px
-    padding-top: 30px
-    padding-bottom: 20px
-    border: 1px solid #E0E0E0
-    opacity: .9
+    min-width: 30vw
+    border-radius: 25px
 
   .btn-primary
     color: #ebebeb
@@ -79,31 +58,77 @@
     background-color: cutom-color
     border-color: #ebebeb
     border-color: cutom-cor
+    padding-left: 28px
+    padding-right: 28px
 
-  #dropdown-menu
-    font-size: 33px
-    border-radius: 10px
-
-  .dropdown .dropdown-menu
+  .instructions-lnk:enabled:hover
     background-color: transparent
-    width: calc(100% - 29px)
-    font-size: 33px
-    font-family: 'Roboto', sans-serif
-    text-align: center
-    display: flex
-    flex-direction: column
-    align-items: center
-    border: 0
+    background-color: cutom-color
+    border: none
 
-  .dropdown .dropdown-menu .dropdown-item
-    border: 1px solid #5e92da
-    background-color: #ebebeb
-    margin-top: -10px
-    padding-: 10px
-    color: #5C5858
+  .instructions-lnk:enabled
+    background-color: transparent
+    background-color: cutom-color
+    border: none
+
+  .instructions-lnk
+    background-color: transparent
+    background-color: cutom-color
+    border: none
+
+  .login-btn
+    position: absolute
+    top: 10px
+    right: 10px
+    font-size: 16px
+
+  .logout-btn
+    position: absolute
+    top: 10px
+    right: 10px
+    font-size: 16px
+
+  .bookings-btn
+    position: absolute
+    top: 60px
+    right: 10px
+    font-size: 16px
+
+  .dropdown
+
+    button
+      width: 100%
+      margin: 0
+      border-radius: 10px
+      font-size: 33px
+
+    .dropdown-menu
+      background-color: transparent
+      width: 100%
+      font-size: 33px
+      font-family: 'Roboto', sans-serif
+      text-align: center
+      display: flex
+      flex-direction: column
+      align-items: center
+      border: 0
+
+      .dropdown-item
+        border: 1px solid #5e92da
+        background-color: #ebebeb
+        margin-top: -10px
+        padding: 10px
+        color: #5C5858
 
   h2
     color: #5C5858
+    font-family: 'Roboto', sans-serif
+
+  a
+    color: #5C5858
+
+  h5
+    color: #ffffff
     font-family: 'Roboto', sans-serif
 
   form
@@ -112,25 +137,27 @@
     font-size: 30px
 
   .form-control
-    font-size: 20px
-    width: 100%
+    font-size: 1rem
 
   h3
     color: #5C5858
     font-size: 22px
     font-family: 'Roboto', sans-serif
-  
-  .thanks_div
-    background-color: white
-    width: 60%
-    height: 40%
-    margin-bottom: 20px
-    padding-right: 50px
-    padding-left: 50px
-    padding-top: 30px
-    padding-bottom: 30px
-    border: 1px solid #E0E0E0
-    opacity: .9
+
+.Instruction
+  margin: 40px
+
+.instructionImg
+  width: 300px
+
+.has-error
+  border: 2px solid #FF6565
+
+.error-message
+  color: #FF6565
+  padding-top: .5rem
+  height: 1rem
+  font-size: 1rem
 
 .prevLink
   color: white
@@ -141,10 +168,10 @@
   margin: 10px
 
 .react-calendar__tile
-  height: 50px
+  height: 40px
 
 .react-calendar button
-  font-size: 24px
+  font-size: 20px
   font-family: 'Roboto', sans-serif
 
 .react-calendar__month-view__weekdays__weekday abbr[title]
@@ -173,10 +200,67 @@
 .react-calendar
   margin: 20px
 
+.Timelist a
+  color: white
+
 .calendar
   display: flex
   flex-direction: column
   max-width: 95%
+  align-items: center
+
+.calendar h2
+  margin-top: -23px
+  margin-bottom: -10px
+
+.info-box
+  background-color: white
+  width: 80%
+  margin-top: 10px
+  padding-right: 50px
+  padding-left: 50px
+  padding-top: 30px
+  padding-bottom: 20px
+  border: 1px solid #E0E0E0
+  opacity: .9
+
+.contact-card
+  max-width: 85vw
+  background-color: white
+  opacity: .9
+  text-align: center
+  border: 1px solid #E0E0E0
+  margin-top: 20px
+  padding-top: 25px
+  padding-bottom: 30px
+
+.card-body
+  text-align: left
+  margin-left: 0
+  margin-top: -30px
+  margin-bottom: -40px
+  font-family: 'Roboto', sans-serif
+  color: #5C5858
+  font-size: 16px
+
+.italictext
+  text-align: center
+
+.Popup
+  text-align: center
+
+.loader
+  display: flex
+  max-width: 95%
+
+.bookingListRoot
+  width: 200px
+  height: 200px
+  top: calc(50% - 100px)
+  left: calc(50% - 100px)
+  position: absolute
+  display: flex
+  justify-content: center
   align-items: center
 
 .BookingListComponent
@@ -185,20 +269,29 @@
   align-items: center
   text-align: center
 
+  .header
+    .btn
+      margin: 15px 30px 15px 30px
+
+  .date-selection
+    display: flex
+    flex-direction: row
+    align-items: center
+    margin: 0
+
   form
     width: 100%
     display: flex
     flex-direction: row
     align-items: center
-    margin-top: 20px
+
     button, a
       margin: 20px
 
   .table-responsive
     width: 60vw
-    box-shadow: 2px 2px 10px rgba(0,0,0,0.5) 
+    box-shadow: 2px 2px 10px rgba(0,0,0,0.5)
     margin: 20px
-
 
 .BookingTimeSlotComponent
   td
@@ -221,6 +314,15 @@
   .booking:hover
     background-color: #b0b0b0
     cursor: pointer
+
+.BookingModal
+  .row.top
+    display: flex
+    flex-direction: row
+    width: 100%
+    margin: 0
+    div
+      width: calc(100% / 3)
 
 .BookingTimeSlotComponent.expandedParent
   height: 50vh

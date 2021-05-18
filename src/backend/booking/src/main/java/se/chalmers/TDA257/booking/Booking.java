@@ -7,25 +7,23 @@ import java.sql.Date;
 import java.time.LocalTime;
 
 /**
- * Class for the booking object containing information about what time the booking is as well
- * as information about the guest
+ * Class for the booking object containing details about the booking including who made it and
+ * their phone number as well as when it is.
  */
 @Getter @Setter
 public class Booking {
     private int bookingID;
     private String guestName;
-    private String guestEmail;
     private String guestTelNr;
     private int nrOfPeople;
     private Date bookingDate;
     private LocalTime startTime;
     private String additionalInfo;
     
-    public Booking(int bookingID, String guestName, String guestEmail, String guestTelNr, int nrOfPeople, Date bookingDate,
+    public Booking(int bookingID, String guestName, String guestTelNr, int nrOfPeople, Date bookingDate,
                    LocalTime startTime, String additionalInfo) {
         this.bookingID = bookingID;
         this.guestName = guestName;
-        this.guestEmail = guestEmail;
         this.guestTelNr = guestTelNr;
         this.nrOfPeople = nrOfPeople;
         this.bookingDate = bookingDate;
@@ -38,7 +36,6 @@ public class Booking {
         return "Booking{" +
                 "id=" + bookingID +
                 ", guestName='" + guestName + '\'' +
-                ", guestEmail='" + guestEmail + '\'' +
                 ", guestTelNr='" + guestTelNr + '\'' +
                 ", nrOfPeople=" + nrOfPeople +
                 ", bookingDate=" + bookingDate +

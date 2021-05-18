@@ -4,8 +4,14 @@ import BookingDataService from '../../api/BookingDataService.js'
 import Button from 'react-bootstrap/Button';
 import Table from 'react-bootstrap/Table';
 import Modal from 'react-bootstrap/Modal'
+import CreateAndChangeBookingComponent from './CreateAndChangeBookingComponent.jsx';
 
+/**
+ * Component which shows all bookings for a specific timeslot, which can then be interacted with
+ */
 function BookingTimeSlotComponent(props) {
+    const tableCapacity = 20;
+    const guestCapacity = tableCapacity*2;
     const prevProps = useRef();
     const [bookings, setBookings] = useState([]);
     const [timeSlotIsExpanded, setTimeSlotIsExpanded] = useState(false);
@@ -14,22 +20,30 @@ function BookingTimeSlotComponent(props) {
     const [modalBooking, setModalBooking] = useState({
         bookingID: 0,
         guestName: "placeholder name",
-        guestEmail: "placeholder email",
         guestTelNr: "placeholder tel number",
         nrOfPeople: 0,
         bookingDate: "2020-01-01",
         startTime: "00:00",
         additionalInfo: "placeholder info"
     });
-    const [numberOfBookings, setNumberOfBookings] = useState(refreshNumberOfGuests(props.inputDate, props.inputTime));
+    const [numberOfBookings, setNumberOfBookings] = useState();
+    const [numberOfGuests, setNumberOfGuests] = useState();
+    const [isChanging, setChanging] = useState(false)
 
     useEffect(() => {
         if (prevProps && (props !== prevProps)) {
             setTimeSlotIsExpanded(false);
             refreshBookings(props.inputDate, props.inputTime)
+            refreshNumberOfBookedTables(props.inputDate, props.inputTime)
+            refreshNumberOfGuests(props.inputDate, props.inputTime)
         }
-    }, [props]);
+    }, [props.inputDate, props.inputTime]);
 
+    /**
+     * Updates the bookings for the given date and time
+     * @param {String} inputDate 
+     * @param {String} inputTime 
+     */
     const refreshBookings = (inputDate, inputTime) => {
         inputDate = moment(inputDate).format('YYYY-MM-DD')
         BookingDataService.getBookingsByDateAndTime(inputDate, inputTime)
@@ -59,15 +73,18 @@ function BookingTimeSlotComponent(props) {
     const handleCloseModal = () => {
         setShowModal(false);
         setDeleteConfirmation(true);
+        if (isChanging)
+            setChanging(false)
     }
     const handleShowModal = (booking) => {
         setShowModal(true);
         setModalBooking(booking);
+        console.log(booking)
     }
 
-    function refreshNumberOfGuests(date, time) {
+    function refreshNumberOfBookedTables(date, time) {
         date = moment(date).format('YYYY-MM-DD')
-        BookingDataService.getNumberOfBookingsByDateAndTime(date, time)
+        BookingDataService.getNumberOfBookedTablesByDateAndTime(date, time)
             .then(
                 (response) => {
                     setNumberOfBookings(response.data)
@@ -75,37 +92,27 @@ function BookingTimeSlotComponent(props) {
             )
     }
 
-    function updateBooking(id) {
-        let testBooking = {
-            bookingID: 0,
-            guestName: "placeholder name",
-            guestEmail: "placeholder email",
-            guestTelNr: "placeholder tel number",
-            nrOfPeople: 2,
-            bookingDate: moment(new Date()).format('YYYY-MM-DD'),
-            startTime: "18:00:00",
-            additionalInfo: "placeholder info"
-        }
-        BookingDataService.updateBooking(id,testBooking)
+    function refreshNumberOfGuests(date, time) {
+        date = moment(date).format('YYYY-MM-DD')
+        BookingDataService.getNumberOfGuestsByDateAndTime(date, time)
             .then(
-                () => {
-                    window.location.reload();
+                (response) => {
+                    setNumberOfGuests(response.data)
                 }
             )
     }
 
-
-
     return (
-        <tr style={timeSlotIsExpanded ? {height: 111 + bookings.length * 49 + 'px'} : {height: 'auto'}} className="BookingTimeSlotComponent">
+        <tr style={timeSlotIsExpanded ? { height: 111 + bookings.length * 49 + 'px' } : { height: 'auto' }} className="BookingTimeSlotComponent">
             <td>{props.inputTime}</td>
-            <td>{numberOfBookings}</td>
+            <td>{numberOfGuests} av {guestCapacity}</td>
+            <td>{numberOfBookings} av {tableCapacity}</td>
             <td><Button onClick={handleOpenCloseTimeSlot}>{timeSlotIsExpanded ? 'Stäng' : 'Öppna'}</Button></td>
             <Table className={timeSlotIsExpanded ? 'expanded' : 'closed'}>
                 <thead>
                     <tr>
                         <th>Namn:</th>
-                        <th>Epost:</th>
+                        <th>Telefonnummer:</th>
                         <th>Antal gäster:</th>
                     </tr>
                 </thead>
@@ -114,37 +121,71 @@ function BookingTimeSlotComponent(props) {
                         booking =>
                             <tr className="booking" onClick={() => handleShowModal(booking)}>
                                 <td>{booking.guestName}</td>
-                                <td>{booking.guestEmail}</td>
+                                <td>{booking.guestTelNr}</td>
                                 <td>{booking.nrOfPeople}</td>
                             </tr>
                     )}
                 </tbody>
             </Table>
-            <Modal show={showModal} onHide={handleCloseModal}>
-                <Modal.Header closeButton>
-                    <Modal.Title>{modalBooking.bookingDate + ", " + modalBooking.startTime.slice(0, 5)}</Modal.Title>
-                </Modal.Header>
-                <Modal.Body>
-                    <p><b>Namn: </b>{modalBooking.guestName}</p>
-                    <p><b>Epost: </b> {modalBooking.guestEmail}</p>
-                    <p><b>Telefonnummer: </b>{modalBooking.guestTelNr}</p>
-                    <p><b>Antal gäster: </b>{modalBooking.nrOfPeople}</p>
-                    {modalBooking.additionalInfo != null ?
-                        <p><b>Övrig info: </b>{modalBooking.additionalInfo}</p>
-                        : <p><b>Övrig info: </b>Ingen info angiven</p>
-                    }
-                </Modal.Body>
-                <Modal.Footer>
-                    <Button variant="primary" onClick={() => updateBooking(modalBooking.bookingID)}>
-                        Ändra
+            {isChanging ?
+                <Modal show={showModal} onHide={() => handleCloseModal()}>
+                    <Modal.Header closeButton>
+                        <Modal.Title>Ändra bokning</Modal.Title>
+                    </Modal.Header>
+                    <Modal.Body>
+                        <CreateAndChangeBookingComponent booking={modalBooking} creating={false} />
+                    </Modal.Body>
+                    <Button variant="primary" onClick={() => setChanging(false)}>
+                        Avbryt
                     </Button>
-                    {deleteConfirmation ? <Button variant="danger" onClick={startDeleteConfirmation}>
-                        Ta bort
-                    </Button> : <Button variant="danger" onClick={() => confirmDelete(modalBooking.bookingID)}>
-                        Är du säker?
-                    </Button>}
-                </Modal.Footer>
-            </Modal>
+                </Modal> :
+                <Modal show={showModal} onHide={() => handleCloseModal()}>
+                    <Modal.Header closeButton>
+                        <Modal.Title>Visa bokning</Modal.Title>
+                    </Modal.Header>
+                    <Modal.Body className="BookingModal">
+                        <div className="top row">
+                            <div>
+                                <p><b>Antal gäster</b></p>
+                                <p>{modalBooking.nrOfPeople}</p>
+                            </div>
+                            <div>
+                                <p><b>Datum</b></p>
+                                <p>{modalBooking.bookingDate}</p>
+                            </div>
+                            <div>
+                                <p><b>Tid</b></p>
+                                <p>{modalBooking.startTime.slice(0, 5)}</p>
+                            </div>
+                        </div>
+
+                        <div>
+                            <p><b>Namn</b></p>
+                            <p>{modalBooking.guestName}</p>
+                        </div>
+                        <div>
+                            <p><b>Telefonnummer</b></p>
+                            <p>{modalBooking.guestTelNr}</p>
+                        </div>
+                        <div>
+                            <p><b>Övrig information</b></p>
+                            {modalBooking.additionalInfo !== '' ?
+                                <p>{modalBooking.additionalInfo}</p>
+                                : <p><i>Ingen info angiven</i></p>
+                            }
+                        </div>
+                    </Modal.Body>
+                    <Modal.Footer>
+                        <Button variant="primary" onClick={() => setChanging(true)}>
+                            Ändra
+                        </Button>
+                        {deleteConfirmation ? <Button variant="danger" onClick={startDeleteConfirmation}>
+                            Ta bort
+                        </Button> : <Button variant="danger" onClick={() => confirmDelete(modalBooking.bookingID)}>
+                            Är du säker?
+                        </Button>}
+                    </Modal.Footer>
+                </Modal>}
         </tr>
     )
 
