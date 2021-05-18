@@ -49,10 +49,9 @@ public class JwtAuthenticationController {
 	}
 
 	@PostMapping("/validateToken")
-	public ResponseEntity<?> validateToken(@RequestBody String token){
-		System.out.println(token);
-		jwtTokenUtil.validateToken(token,jwtUserDetailsService.loadUserByUsername("admin"));
-		return ResponseEntity.ok(jwtTokenUtil.validateToken(token,jwtUserDetailsService.loadUserByUsername("admin")));
+	public ResponseEntity<?> validateToken(@RequestBody com.fasterxml.jackson.databind.JsonNode payload) {
+		jwtTokenUtil.validateToken(payload.findValue("token").asText(),jwtUserDetailsService.loadUserByUsername("admin"));
+		return ResponseEntity.ok(jwtTokenUtil.validateToken(payload.findValue("token").asText(),jwtUserDetailsService.loadUserByUsername("admin")));
 	}
 
 
