@@ -31,7 +31,8 @@ export default function CreateAndChangeBookingComponent(props) {
             fetchAvailableDays(props.booking.nrOfPeople)
             fetchAvailableTimes(props.booking.bookingDate)
         }
-    }, []);
+        // eslint-disable-next-line
+    }, [props.booking.nrOfPeople, props.booking.bookingDate]);
 
     /**
      * Creates a new booking or updates the current one depending on the situation
@@ -189,7 +190,7 @@ export default function CreateAndChangeBookingComponent(props) {
                                 value={values.date}
                                 className={touched.date}
                             >
-                                <option>Välj datum</option>
+                                <option selected disabled>Välj datum</option>
                                 {dayList.map(date => (
                                     <option>{date}</option>
                                 ))}
@@ -207,7 +208,7 @@ export default function CreateAndChangeBookingComponent(props) {
                                 value={values.time}
                                 className={touched.time}
                             >
-                                <option>Välj tid</option>
+                                <option selected disabled>Välj tid</option>
                                 {timeList.map(time => (
                                     <option>{time.slice(0, 5)}</option>
                                 ))}

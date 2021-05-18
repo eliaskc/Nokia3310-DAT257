@@ -10,9 +10,7 @@ import UserAuth from './UserAuth'
  */
 function HomeComponent() {
     const [showLogin, setShowLogin] = useState(false)
-    const [showContact, setShowContact] = useState(false)
     const [isAuthenticated, setIsAuthenticated] = useState(false)
-    const [show, setShow] = useState(false)
     const [showCreateModal, setShowCreateModal] = useState(false);
 
     //To show or hide the modal

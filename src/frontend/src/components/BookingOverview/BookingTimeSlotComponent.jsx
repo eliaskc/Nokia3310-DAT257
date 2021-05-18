@@ -37,7 +37,7 @@ function BookingTimeSlotComponent(props) {
             refreshNumberOfBookedTables(props.inputDate, props.inputTime)
             refreshNumberOfGuests(props.inputDate, props.inputTime)
         }
-    }, [props.inputDate, props.inputTime]);
+    }, [props]);
 
     /**
      * Updates the bookings for the given date and time
