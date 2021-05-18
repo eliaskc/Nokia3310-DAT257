@@ -166,10 +166,11 @@ public class DatabaseController {
         return jdbcTemplate.update(sqlQuery,params);
     }
 
-    @Autowired public static Booking fetchBookingByEmailDateTime(String email,Date date, LocalTime time){
+
+    @Autowired public static Booking fetchBookingByEmailDateTime(String email,Date date, LocalTime time) {
         String sqlQuery = ("SELECT FROM BookingsView WHERE guestemail = ? AND bookingDate = ? AND bookingTime = ?");
-        Object[] params = new Object[] {email,date,time};
-        return jdbcTemplate.queryForObject(sqlQuery,Booking.class,params);
+        Object[] params = new Object[]{email, date, time};
+        return jdbcTemplate.queryForObject(sqlQuery, Booking.class, params);
     }
 
     @Autowired
