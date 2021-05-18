@@ -28,6 +28,9 @@ public class JwtAuthenticationController {
 	@Autowired
 	private JwtTokenUtil jwtTokenUtil;
 
+	@Autowired
+	private JwtUserDetailsService jwtUserDetailsService;
+
 
 	@Autowired
 	private JwtUserDetailsService jwtInMemoryUserDetailsService;
@@ -35,7 +38,6 @@ public class JwtAuthenticationController {
 	@PostMapping("/authenticate")
 	public ResponseEntity<?> createAuthenticationToken(@RequestBody JwtRequest authenticationRequest)
 			throws Exception {
-
 		authenticate(authenticationRequest.getUsername(), authenticationRequest.getPassword());
 
 		final UserDetails userDetails = jwtInMemoryUserDetailsService
@@ -46,7 +48,12 @@ public class JwtAuthenticationController {
 		return ResponseEntity.ok(new JwtResponse(token));
 	}
 
-
+	@PostMapping("/validateToken")
+	public ResponseEntity<?> validateToken(@RequestBody String token){
+		System.out.println(token);
+		jwtTokenUtil.validateToken(token,jwtUserDetailsService.loadUserByUsername("admin"));
+		return ResponseEntity.ok(jwtTokenUtil.validateToken(token,jwtUserDetailsService.loadUserByUsername("admin")));
+	}
 
 
 
