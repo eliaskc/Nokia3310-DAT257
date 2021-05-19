@@ -13,7 +13,6 @@ import * as Yup from 'yup'
 export default function AdditionalInfo(props){
     const history = useHistory()                    //Constant for pages that have the user have been on
     const numberRegExp = /^[0-9 \b]+$/              //What is allowed in tel
-    const [isClicked, setIsClicked] = useState(false)
 
     //Saves values to current booking
     function saveValues(values){
@@ -32,13 +31,15 @@ export default function AdditionalInfo(props){
         .matches(numberRegExp, '*Telefonnummer är inte giltigt')
         .required('*Du måste ange ett telefonnummer'),
         info: Yup.string()
-        .max(150, '*Övrig info kan inte vara mer än 150 tecken')
+        .max(150, '*Övrig info kan inte vara mer än 150 tecken'),
+        checkbox: Yup.bool().oneOf([true], '*Du måste godkänna hantering av data')
+
     })
 
     return (
         <div>                                       
             <Formik
-                initialValues={{ name:props.booking.name, tel:props.booking.tel, info:props.booking.info}}
+                initialValues={{ name:props.booking.name, tel:props.booking.tel, info:props.booking.info, checkbox:false}}
                 validationSchema={validationSchema}
                 onSubmit={(values, {setSubmitting, resetForm}) => {
                     setSubmitting(true);
@@ -102,14 +103,16 @@ export default function AdditionalInfo(props){
                             ): null}
                         </Form.Group>
                         <Form.Group>
-                            <div class="form-check">
-                                <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault" />
-                                <label class="form-check-label" for="flexCheckDefault">
-                                    Jag godkänner att Hamncafét får lagra och använda mina personuppgifter i enlighet med GDPR
-                                </label> 
-                            </div>
-                            {touched.info && errors.info ? (
-                            <div className="error-message">{errors.info}</div>
+                            <Form.Label className="GDPR" >Jag godkänner att Hamncafét får lagra och använda
+                            <br/> mina personuppgifter i enlighet med GDPR</Form.Label>
+                            <Form.Control 
+                                type='checkbox'
+                                name='checkbox'
+                                className={touched.checkbox && errors.checkbox ? "has-error" : null}
+
+                            />
+                            {touched.checkbox && errors.checkbox ? (
+                            <div className="error-message">{errors.checkbox}</div>
                             ): null}
                         </Form.Group>
                     </div>
