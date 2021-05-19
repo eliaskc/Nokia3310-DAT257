@@ -18,6 +18,7 @@ import org.springframework.web.filter.OncePerRequestFilter;
 import se.chalmers.TDA257.booking.JWT.JwtUserDetailsService;
 
 import io.jsonwebtoken.ExpiredJwtException;
+import io.jsonwebtoken.MalformedJwtException;
 
 @Component
 public class JwtRequestFilter extends OncePerRequestFilter {
@@ -45,6 +46,8 @@ public class JwtRequestFilter extends OncePerRequestFilter {
 				System.out.println("Unable to get JWT Token");
 			} catch (ExpiredJwtException e) {
 				System.out.println("JWT Token has expired");
+			} catch (MalformedJwtException e){
+				System.out.println("Token is not a valid JWT");
 			}
 		} else {
 			logger.warn("JWT Token does not begin with Bearer String");

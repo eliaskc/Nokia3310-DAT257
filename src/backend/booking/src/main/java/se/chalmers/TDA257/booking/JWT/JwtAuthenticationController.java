@@ -59,9 +59,13 @@ public class JwtAuthenticationController {
 		String jwt = payload.findValue("token").asText();
 		//Jwts.parser().setSigningKey("secret").parseClaimsJws(token).getBody();
 
-		return ResponseEntity.ok(jwtTokenUtil.validateToken(jwt,jwtUserDetailsService.loadUserByUsername("admin")));
-	}
+		try{
+			return ResponseEntity.ok(jwtTokenUtil.validateToken(payload.findValue("token").asText(),jwtUserDetailsService.loadUserByUsername("admin")));
+		} catch (Exception e) {
+			return ResponseEntity.ok(false);
+		}
 
+	}
 
 
 	private void authenticate(String username, String password) throws Exception {

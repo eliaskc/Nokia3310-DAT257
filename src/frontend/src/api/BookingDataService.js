@@ -3,31 +3,24 @@ import axios from 'axios';
 /**
  * Frontend service which handles the communication with the backend
  */
+
+const header = {'Authorization': 'Bearer ' + localStorage.getItem('token'), 'Content-Type': 'application/json'}
+
 class BookingDataService {
     retrieveAllBookings() {
-        return axios.get(`http://localhost:8080/bookings`);
+        return axios.get(`http://localhost:8080/bookings`, {headers: header});
     }
 
     retrieveAllAvailableTimes(date, time, guests) {
-        return axios.get(`http://localhost:8080/availableTimes`, {
-            params: {
-                'date': date,
-                'time': time,
-                'guests': guests
-            }
-        });
+        return axios.get(`http://localhost:8080/availableTimes`, {params: { 'date': date, 'time': time, 'guests': guests}}, {headers: header})
     }
 
     retrieveAllAvailableDays(guests) {
-        return axios.get(`http://localhost:8080/availableDays`, {
-            params: {
-                'guests': guests
-            }
-        });
+        return axios.get(`http://localhost:8080/availableDays`, { params: { 'guests': guests}}, {headers: header})
     }
 
     retrieveBooking(id) {
-        return axios.get(`http://localhost:8080/bookings/${id}`);
+        return axios.get(`http://localhost:8080/bookings/${id}`, {headers: header});
     }
 
     /**
@@ -37,7 +30,7 @@ class BookingDataService {
      * @param booking JSON object of a booking
      */
     updateBooking(id, booking) {
-        return axios.put(`http://localhost:8080/bookings/${id}`, booking);
+        return axios.put(`http://localhost:8080/bookings/${id}`, booking, {headers: header});
     }
 
     /**
@@ -47,7 +40,7 @@ class BookingDataService {
      * @param booking JSON object of a booking
      */
     createBooking(booking) {
-        return axios.post(`http://localhost:8080/bookings/create`, booking);
+        return axios.post(`http://localhost:8080/bookings/create`, booking, {headers: header});
     }
 
     /**
@@ -56,56 +49,36 @@ class BookingDataService {
      * @param {Number} id
      */
     deleteBooking(id) {
-        return axios.delete(`http://localhost:8080/bookings/id/${id}`);
+        return axios.delete(`http://localhost:8080/bookings/id/${id}`, {headers: header});
     }
 
-/*
-    getBookingsByDate(date){
-        return axios.get(`http://localhost:8080/bookings/date/${date}`,
-        {
-            headers:{
-                        'authorization': `Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJhZG1pbiIsImV4cCI6MTYyMDkzOTc1NCwiaWF0IjoxNjIwOTIxNzU0fQ.08Mv73Q_MbpFDe9AqwOLj9YXaAgrDSul0PzN-HdwfBTb2VFikhQlmUT8nXlI6jIr-Cpblt1_pedVbkXn_C0cOw`
-                    }
-        }
-        );
-*/
     getBookingsByDate(date) {
-        return axios.get(`http://localhost:8080/bookings/date/${date}`);
+        return axios.get(`http://localhost:8080/bookings/date/${date}`, {headers: header});
     }
 
     getBookingsByDateAndTime(date, time) {
-        return axios.get(`http://localhost:8080/bookings/date/${date}/${time}`);
+        return axios.get(`http://localhost:8080/bookings/date/${date}/${time}`, {headers: header});
     }
 
 
     getTimeSlotsByDate(date) {
-        return axios.get(`http://localhost:8080/timeslots/date/${date}`);
+        return axios.get(`http://localhost:8080/timeslots/date/${date}`, {headers: header});
     }
 
     getNumberOfBookedTablesByDateAndTime(date, time) {
-        return axios.get(`http://localhost:8080/bookings/count/bookedtables/${date}/${time}`);
+        return axios.get(`http://localhost:8080/bookings/count/bookedtables/${date}/${time}`, {headers: header});
     }
 
     getNumberOfGuestsByDateAndTime(date, time) {
-        return axios.get(`http://localhost:8080/bookings/count/guests/${date}/${time}`);
+        return axios.get(`http://localhost:8080/bookings/count/guests/${date}/${time}`, {headers: header});
     }
 
-    /**
-     * Calls the backend to check if the password is correct
-     * @param {String} password 
-     * @returns JSON object with JWT if correct and null otherwise
-     */
-    checkPassword(password) {
-        return axios.get('http://localhost:8080/checkpassword', { params: { 'password': password } })
+    authenticateUser(password) {
+        return axios.post('http://localhost:8080/authenticate',  { 'username': 'admin', 'password': password } , {headers: header})
     }
 
-    /**
-     * Calls the backend to check if the user's JWT is authentic
-     * @param {String} jwt 
-     * @returns true if it it, false if not
-     */
-    checkAuthorizeUser(jwt) {
-        return axios.get('http://localhost:8080/checkauthorizeuser', { params: { 'jwt': jwt } })
+    isUserAuthenticated() {
+        return axios.post('http://localhost:8080/validateToken', { 'token': localStorage.getItem('token') }, {headers: header})
     }
 }
 
