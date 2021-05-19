@@ -2,6 +2,12 @@ package se.chalmers.TDA257.booking.JWT;
 
 import java.util.Objects;
 
+import com.auth0.jwt.JWT;
+import com.auth0.jwt.JWTVerifier;
+import com.auth0.jwt.algorithms.Algorithm;
+import com.auth0.jwt.exceptions.JWTVerificationException;
+import com.auth0.jwt.interfaces.DecodedJWT;
+import io.jsonwebtoken.Jwts;
 import se.chalmers.TDA257.booking.JWT.JwtUserDetailsService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
@@ -50,8 +56,10 @@ public class JwtAuthenticationController {
 
 	@PostMapping("/validateToken")
 	public ResponseEntity<?> validateToken(@RequestBody com.fasterxml.jackson.databind.JsonNode payload) {
-		jwtTokenUtil.validateToken(payload.findValue("token").asText(),jwtUserDetailsService.loadUserByUsername("admin"));
-		return ResponseEntity.ok(jwtTokenUtil.validateToken(payload.findValue("token").asText(),jwtUserDetailsService.loadUserByUsername("admin")));
+		String jwt = payload.findValue("token").asText();
+		//Jwts.parser().setSigningKey("secret").parseClaimsJws(token).getBody();
+
+		return ResponseEntity.ok(jwtTokenUtil.validateToken(jwt,jwtUserDetailsService.loadUserByUsername("admin")));
 	}
 
 

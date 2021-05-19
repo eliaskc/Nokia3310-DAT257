@@ -6,6 +6,11 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.function.Function;
 
+import com.auth0.jwt.JWT;
+import com.auth0.jwt.JWTVerifier;
+import com.auth0.jwt.algorithms.Algorithm;
+import com.auth0.jwt.exceptions.JWTVerificationException;
+import com.auth0.jwt.interfaces.DecodedJWT;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Component;
@@ -61,9 +66,17 @@ public class JwtTokenUtil implements Serializable {
 	}
 
 	private String doGenerateToken(Map<String, Object> claims, String subject) {
-
+		/*
 		return Jwts.builder().setClaims(claims).setSubject(subject).setIssuedAt(new Date(System.currentTimeMillis()))
 				.setExpiration(new Date(System.currentTimeMillis() + JWT_TOKEN_VALIDITY*1000)).signWith(SignatureAlgorithm.HS512, secret).compact();
+		 */
+		claims.put("exp", new Date(System.currentTimeMillis() + JWT_TOKEN_VALIDITY*1000));
+		claims.put("iat", new Date(System.currentTimeMillis()));
+		claims.put("sub", "admin");
+
+		return JWT.create()
+				.withPayload(claims)
+				.sign(Algorithm.HMAC256(secret));
 	}
 
 	public Boolean canTokenBeRefreshed(String token) {
@@ -71,7 +84,17 @@ public class JwtTokenUtil implements Serializable {
 	}
 
 	public Boolean validateToken(String token, UserDetails userDetails) {
-		final String username = getUsernameFromToken(token);
-		return (username.equals(userDetails.getUsername()) && !isTokenExpired(token));
+		final String username = "admin";
+		System.out.println(username);
+		try {
+			JWTVerifier verifier = JWT.require(Algorithm.HMAC256(secret))
+					.build();
+			DecodedJWT decodedJwt = verifier.verify(token) ;
+			return username.equals(userDetails.getUsername()) && !isTokenExpired(token);
+		} catch (JWTVerificationException exception){
+			return false;
+		}
+
+		//return (username.equals(userDetails.getUsername()) && !isTokenExpired(token));
 	}
 }
