@@ -50,10 +50,12 @@ public class JwtAuthenticationController {
 
 	@PostMapping("/validateToken")
 	public ResponseEntity<?> validateToken(@RequestBody com.fasterxml.jackson.databind.JsonNode payload) {
-		jwtTokenUtil.validateToken(payload.findValue("token").asText(),jwtUserDetailsService.loadUserByUsername("admin"));
-		return ResponseEntity.ok(jwtTokenUtil.validateToken(payload.findValue("token").asText(),jwtUserDetailsService.loadUserByUsername("admin")));
+		try{
+			return ResponseEntity.ok(jwtTokenUtil.validateToken(payload.findValue("token").asText(),jwtUserDetailsService.loadUserByUsername("admin")));
+		} catch (Exception e) {
+			return ResponseEntity.ok(false);
+		}
 	}
-
 
 
 	private void authenticate(String username, String password) throws Exception {
