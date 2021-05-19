@@ -56,15 +56,11 @@ public class JwtAuthenticationController {
 
 	@PostMapping("/validateToken")
 	public ResponseEntity<?> validateToken(@RequestBody com.fasterxml.jackson.databind.JsonNode payload) {
-		String jwt = payload.findValue("token").asText();
-		//Jwts.parser().setSigningKey("secret").parseClaimsJws(token).getBody();
-
 		try{
 			return ResponseEntity.ok(jwtTokenUtil.validateToken(payload.findValue("token").asText(),jwtUserDetailsService.loadUserByUsername("admin")));
 		} catch (Exception e) {
 			return ResponseEntity.ok(false);
 		}
-
 	}
 
 
