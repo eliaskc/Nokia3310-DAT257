@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useState} from 'react';
 import {Link} from 'react-router-dom'
 import {Button, Form} from 'react-bootstrap'
 import {Formik} from 'formik'
@@ -13,6 +13,7 @@ import * as Yup from 'yup'
 export default function AdditionalInfo(props){
     const history = useHistory()                    //Constant for pages that have the user have been on
     const numberRegExp = /^[0-9 \b]+$/              //What is allowed in tel
+    const [isClicked, setIsClicked] = useState(false)
 
     //Saves values to current booking
     function saveValues(values){
@@ -96,6 +97,17 @@ export default function AdditionalInfo(props){
                                 value={values.info}
                                 className={touched.info && errors.info ? "has-error" : null}
                             />
+                            {touched.info && errors.info ? (
+                            <div className="error-message">{errors.info}</div>
+                            ): null}
+                        </Form.Group>
+                        <Form.Group>
+                            <div class="form-check">
+                                <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault" />
+                                <label class="form-check-label" for="flexCheckDefault">
+                                    Jag godkänner att Hamncafét får lagra och använda mina personuppgifter i enlighet med GDPR
+                                </label> 
+                            </div>
                             {touched.info && errors.info ? (
                             <div className="error-message">{errors.info}</div>
                             ): null}
