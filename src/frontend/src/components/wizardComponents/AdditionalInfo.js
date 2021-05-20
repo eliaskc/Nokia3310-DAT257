@@ -14,7 +14,6 @@ export default function AdditionalInfo(props){
     const history = useHistory()                    //Constant for pages that have the user have been on
     const numberRegExp = /^[0-9 \b]+$/              //What is allowed in tel
     
-    
     //Saves values to current booking
     function saveValues(values){
         props.booking.name = values.name
@@ -112,8 +111,7 @@ export default function AdditionalInfo(props){
                                 name='box'
                                 id='box'
                                 value={values.box}
-                                onChange={event => setFieldValue('box', event.target.checked)}
-                                checked={values.box}
+                                onChange={handleChange}
                                 className={touched.box && errors.box ? "has-error" : null}
 
                             />
