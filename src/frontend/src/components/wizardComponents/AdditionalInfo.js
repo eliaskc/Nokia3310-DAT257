@@ -109,6 +109,10 @@ export default function AdditionalInfo(props){
                                 type='checkbox'
                                 name='checkbox'
                                 className={touched.checkbox && errors.checkbox ? "has-error" : null}
+<<<<<<< HEAD
+=======
+
+>>>>>>> parent of 8341133 (tested some studd)
                             />
                             {touched.checkbox && errors.checkbox ? (
                             <div className="error-message">{errors.checkbox}</div>
