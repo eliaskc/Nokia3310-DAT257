@@ -13,13 +13,12 @@ import * as Yup from 'yup'
 export default function AdditionalInfo(props){
     const history = useHistory()                    //Constant for pages that have the user have been on
     const numberRegExp = /^[0-9 \b]+$/              //What is allowed in tel
-    
+
     //Saves values to current booking
     function saveValues(values){
         props.booking.name = values.name
         props.booking.tel = values.tel
         props.booking.info = values.info
-        console.log(values)
     }
     
     //The validation to go to the next page
@@ -33,7 +32,7 @@ export default function AdditionalInfo(props){
         .required('*Du måste ange ett telefonnummer'),
         info: Yup.string()
         .max(150, '*Övrig info kan inte vara mer än 150 tecken'),
-        box: Yup.boolean().oneOf([true], '*Du måste godkänna hantering av data')
+        box: Yup.bool().oneOf([true], '*Du måste godkänna hantering av data')
 
     })
 
@@ -113,7 +112,6 @@ export default function AdditionalInfo(props){
                                 value={values.box}
                                 onChange={handleChange}
                                 className={touched.box && errors.box ? "has-error" : null}
-
                             />
                             {touched.box && errors.box ? (
                             <div className="error-message">{errors.box}</div>
