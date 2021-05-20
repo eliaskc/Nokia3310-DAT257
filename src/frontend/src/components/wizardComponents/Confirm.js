@@ -4,6 +4,7 @@ import BookingDataService from '../../api/BookingDataService.js'
 import {Link, useHistory} from 'react-router-dom'
 import DotLoader from 'react-spinners/DotLoader'
 
+
 /**
  * Represents the confirmation page
  * @param props Object that represents the current booking

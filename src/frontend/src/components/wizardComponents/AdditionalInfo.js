@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useState} from 'react';
 import {Link} from 'react-router-dom'
 import {Button, Form} from 'react-bootstrap'
 import {Formik} from 'formik'
@@ -31,13 +31,15 @@ export default function AdditionalInfo(props){
         .matches(numberRegExp, '*Telefonnummer är inte giltigt')
         .required('*Du måste ange ett telefonnummer'),
         info: Yup.string()
-        .max(150, '*Övrig info kan inte vara mer än 150 tecken')
+        .max(150, '*Övrig info kan inte vara mer än 150 tecken'),
+        box: Yup.bool().oneOf([true], '*Du måste godkänna hantering av data')
+
     })
 
     return (
         <div>                                       
             <Formik
-                initialValues={{ name:props.booking.name, tel:props.booking.tel, info:props.booking.info}}
+                initialValues={{ name:props.booking.name, tel:props.booking.tel, info:props.booking.info, box:false}}
                 validationSchema={validationSchema}
                 onSubmit={(values, {setSubmitting, resetForm}) => {
                     setSubmitting(true);
@@ -98,6 +100,21 @@ export default function AdditionalInfo(props){
                             />
                             {touched.info && errors.info ? (
                             <div className="error-message">{errors.info}</div>
+                            ): null}
+                        </Form.Group>
+                        <Form.Group>
+                            <Form.Label className="GDPR" >Jag godkänner att Hamncafét får lagra och använda
+                            <br/> mina personuppgifter i enlighet med GDPR</Form.Label>
+                            <Form.Control 
+                                type='checkbox'
+                                name='box'
+                                id='box'
+                                value={values.box}
+                                onChange={handleChange}
+                                className={touched.box && errors.box ? "has-error" : null}
+                            />
+                            {touched.box && errors.box ? (
+                            <div className="error-message">{errors.box}</div>
                             ): null}
                         </Form.Group>
                     </div>
