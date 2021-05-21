@@ -1,10 +1,11 @@
 import axios from 'axios';
 
+var apiURL = "https://api-hamncafe-test.herokuapp.com"
+
 /**
  * Frontend service which handles the communication with the backend
  */
 class BookingDataService {
-    var apiURL = "https://api-hamncafe-test.herokuapp.com"
     retrieveAllBookings() {
         return axios.get(apiURL + `/bookings`);
     }
@@ -20,6 +21,7 @@ class BookingDataService {
     }
 
     retrieveAllAvailableDays(guests) {
+        console.log(apiURL + `/availableDays`)
         return axios.get(apiURL + `/availableDays`, {
             params: {
                 'guests': guests
