@@ -60,7 +60,7 @@ export default function AdditionalInfo(props){
                 <Form onSubmit={handleSubmit}>
                     <div className='text_box'>
                         <Form.Group controlId="formName">
-                            <Form.Label>Namn</Form.Label>
+                            <Form.Label>*Namn</Form.Label>
                             <Form.Control 
                                 type='text'
                                 name='name'
@@ -74,7 +74,7 @@ export default function AdditionalInfo(props){
                             ): null}
                         </Form.Group>
                         <Form.Group controlId="tel">
-                            <Form.Label>Telefonnummer</Form.Label>
+                            <Form.Label>*Telefonnummer</Form.Label>
                             <Form.Control 
                                 type='text'
                                 name='tel'
@@ -103,7 +103,7 @@ export default function AdditionalInfo(props){
                             ): null}
                         </Form.Group>
                         <Form.Group>
-                            <Form.Label className="GDPR" >Jag godkänner att Hamncafét får lagra och använda
+                            <Form.Label className="GDPR" >*Jag godkänner att Hamncafét får lagra och använda
                             <br/> mina personuppgifter i enlighet med GDPR</Form.Label>
                             <Form.Control 
                                 type='checkbox'
