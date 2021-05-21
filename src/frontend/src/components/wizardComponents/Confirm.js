@@ -64,24 +64,24 @@ export default function Confirm(props) {
             :
             <div>
                 <div className='text_box'>
-                    <h2>Översikt</h2>
+                    <h2 className="confirmÖver">Översikt</h2>
                     <h3 className="confirmName">
-                        Namn: {props.booking.name}
+                        <b>Namn:</b> {props.booking.name}
                     </h3>
                     <h3 className="confirmTel">
-                        Telefonnummer: {props.booking.tel}
+                        <b>Telefonnummer:</b> {props.booking.tel}
                     </h3>
                     <h3 className="confirmGuests">
-                        Antal gäster: {props.booking.guests.toString()}
+                        <b>Antal gäster:</b> {props.booking.guests.toString()}
                     </h3>
                     <h3 className="confirmDate">
-                        Datum: {props.booking.date.toLocaleString('swe', {month: '2-digit', day: '2-digit'})}
+                        <b>Datum:</b> {props.booking.date.toLocaleString('swe', {month: '2-digit', day: '2-digit'})}
                     </h3>
                     <h3 className="confirmTime">
-                        Tid: {props.booking.time}
+                        <b>Tid:</b> {props.booking.time}
                     </h3>
                     <h3 className="confirmInfo">
-                        Övrig info: {props.booking.info}
+                        <b>Övrig info:</b> {props.booking.info}
                     </h3>
                 </div>
                 <div>
