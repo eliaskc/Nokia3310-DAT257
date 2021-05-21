@@ -74,7 +74,7 @@ class BookingDataService {
     }
 
     authenticateUser(password) {
-        return axios.post('http://localhost:8080/authenticate',  { 'username': 'admin', 'password': password } , {headers: header})
+        return axios.post('http://localhost:8080/authenticate',  { 'username': 'admin', 'password': password })
     }
 
     isUserAuthenticated() {
