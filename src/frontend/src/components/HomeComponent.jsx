@@ -45,6 +45,8 @@ function HomeComponent() {
                     <img src="/hamncafet_logo.png" alt="Hamncafét logga" className="main_logo" />
                 </a>
 
+                <Button className="add-button">Lägg till som app</Button>
+
                 <Router>
                     <Switch>
                         <Route exact path='/'>
