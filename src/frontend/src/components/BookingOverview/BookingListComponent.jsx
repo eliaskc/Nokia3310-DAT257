@@ -17,6 +17,7 @@ import UserAuth from '../UserAuth.js'
 function BookingListComponent() {
     const [timeSlots, setTimeSlots] = useState([]);
     const [date, setDate] = useState(moment(new Date()).format('YYYY-MM-DD'));
+    const [closeDayConfirmation, setCloseDayConfirmation] = useState(true);
     const [showCreateModal, setShowCreateModal] = useState(false);
     let modalBooking = {
         bookingID: 0,
@@ -57,6 +58,21 @@ function BookingListComponent() {
     function logOut() {
         UserAuth.logOutUser()
         setIsAuthenticated(false)
+    }
+    
+    const startCloseDayConfirmation = () => setCloseDayConfirmation(false);
+
+    //Boka upp alla timeslots för denna dag
+    function confirmCloseDay(bookingDate) {
+        console.log(BookingDataService.getBookingsByDate(bookingDate).toString())
+        if (BookingDataService.getBookingsByDate(bookingDate)===null) {
+            alert('finns inga bokningar här')
+        }
+        else alert('finns bokningar här')
+        /*BookingDataService.deleteBooking(bookingDate).then(
+            () => {
+                window.location.reload();
+            });*/
     }
 
     function onPreviousDate() {
@@ -110,11 +126,9 @@ function BookingListComponent() {
                                 )
                             }
                         </Formik>
-
+                        <Button variant="primary" className="btn btn-success" onClick={() => handleShowCreateModal()}>Skapa ny bokning</Button>
                     </div>
 
-                    <Button variant="primary" className="btn btn-success" onClick={() => handleShowCreateModal()}>Skapa ny bokning</Button>
-                    
                     <Modal show={showCreateModal} onHide={handleCloseCreateModal}>
                         <Modal.Header closeButton>
                             <Modal.Title>Skapa ny bokning</Modal.Title>
@@ -143,6 +157,14 @@ function BookingListComponent() {
                         </tbody>
                     </Table>
                 </div>}
+
+                <div className="BookingListButtons">
+                    {closeDayConfirmation ? <Button variant="danger" onClick={startCloseDayConfirmation}>
+                        Stäng dag
+                    </Button> : <Button variant="danger" onClick={() => confirmCloseDay(modalBooking.bookingDate)}>
+                        Är du säker på att du vill stänga av bokningar för denna dag?
+                    </Button>}
+                </div>
 
             {loading && !isAuthenticated &&
                 <div className='bookingListRoot'>
