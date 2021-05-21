@@ -18,6 +18,7 @@ function BookingListComponent() {
     const [timeSlots, setTimeSlots] = useState([]);
     const [date, setDate] = useState(moment(new Date()).format('YYYY-MM-DD'));
     const [closeDayConfirmation, setCloseDayConfirmation] = useState(true);
+    const [openDayConfirmation, setOpenDayConfirmation] = useState(true);
     const [showCreateModal, setShowCreateModal] = useState(false);
     let modalBooking = {
         bookingID: 0,
@@ -62,6 +63,7 @@ function BookingListComponent() {
     }
     
     const startCloseDayConfirmation = () => setCloseDayConfirmation(false);
+    const startOpenDayConfirmation = () => setOpenDayConfirmation(false);
 
     function confirmCloseDay(bookingDate) {
         bookingDate = moment(bookingDate).format('YYYY-MM-DD')
@@ -101,12 +103,16 @@ function BookingListComponent() {
         let prevDate = new Date(date)
         prevDate.setDate(prevDate.getDate() - 1)
         changeDate(moment(prevDate).format('YYYY-MM-DD'))
+        setCloseDayConfirmation(true)
+        setOpenDayConfirmation(true)
     }
 
     function onNextDate() {
         let nextDate = new Date(date)
         nextDate.setDate(nextDate.getDate() + 1)
         changeDate(moment(nextDate).format('YYYY-MM-DD'))
+        setCloseDayConfirmation(true)
+        setOpenDayConfirmation(true)
     }
 
     const changeDate = (newDate) => {
@@ -187,7 +193,7 @@ function BookingListComponent() {
                         Är du säker på att du vill stänga av bokningar för denna dag?
                     </Button>}
                     
-                    {closeDayConfirmation ? <Button variant="primary" onClick={startCloseDayConfirmation}>
+                    {openDayConfirmation ? <Button variant="primary" onClick={startOpenDayConfirmation}>
                         Öppna dag
                     </Button> : <Button variant="primary" onClick={() => confirmOpenDay(date)}>
                         Är du säker på att du vill öppna bokningar för denna dag?

@@ -128,23 +128,14 @@ public class DatabaseController {
     
 
     public int deleteBookingTimes(Date date) {
-        int successVariable = -1;
-        String deleteSqlQuery = ("DELETE FROM BookingTimes WHERE bookingdate =" + "?" + " AND timeSlot =" + "?" + ";");
-        List<LocalTime> bookingTimes = Arrays.asList(LocalTime.parse("17:00:00"), LocalTime.parse("17:30:00"),
-                LocalTime.parse("18:00:00"), LocalTime.parse("18:30:00"), LocalTime.parse("19:00:00"),
-                LocalTime.parse("19:30:00"), LocalTime.parse("20:00:00"), LocalTime.parse("20:30:00"),
-                LocalTime.parse("21:00:00"), LocalTime.parse("21:30:00"), LocalTime.parse("22:00:00"),
-                LocalTime.parse("22:30:00"));
+        String deleteSqlQuery = ("DELETE FROM BookingTimes WHERE bookingdate =" + "?" + ";");
 
-        for (LocalTime bookingTime : bookingTimes) {
-             successVariable = jdbcTemplate.update(deleteSqlQuery, new Object[] { date, bookingTime });
-        }
-        return successVariable;
+        return jdbcTemplate.update(deleteSqlQuery, new Object[] { date });
     }
 
     public int addBookingTimes(Date date) {
         int successVariable = -1;
-        String addSqlQuery = ("INSERT INTO BookingTimes (" + "bookingDate, " + "startTime) VALUES (?, ?);");
+        String addSqlQuery = ("INSERT INTO BookingTimes (" + "bookingDate, " + "timeSlot) VALUES (?, ?);");
         List<LocalTime> bookingTimes = Arrays.asList(LocalTime.parse("17:00:00"), LocalTime.parse("17:30:00"),
                 LocalTime.parse("18:00:00"), LocalTime.parse("18:30:00"), LocalTime.parse("19:00:00"),
                 LocalTime.parse("19:30:00"), LocalTime.parse("20:00:00"), LocalTime.parse("20:30:00"),
@@ -196,7 +187,7 @@ public class DatabaseController {
      */
     @Scheduled(cron = "0 0 0 * * *")
     void dailyInsertBookingTimesDB() {
-        String insertSqlQuery = ("INSERT INTO BookingTimes (" + "bookingDate, " + "startTime) VALUES (?, ?);");
+        String insertSqlQuery = ("INSERT INTO BookingTimes (" + "bookingDate, " + "timeSlot) VALUES (?, ?);");
         LocalDate dateToAdd = LocalDate.now().plusWeeks(4);
         List<LocalTime> bookingTimes = Arrays.asList(LocalTime.parse("17:00:00"), LocalTime.parse("17:30:00"),
                 LocalTime.parse("18:00:00"), LocalTime.parse("18:30:00"), LocalTime.parse("19:00:00"),
@@ -214,7 +205,7 @@ public class DatabaseController {
      */
     @Scheduled(cron = "0 0 0 * * *")
     void dailyDeleteBookingTimesDB() {
-        String deleteSqlQuery = ("DELETE FROM BookingTimes WHERE bookingdate =" + "?" + " AND startTime =" + "?" + ";");
+        String deleteSqlQuery = ("DELETE FROM BookingTimes WHERE bookingdate =" + "?" + " AND timeSlot =" + "?" + ";");
         LocalDate dateToDelete = LocalDate.now().minusDays(3);
         List<LocalTime> bookingTimes = Arrays.asList(LocalTime.parse("17:00:00"), LocalTime.parse("17:30:00"),
                 LocalTime.parse("18:00:00"), LocalTime.parse("18:30:00"), LocalTime.parse("19:00:00"),
