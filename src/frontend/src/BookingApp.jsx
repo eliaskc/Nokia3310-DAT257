@@ -13,7 +13,6 @@ import AddToHomeScreen from '@ideasio/add-to-homescreen-react';
 function BookingApp() {
     return(
         <div className='BookingApp'>
-            <AddToHomeScreen/>
             <Router>  
             <>  
                 <Switch>

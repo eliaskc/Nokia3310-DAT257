@@ -29,7 +29,7 @@ import java.util.List;
  * Controller for the backend which acts as a RESTful API
  */
 @RestController
-@CrossOrigin(origins = "https://hamncafe-test.herokuapp.com")
+@CrossOrigin(origins = "https://safe-chamber-62052.herokuapp.com/")
 public class BookingController {
     @Autowired
     private DatabaseController databaseController;
