@@ -65,11 +65,22 @@ function BookingListComponent() {
 
     //Boka upp alla timeslots för denna dag
     function confirmCloseDay(bookingDate) {
-        BookingDataService.deleteBookingTimes(bookingDate).then(
-            () => {
+        bookingDate = moment(bookingDate).format('YYYY-MM-DD')
+
+        BookingDataService.getBookingsByDate(bookingDate).then(response => {
+            if (response.data.length === 0){
+                BookingDataService.deleteBookingTimes(bookingDate).then(
+                    () => {
+                        window.location.reload();
+                    });
+            } else {
+                alert("Det finns bokningar inlagda för denna dag. Ta bort bokningarna innan du stänger av dagen.")
                 window.location.reload();
-            });
+            }
+        })
+
     }
+
 
     function onPreviousDate() {
         let prevDate = new Date(date)
