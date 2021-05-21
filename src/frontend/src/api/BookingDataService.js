@@ -4,12 +4,13 @@ import axios from 'axios';
  * Frontend service which handles the communication with the backend
  */
 class BookingDataService {
+    var apiURL = "https://api-hamncafe-test.herokuapp.com"
     retrieveAllBookings() {
-        return axios.get(`http://localhost:8080/bookings`);
+        return axios.get(apiURL + `/bookings`);
     }
 
     retrieveAllAvailableTimes(date, time, guests) {
-        return axios.get(`http://localhost:8080/availableTimes`, {
+        return axios.get(apiURL + `/availableTimes`, {
             params: {
                 'date': date,
                 'time': time,
@@ -19,7 +20,7 @@ class BookingDataService {
     }
 
     retrieveAllAvailableDays(guests) {
-        return axios.get(`http://localhost:8080/availableDays`, {
+        return axios.get(apiURL + `/availableDays`, {
             params: {
                 'guests': guests
             }
@@ -27,7 +28,7 @@ class BookingDataService {
     }
 
     retrieveBooking(id) {
-        return axios.get(`http://localhost:8080/bookings/${id}`);
+        return axios.get(apiURL + `/bookings/${id}`);
     }
 
     /**
@@ -37,7 +38,7 @@ class BookingDataService {
      * @param booking JSON object of a booking
      */
     updateBooking(id, booking) {
-        return axios.put(`http://localhost:8080/bookings/${id}`, booking);
+        return axios.put(apiURL + `/bookings/${id}`, booking);
     }
 
     /**
@@ -47,7 +48,7 @@ class BookingDataService {
      * @param booking JSON object of a booking
      */
     createBooking(booking) {
-        return axios.post(`http://localhost:8080/bookings`, booking);
+        return axios.post(apiURL + `/bookings`, booking);
     }
 
     /**
@@ -56,27 +57,27 @@ class BookingDataService {
      * @param {Number} id
      */
     deleteBooking(id) {
-        return axios.delete(`http://localhost:8080/bookings/id/${id}`);
+        return axios.delete(apiURL + `/bookings/id/${id}`);
     }
 
     getBookingsByDate(date) {
-        return axios.get(`http://localhost:8080/bookings/date/${date}`);
+        return axios.get(apiURL + `/bookings/date/${date}`);
     }
 
     getBookingsByDateAndTime(date, time) {
-        return axios.get(`http://localhost:8080/bookings/date/${date}/${time}`);
+        return axios.get(apiURL + `/bookings/date/${date}/${time}`);
     }
 
     getTimeSlotsByDate(date) {
-        return axios.get(`http://localhost:8080/timeslots/date/${date}`);
+        return axios.get(apiURL + `/timeslots/date/${date}`);
     }
 
     getNumberOfBookedTablesByDateAndTime(date, time) {
-        return axios.get(`http://localhost:8080/bookings/count/bookedtables/${date}/${time}`);
+        return axios.get(apiURL + `/bookings/count/bookedtables/${date}/${time}`);
     }
 
     getNumberOfGuestsByDateAndTime(date, time) {
-        return axios.get(`http://localhost:8080/bookings/count/guests/${date}/${time}`);
+        return axios.get(apiURL + `/bookings/count/guests/${date}/${time}`);
     }
 
     /**
@@ -85,7 +86,7 @@ class BookingDataService {
      * @returns JSON object with JWT if correct and null otherwise
      */
     checkPassword(password) {
-        return axios.get('http://localhost:8080/checkpassword', { params: { 'password': password } })
+        return axios.get(apiURL + '/checkpassword', { params: { 'password': password } })
     }
 
     /**
@@ -94,7 +95,7 @@ class BookingDataService {
      * @returns true if it it, false if not
      */
     checkAuthorizeUser(jwt) {
-        return axios.get('http://localhost:8080/checkauthorizeuser', { params: { 'jwt': jwt } })
+        return axios.get(apiURL + '/checkauthorizeuser', { params: { 'jwt': jwt } })
     }
 
 }
