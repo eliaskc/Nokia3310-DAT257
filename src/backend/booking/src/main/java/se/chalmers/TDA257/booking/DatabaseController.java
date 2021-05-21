@@ -139,7 +139,22 @@ public class DatabaseController {
         for (LocalTime bookingTime : bookingTimes) {
              successVariable = jdbcTemplate.update(deleteSqlQuery, new Object[] { date, bookingTime });
         }
-        System.out.println(successVariable);
+        return successVariable;
+    }
+
+    public int addBookingTimes(Date date) {
+        int successVariable = -1;
+        String addSqlQuery = ("INSERT INTO BookingTimes (" + "bookingDate, " + "startTime) VALUES (?, ?);");
+        List<LocalTime> bookingTimes = Arrays.asList(LocalTime.parse("17:00:00"), LocalTime.parse("17:30:00"),
+                LocalTime.parse("18:00:00"), LocalTime.parse("18:30:00"), LocalTime.parse("19:00:00"),
+                LocalTime.parse("19:30:00"), LocalTime.parse("20:00:00"), LocalTime.parse("20:30:00"),
+                LocalTime.parse("21:00:00"), LocalTime.parse("21:30:00"), LocalTime.parse("22:00:00"),
+                LocalTime.parse("22:30:00"));
+
+        for (LocalTime bookingTime : bookingTimes) {
+             successVariable = jdbcTemplate.update(addSqlQuery, new Object[] { date, bookingTime });
+        }
+        System.out.println(date);
         return successVariable;
     }
     /**

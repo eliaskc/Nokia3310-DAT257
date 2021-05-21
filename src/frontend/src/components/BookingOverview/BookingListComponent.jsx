@@ -63,7 +63,6 @@ function BookingListComponent() {
     
     const startCloseDayConfirmation = () => setCloseDayConfirmation(false);
 
-    //Boka upp alla timeslots för denna dag
     function confirmCloseDay(bookingDate) {
         bookingDate = moment(bookingDate).format('YYYY-MM-DD')
 
@@ -79,6 +78,22 @@ function BookingListComponent() {
             }
         })
 
+    }
+
+    function confirmOpenDay(bookingDate) {
+        bookingDate = moment(bookingDate).format('YYYY-MM-DD')
+
+        BookingDataService.getTimeSlotsByDate(bookingDate).then(response => {
+            if (response.data.length === 0){
+                BookingDataService.addBookingTimes(bookingDate).then(
+                    () => {
+                        window.location.reload();
+                    });
+                } else {
+                    alert("Denna dag är redan öppen.")
+                    window.location.reload();
+                }
+        })
     }
 
 
@@ -170,6 +185,12 @@ function BookingListComponent() {
                         Stäng dag
                     </Button> : <Button variant="danger" onClick={() => confirmCloseDay(date)}>
                         Är du säker på att du vill stänga av bokningar för denna dag?
+                    </Button>}
+                    
+                    {closeDayConfirmation ? <Button variant="primary" onClick={startCloseDayConfirmation}>
+                        Öppna dag
+                    </Button> : <Button variant="primary" onClick={() => confirmOpenDay(date)}>
+                        Är du säker på att du vill öppna bokningar för denna dag?
                     </Button>}
                 </div>
 
