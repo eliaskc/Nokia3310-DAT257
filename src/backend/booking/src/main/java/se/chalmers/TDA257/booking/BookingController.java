@@ -65,7 +65,7 @@ public class BookingController {
         return ResponseEntity.notFound().build();
     }
 
-    @DeleteMapping("/bookings/date/{date}")
+    @DeleteMapping("/bookings/delete/{date}")
     public ResponseEntity<Void> deleteBookingTimes(@PathVariable Date date) {
         int success = databaseController.deleteBookingTimes(date);
         if (success != 0) {

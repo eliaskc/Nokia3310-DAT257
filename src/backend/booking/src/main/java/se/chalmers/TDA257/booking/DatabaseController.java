@@ -129,7 +129,7 @@ public class DatabaseController {
 
     public int deleteBookingTimes(Date date) {
         int successVariable = -1;
-        String deleteSqlQuery = ("DELETE FROM BookingTimes WHERE bookingdate =" + "?" + " AND startTime =" + "?" + ";");
+        String deleteSqlQuery = ("DELETE FROM BookingTimes WHERE bookingdate =" + "?" + " AND timeSlot =" + "?" + ";");
         List<LocalTime> bookingTimes = Arrays.asList(LocalTime.parse("17:00:00"), LocalTime.parse("17:30:00"),
                 LocalTime.parse("18:00:00"), LocalTime.parse("18:30:00"), LocalTime.parse("19:00:00"),
                 LocalTime.parse("19:30:00"), LocalTime.parse("20:00:00"), LocalTime.parse("20:30:00"),

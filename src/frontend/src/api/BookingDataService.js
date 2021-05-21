@@ -60,7 +60,8 @@ class BookingDataService {
     }
     
     deleteBookingTimes(date) {
-        return axios.delete(`http://localhost:8080/bookings/date/${date}`);
+        console.log(date)
+        return axios.delete(`http://localhost:8080/bookings/delete/${date}`);
     }
 
     getBookingsByDate(date) {

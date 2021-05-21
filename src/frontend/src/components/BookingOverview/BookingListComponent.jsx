@@ -31,6 +31,7 @@ function BookingListComponent() {
     const [loading, setLoading] = useState(true)
     const [isAuthenticated, setIsAuthenticated] = useState(false)
 
+
     useEffect(() => {
         UserAuth.isUserAuthenticated().then((authenticated) => {
             setIsAuthenticated(authenticated)
@@ -64,7 +65,6 @@ function BookingListComponent() {
 
     //Boka upp alla timeslots för denna dag
     function confirmCloseDay(bookingDate) {
-
         BookingDataService.deleteBookingTimes(bookingDate).then(
             () => {
                 window.location.reload();
@@ -157,7 +157,7 @@ function BookingListComponent() {
                 <div className="BookingListButtons">
                     {closeDayConfirmation ? <Button variant="danger" onClick={startCloseDayConfirmation}>
                         Stäng dag
-                    </Button> : <Button variant="danger" onClick={() => confirmCloseDay(modalBooking.bookingDate)}>
+                    </Button> : <Button variant="danger" onClick={() => confirmCloseDay(date)}>
                         Är du säker på att du vill stänga av bokningar för denna dag?
                     </Button>}
                 </div>
