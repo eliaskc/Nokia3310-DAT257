@@ -11,8 +11,8 @@ import * as Yup from 'yup'
  * @returns 
  */
 export default function AdditionalInfo(props){
-    const history = useHistory()                    //Constant for pages that have the user have been on
-    const numberRegExp = /^[0-9 \b]+$/              //What is allowed in tel
+    const history = useHistory()                                        //Constant for pages that have the user have been on
+    const numberRegExp = /^([+]46)\s*(7[0236])\s*(\d{4})\s*(\d{3})$/    //What is allowed in tel
 
     //Saves values to current booking
     function saveValues(values){
@@ -28,7 +28,7 @@ export default function AdditionalInfo(props){
         .max(100, '*Namn kan inte vara mer än 100 tecken')
         .required('*Du måste ange ett namn'),
         tel: Yup.string()
-        .matches(numberRegExp, '*Telefonnummer är inte giltigt')
+        .matches(numberRegExp, '*Telefonnummer är ogiltigt, det måste ha formen +46123456789')
         .required('*Du måste ange ett telefonnummer'),
         info: Yup.string()
         .max(150, '*Övrig info kan inte vara mer än 150 tecken'),
@@ -78,7 +78,7 @@ export default function AdditionalInfo(props){
                             <Form.Control 
                                 type='text'
                                 name='tel'
-                                placeholder='Skriv in telefonnummer'
+                                placeholder='e.g. +46123456789'
                                 onChange={handleChange}
                                 value={values.tel}
                                 className={touched.tel && errors.tel ? "has-error" : null}
