@@ -28,7 +28,8 @@ export default function AdditionalInfo(props){
         .max(100, '*Namn kan inte vara mer än 100 tecken')
         .required('*Du måste ange ett namn'),
         tel: Yup.string()
-        .matches(numberRegExp, '*Telefonnummer är ogiltigt, det måste ha formen +46123456789')
+        .matches(numberRegExp, '*Måste ha formen +46123456789')
+        //innan '*Telefonnummer är ogiltigt, det måste ha formen +46123456789', hann inte lösa på bättre sätt just nu
         .required('*Du måste ange ett telefonnummer'),
         info: Yup.string()
         .max(150, '*Övrig info kan inte vara mer än 150 tecken'),
