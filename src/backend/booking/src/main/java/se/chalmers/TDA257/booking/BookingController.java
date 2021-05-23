@@ -29,7 +29,7 @@ import java.util.List;
 @CrossOrigin(origins = "http://localhost:3000")
 public class BookingController {
     public static final String ACCOUNT_SID = "AC3d1bbee5d6e001f1ae2b4d4ad0e7e85f";
-    public static final String AUTH_TOKEN = "35c0fed161f0455f47a6d646e19b4959";
+    public static final String AUTH_TOKEN = "3931c49d7ac3a2f4f508ab0f1158d325";
 
     @Autowired
     private DatabaseController databaseController;
