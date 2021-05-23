@@ -96,6 +96,15 @@ public class BookingController {
         return ResponseEntity.notFound().build();
     }
 
+    @PostMapping("/bookings/add/{date}")
+    public ResponseEntity<Void> addBookingTimes(@PathVariable Date date) {
+        int success = databaseController.addBookingTimes(date);
+        if (success != 0) {
+            return ResponseEntity.noContent().build();
+        }
+        return ResponseEntity.notFound().build();
+    }
+
     /**
      * Adds a new booking, and creates an URI for the newly created booking
      * 
