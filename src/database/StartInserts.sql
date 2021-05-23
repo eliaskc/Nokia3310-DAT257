@@ -21,12 +21,12 @@ INSERT INTO Tables VALUES (18, 2);
 INSERT INTO Tables VALUES (19, 2);
 INSERT INTO Tables VALUES (20, 2);
 
---Inserting all the allowed booking times for a specific date
---OBS! Remember when trigger is made: if someone is booking 21,
---only this timeslot will be booked, no other timeslots
-/*Adding times until 22:30 since those will be booked by the last bookable time of 21:00.
-The limit of bookingtimes is set in Available reservations(?)*/
 
+/*Inserting the the booking times from current date and 4 weeks forward (28 days in total)
+  is run when the database is created to fill with values. Timeslots from 17:00 until 22:30 is added
+  even though the last available starttime for a booking is 21:00, since those will be bookied by the last
+  bookable time of 21:00. The limit of bookable times is set in AvailableReservations
+*/
 INSERT INTO BookingTimes VALUES (CURRENT_DATE, '17:00:00');
 INSERT INTO BookingTimes VALUES (CURRENT_DATE, '17:30:00');
 INSERT INTO BookingTimes VALUES (CURRENT_DATE, '18:00:00');
@@ -363,47 +363,3 @@ INSERT INTO BookingTimes VALUES (CURRENT_DATE + INTERVAL '27 days', '21:00:00');
 INSERT INTO BookingTimes VALUES (CURRENT_DATE + INTERVAL '27 days', '21:30:00');
 INSERT INTO BookingTimes VALUES (CURRENT_DATE + INTERVAL '27 days', '22:00:00');
 INSERT INTO BookingTimes VALUES (CURRENT_DATE + INTERVAL '27 days', '22:30:00');
-
---Inserting bookings, each booking books 4 timeslots
-/*
-INSERT INTO Bookings VALUES ('Ida', 'ida@live.com', '0761022440', 4, CURRENT_DATE, '17:00:00');
-INSERT INTO Bookings VALUES ('Ida', 'ida@live.com', '0761022440', 4, CURRENT_DATE, '17:30:00');
-INSERT INTO Bookings VALUES ('Ida', 'ida@live.com', '0761022440', 4, CURRENT_DATE, '18:00:00');
-INSERT INTO Bookings VALUES ('Ida', 'ida@live.com', '0761022440', 4, CURRENT_DATE, '18:30:00');
-
-INSERT INTO Bookings VALUES ('Lisa', 'lisa@live.com', '0761022442', 2, CURRENT_DATE, '17:30:00');
-INSERT INTO Bookings VALUES ('Lisa', 'lisa@live.com', '0761022442', 2, CURRENT_DATE, '18:00:00');
-INSERT INTO Bookings VALUES ('Lisa', 'lisa@live.com', '0761022442', 2, CURRENT_DATE, '18:30:00');
-INSERT INTO Bookings VALUES ('Lisa', 'lisa@live.com', '0761022442', 2, CURRENT_DATE, '19:00:00');
-
-INSERT INTO Bookings VALUES ('Astrid', 'astrid@live.com', '0761022441', 3, CURRENT_DATE, '18:00:00');
-
---Inserting bookings of the specific tables. When a booking is inserted
---for a specific start time, it also books all the timeslots for those tables
---two hours forward. (If a booking is done 17:00, the next booking can be done
---19:00) Will not need to do this once the trigger is created, since each insert on
---Bookings will trigger this
-INSERT INTO BookedTables VALUES (1, CURRENT_DATE, '17:00:00', 'ida@live.com');
-INSERT INTO BookedTables VALUES (1, CURRENT_DATE, '17:30:00', 'ida@live.com');
-INSERT INTO BookedTables VALUES (1, CURRENT_DATE, '18:00:00', 'ida@live.com');
-INSERT INTO BookedTables VALUES (1, CURRENT_DATE, '18:30:00', 'ida@live.com');
-
-INSERT INTO BookedTables VALUES (2, CURRENT_DATE, '17:00:00', 'ida@live.com');
-INSERT INTO BookedTables VALUES (2, CURRENT_DATE, '17:30:00', 'ida@live.com');
-INSERT INTO BookedTables VALUES (2, CURRENT_DATE, '18:00:00', 'ida@live.com');
-INSERT INTO BookedTables VALUES (2, CURRENT_DATE, '18:30:00', 'ida@live.com');
-
-
-INSERT INTO BookedTables VALUES (4, CURRENT_DATE, '17:30:00', 'lisa@live.com');
-INSERT INTO BookedTables VALUES (4, CURRENT_DATE, '18:00:00', 'lisa@live.com');
-INSERT INTO BookedTables VALUES (4, CURRENT_DATE, '18:30:00', 'lisa@live.com');
-INSERT INTO BookedTables VALUES (4, CURRENT_DATE, '19:00:00', 'lisa@live.com');
-
---INSERT INTO BookedTables VALUES (1, CURRENT_DATE, '17:30:00', 'lisa@live.com');
-*/
-/*
-INSERT INTO BookingsView VALUES (CURRENT_DATE, '17:00:00', '17:00:00',  1, 1, 'Dieter',  0761022445, 2, 'some info');
-INSERT INTO BookingsView VALUES (CURRENT_DATE, '21:00:00', '17:00:00',  1, 1, 'Elias',  0761092883, 2);
-INSERT INTO BookingsView VALUES (CURRENT_DATE, '18:00:00', '17:00:00',  1, 1, 'Ida',  0761099383, 4);
-INSERT INTO BookingsView VALUES (CURRENT_DATE, '21:00:00', '17:00:00',  1, 1, 'Lisa',  0761099583, 2, 'some other info');
-*/
