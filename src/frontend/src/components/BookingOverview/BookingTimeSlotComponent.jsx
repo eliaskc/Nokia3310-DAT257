@@ -186,6 +186,8 @@ function BookingTimeSlotComponent(props) {
                         </Button>}
                     </Modal.Footer>
                 </Modal>}
+
+
         </tr>
     )
 

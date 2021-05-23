@@ -11,9 +11,9 @@ class UserAuth{
      */
     authenticateUser(userPass){
         return new Promise((resolve, reject)  => {
-            BookingDataService.checkPassword(userPass).then((response) => {
+            BookingDataService.authenticateUser(userPass).then((response) => {
                 if (response.data){
-                    localStorage.setItem('token', response.data)
+                    localStorage.setItem('token', response.data.token)
                     resolve(true)
                 } else {
                     resolve(false)
@@ -37,7 +37,7 @@ class UserAuth{
      */
     isUserAuthenticated(){
         return new Promise((resolve, reject) => {
-            BookingDataService.checkAuthorizeUser(localStorage.getItem('token')).then((response) => {
+            BookingDataService.isUserAuthenticated().then((response) => {
                    resolve(response.data)
                 }
             ).catch(error => {

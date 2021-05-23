@@ -17,6 +17,8 @@ import UserAuth from '../UserAuth.js'
 function BookingListComponent() {
     const [timeSlots, setTimeSlots] = useState([]);
     const [date, setDate] = useState(moment(new Date()).format('YYYY-MM-DD'));
+    const [closeDayConfirmation, setCloseDayConfirmation] = useState(true);
+    const [openDayConfirmation, setOpenDayConfirmation] = useState(true);
     const [showCreateModal, setShowCreateModal] = useState(false);
     let modalBooking = {
         bookingID: 0,
@@ -29,6 +31,7 @@ function BookingListComponent() {
     };
     const [loading, setLoading] = useState(true)
     const [isAuthenticated, setIsAuthenticated] = useState(false)
+
 
     useEffect(() => {
         UserAuth.isUserAuthenticated().then((authenticated) => {
@@ -58,17 +61,66 @@ function BookingListComponent() {
         UserAuth.logOutUser()
         setIsAuthenticated(false)
     }
+    
+    const startCloseDayConfirmation = () => setCloseDayConfirmation(false);
+    const startOpenDayConfirmation = () => setOpenDayConfirmation(false);
+
+    function confirmCloseDay(bookingDate) {
+        bookingDate = moment(bookingDate).format('YYYY-MM-DD')
+
+        BookingDataService.getTimeSlotsByDate(bookingDate).then(response => {
+            if(response.data.length !== 0) {
+                BookingDataService.getBookingsByDate(bookingDate).then(response => {
+                    if (response.data.length === 0){
+                        BookingDataService.deleteBookingTimes(bookingDate).then(
+                            () => {
+                                window.location.reload();
+                            });
+                    } else {
+                        alert("Det finns bokningar inlagda för denna dag. Ta bort bokningarna innan du stänger av dagen.")
+                        window.location.reload();
+                    }
+                })
+            } else {
+                alert("Denna dag är redan stängd.")
+                window.location.reload();
+            }
+        })
+
+
+    }
+
+    function confirmOpenDay(bookingDate) {
+        bookingDate = moment(bookingDate).format('YYYY-MM-DD')
+
+        BookingDataService.getTimeSlotsByDate(bookingDate).then(response => {
+            if (response.data.length === 0){
+                BookingDataService.addBookingTimes(bookingDate).then(
+                    () => {
+                        window.location.reload();
+                    });
+                } else {
+                    alert("Denna dag är redan öppen.")
+                    window.location.reload();
+                }
+        })
+    }
+
 
     function onPreviousDate() {
         let prevDate = new Date(date)
         prevDate.setDate(prevDate.getDate() - 1)
         changeDate(moment(prevDate).format('YYYY-MM-DD'))
+        setCloseDayConfirmation(true)
+        setOpenDayConfirmation(true)
     }
 
     function onNextDate() {
         let nextDate = new Date(date)
         nextDate.setDate(nextDate.getDate() + 1)
         changeDate(moment(nextDate).format('YYYY-MM-DD'))
+        setCloseDayConfirmation(true)
+        setOpenDayConfirmation(true)
     }
 
     const changeDate = (newDate) => {
@@ -110,11 +162,9 @@ function BookingListComponent() {
                                 )
                             }
                         </Formik>
-
+                        <Button variant="primary" className="btn btn-success" onClick={() => handleShowCreateModal()}>Skapa ny bokning</Button>
                     </div>
 
-                    <Button variant="primary" className="btn btn-success" onClick={() => handleShowCreateModal()}>Skapa ny bokning</Button>
-                    
                     <Modal show={showCreateModal} onHide={handleCloseCreateModal}>
                         <Modal.Header closeButton>
                             <Modal.Title>Skapa ny bokning</Modal.Title>
@@ -143,6 +193,20 @@ function BookingListComponent() {
                         </tbody>
                     </Table>
                 </div>}
+
+                <div className="BookingListButtons">
+                    {closeDayConfirmation ? <Button variant="danger" onClick={startCloseDayConfirmation}>
+                        Stäng dag
+                    </Button> : <Button variant="danger" onClick={() => confirmCloseDay(date)}>
+                        Är du säker på att du vill stänga av bokningar för denna dag?
+                    </Button>}
+                    
+                    {openDayConfirmation ? <Button variant="primary" onClick={startOpenDayConfirmation}>
+                        Öppna dag
+                    </Button> : <Button variant="primary" onClick={() => confirmOpenDay(date)}>
+                        Är du säker på att du vill öppna bokningar för denna dag?
+                    </Button>}
+                </div>
 
             {loading && !isAuthenticated &&
                 <div className='bookingListRoot'>

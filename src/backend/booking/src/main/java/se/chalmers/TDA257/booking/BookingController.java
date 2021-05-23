@@ -9,12 +9,9 @@ import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import javax.xml.crypto.Data;
 
-import com.auth0.jwt.JWT;
-import com.auth0.jwt.algorithms.Algorithm;
-import com.auth0.jwt.exceptions.JWTCreationException;
-import com.auth0.jwt.exceptions.JWTVerificationException;
-import com.auth0.jwt.interfaces.DecodedJWT;
-import com.auth0.jwt.interfaces.JWTVerifier;
+import com.twilio.Twilio;
+import com.twilio.rest.api.v2010.account.Message;
+import com.twilio.type.PhoneNumber;
 
 import java.net.URI;
 import java.sql.Time;
@@ -31,8 +28,33 @@ import java.util.List;
 @RestController
 @CrossOrigin(origins = "https://hamncafetgullholmen.herokuapp.com")
 public class BookingController {
+    public static final String ACCOUNT_SID = "AC3d1bbee5d6e001f1ae2b4d4ad0e7e85f";
+    public static final String AUTH_TOKEN = "3931c49d7ac3a2f4f508ab0f1158d325";
+
     @Autowired
     private DatabaseController databaseController;
+
+    @PostMapping("/bookings/confirmation")
+    private ResponseEntity<?> SendConfirmationSMS(@RequestBody Booking booking){
+        Twilio.init(ACCOUNT_SID, AUTH_TOKEN);
+
+        String confirmationMsg = "Hej, " + booking.getGuestName() + "! Din bokning kl. " + booking.getStartTime() + ", " + booking.getBookingDate() + " hos oss på Gullholmens Hamncafé är nu bekräftad. För att ändra eller ta bort din bokning kontakta oss på 030457007. No show debiteras med 100kr/person. Tack för din bokning! OBS, detta sms går inte att svara på.";
+
+        try {
+            Message message = Message.creator(
+                //To
+                new com.twilio.type.PhoneNumber(booking.getGuestTelNr()),
+                //From
+                new com.twilio.type.PhoneNumber("+46701926415"),
+                confirmationMsg)
+                    .create();
+            return ResponseEntity.ok(true);
+        } catch (Exception e){
+            System.out.println(e);
+            return ResponseEntity.ok(false);
+        }
+    }
+
 
     @GetMapping("/availableTimes")
     public List<Time> getAllAvailableTimes(@DateTimeFormat(pattern = "yyyy-MM-dd") LocalDate date, @DateTimeFormat(pattern = "HH:mm:ss") LocalTime time, int guests){
@@ -43,6 +65,14 @@ public class BookingController {
     public List<Date> getAllAvailableDays(int guests){
         return databaseController.fetchAvailableDays(guests);
     }
+
+    /**
+     * Kolla ifall det finns några bokningar på datumet, om det gör det - skicka alert att det inte går att stänga dagen
+     * pga finns bokningar. Om det inte finns några bokningar läggs datumet till i en lista i backenden över stängda dagar
+     * när bokningarna hämtas samt försöker lägga till bokningar kollar funktionen först om datumet
+     * finns med i listan över stängda datum (kom ihåg att radera när 2 dagar gammal i cron)
+     * 
+     */
 
     /**
      * Deletes specified booking if it exists
@@ -57,13 +87,31 @@ public class BookingController {
         return ResponseEntity.notFound().build();
     }
 
+    @DeleteMapping("/bookings/delete/{date}")
+    public ResponseEntity<Void> deleteBookingTimes(@PathVariable Date date) {
+        int success = databaseController.deleteBookingTimes(date);
+        if (success != 0) {
+            return ResponseEntity.noContent().build();
+        }
+        return ResponseEntity.notFound().build();
+    }
+
+    @PostMapping("/bookings/add/{date}")
+    public ResponseEntity<Void> addBookingTimes(@PathVariable Date date) {
+        int success = databaseController.addBookingTimes(date);
+        if (success != 0) {
+            return ResponseEntity.noContent().build();
+        }
+        return ResponseEntity.notFound().build();
+    }
+
     /**
      * Adds a new booking, and creates an URI for the newly created booking
      * 
      * @param booking
      * @return Responseentity describing for example if the deletion was succesful
      */
-    @PostMapping("/bookings")
+    @PostMapping("/bookings/create")
     public ResponseEntity<Booking> addBooking(@RequestBody Booking booking) {
         databaseController.insertNewBooking(booking);
         Booking b = databaseController.fetchBookingByTelNrDateTime(booking.getGuestTelNr(),booking.getBookingDate(),booking.getStartTime());
@@ -116,73 +164,4 @@ public class BookingController {
         return databaseController.updateBooking(id,updatedBooking);
     }
 
-    /**
-     * Checks if the given password is the correct one
-     * @param password
-     * @return JSON Web Token if password is correct and null otherwise
-     */
-    @GetMapping("/checkpassword")
-    public String checkPassword(String password) {
-        String pass = System.getenv("BookingAppPassword");
-        if (pass == null){
-            System.out.println("A password is not set in environment variables");
-            return null;
-        }
-        
-        if (pass.equals(password)){
-            return createJWT();
-        } else {
-            return null;
-        }
-    }
-
-    /**
-     * Checks if the current user is authorized
-     * @return true if authorized, false if not
-     */
-    @GetMapping("/checkauthorizeuser")
-    public Boolean checkAuthorizeUser(String jwt){
-        //If the user doesn't have a JWT saved and tries to access restricted pages
-        if (jwt == null){
-            return false;
-        }
-
-        try {
-            Algorithm algorithm = Algorithm.HMAC256("LFThe3UVEK");
-            JWTVerifier verifier = JWT.require(algorithm)
-                .withIssuer("auth0")
-                .build();
-            DecodedJWT decodedJwt = verifier.verify(jwt);
-            return true;
-        } catch (JWTVerificationException exception){
-            return false;
-        }
-    }
-
-
-    /**
-     * Creates a JSON Web Token used to authorize users 
-     * @return
-     */
-    public String createJWT(){
-        LocalDate date = LocalDate.now();
-        ZoneId zoneId = ZoneId.systemDefault();
-        long epoch = date.atStartOfDay(zoneId).toEpochSecond();
-        epoch = (epoch + 86400);
-
-        try {
-            Algorithm algorithm = Algorithm.HMAC256("LFThe3UVEK");
-            HashMap<String, Object> payloadClaims = new HashMap<>();
-            payloadClaims.put("authorized", "true");
-            payloadClaims.put("exp", epoch);
-            String token = JWT.create()
-                .withPayload(payloadClaims)
-                .withIssuer("auth0")
-                .sign(algorithm);
-            return token;
-        } catch (JWTCreationException exception){
-            System.out.println("Invalid signing configuration");
-            return "";
-        }
-    }
 }
