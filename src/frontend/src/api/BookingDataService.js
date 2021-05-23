@@ -55,7 +55,7 @@ class BookingDataService {
     }
 
     addBookingTimes(date) {
-        return axios.post(apiURL + `/bookings/add/${date}`);
+        return axios.post(apiURL + `/bookings/add/${date}`, {headers: header});
     }
     
     getBookingsByDate(date) {
@@ -79,15 +79,15 @@ class BookingDataService {
     }
 
     authenticateUser(password) {
-        return axios.post(apiURL + '/authenticate',  { 'username': 'admin', 'password': password })
+        return axios.post(apiURL + '/authenticate',  { 'username': 'admin', 'password': password });
     }
 
     isUserAuthenticated() {
-        return axios.post(apiURL + '/validateToken', { 'token': localStorage.getItem('token') })
+        return axios.post(apiURL + '/validateToken', { 'token': localStorage.getItem('token') });
     }
 
     sendConfirmationSMS(booking) {
-        return axios.post(apiURL + '/bookings/confirmation', booking)
+        return axios.post(apiURL + '/bookings/confirmation', booking);
     }
 }
 
