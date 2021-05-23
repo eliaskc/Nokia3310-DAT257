@@ -96,7 +96,7 @@ public class BookingController {
         return ResponseEntity.notFound().build();
     }
 
-    @PostMapping("/bookings/add/{date}")
+    @GetMapping("/bookings/add/{date}")
     public ResponseEntity<Void> addBookingTimes(@PathVariable Date date) {
         int success = databaseController.addBookingTimes(date);
         if (success != 0) {
