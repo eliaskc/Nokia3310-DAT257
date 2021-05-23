@@ -58,7 +58,7 @@ class BookingDataService {
 
     addBookingTimes(date) {
         console.log(date)
-        return axios.get(`http://localhost:8080/bookings/add/${date}`);
+        return axios.post(`http://localhost:8080/bookings/add/${date}`);
     }
     
     getBookingsByDate(date) {
