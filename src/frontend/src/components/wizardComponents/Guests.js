@@ -52,6 +52,7 @@ export default function Guests(props) {
                     Avbryt
                 </Button>
             </div>
+            <h5>För bokningar på fler än 8 personer <br/>- kontakta oss!</h5>
         </div>
     )
 }
