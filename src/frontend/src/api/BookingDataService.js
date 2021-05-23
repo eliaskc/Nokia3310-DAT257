@@ -1,5 +1,7 @@
 import axios from 'axios';
 
+var apiURL = "https://api-hamncafe-test.herokuapp.com"
+
 /**
  * Frontend service which handles the communication with the backend
  */
@@ -7,20 +9,16 @@ import axios from 'axios';
 const header = {'Authorization': 'Bearer ' + localStorage.getItem('token'), 'Content-Type': 'application/json'}
 
 class BookingDataService {
-    retrieveAllBookings() {
-        return axios.get(`http://localhost:8080/bookings`, {headers: header});
-    }
-
     retrieveAllAvailableTimes(date, time, guests) {
-        return axios.get(`http://localhost:8080/availableTimes`, {params: { 'date': date, 'time': time, 'guests': guests}})
+        return axios.get(apiURL + `/availableTimes`, {params: { 'date': date, 'time': time, 'guests': guests}})
     }
 
     retrieveAllAvailableDays(guests) {
-        return axios.get(`http://localhost:8080/availableDays`, { params: { 'guests': guests}})
+        return axios.get(apiURL + `/availableDays`, { params: { 'guests': guests}})
     }
 
     retrieveBooking(id) {
-        return axios.get(`http://localhost:8080/bookings/${id}`, {headers: header});
+        return axios.get(apiURL + `/bookings/${id}`, {headers: header});
     }
 
     /**
@@ -30,7 +28,7 @@ class BookingDataService {
      * @param booking JSON object of a booking
      */
     updateBooking(id, booking) {
-        return axios.put(`http://localhost:8080/bookings/${id}`, booking, {headers: header});
+        return axios.put(apiURL + `/bookings/${id}`, booking, {headers: header});
     }
 
     /**
@@ -40,7 +38,7 @@ class BookingDataService {
      * @param booking JSON object of a booking
      */
     createBooking(booking) {
-        return axios.post(`http://localhost:8080/bookings/create`, booking);
+        return axios.post(apiURL + `/bookings/create`, booking);
     }
 
     /**
@@ -49,49 +47,47 @@ class BookingDataService {
      * @param {Number} id
      */
     deleteBooking(id) {
-        return axios.delete(`http://localhost:8080/bookings/id/${id}`, {headers: header});
+        return axios.delete(apiURL + `/bookings/id/${id}`, {headers: header});
     }
     
     deleteBookingTimes(date) {
-        return axios.delete(`http://localhost:8080/bookings/delete/${date}`);
+        return axios.delete(apiURL + `/bookings/delete/${date}`, {headers: header});
     }
 
     addBookingTimes(date) {
-        console.log(date)
-        return axios.post(`http://localhost:8080/bookings/add/${date}`);
+        return axios.post(apiURL + `/bookings/add/${date}`, {headers: header});
     }
     
     getBookingsByDate(date) {
-        return axios.get(`http://localhost:8080/bookings/date/${date}`, {headers: header});
+        return axios.get(apiURL + `/bookings/date/${date}`, {headers: header});
     }
 
     getBookingsByDateAndTime(date, time) {
-        return axios.get(`http://localhost:8080/bookings/date/${date}/${time}`, {headers: header});
+        return axios.get(apiURL + `/bookings/date/${date}/${time}`, {headers: header});
     }
 
-
     getTimeSlotsByDate(date) {
-        return axios.get(`http://localhost:8080/timeslots/date/${date}`, {headers: header});
+        return axios.get(apiURL + `/timeslots/date/${date}`, {headers: header});
     }
 
     getNumberOfBookedTablesByDateAndTime(date, time) {
-        return axios.get(`http://localhost:8080/bookings/count/bookedtables/${date}/${time}`, {headers: header});
+        return axios.get(apiURL + `/bookings/count/bookedtables/${date}/${time}`, {headers: header});
     }
 
     getNumberOfGuestsByDateAndTime(date, time) {
-        return axios.get(`http://localhost:8080/bookings/count/guests/${date}/${time}`, {headers: header});
+        return axios.get(apiURL + `/bookings/count/guests/${date}/${time}`, {headers: header});
     }
 
     authenticateUser(password) {
-        return axios.post('http://localhost:8080/authenticate',  { 'username': 'admin', 'password': password })
+        return axios.post(apiURL + '/authenticate',  { 'username': 'admin', 'password': password });
     }
 
     isUserAuthenticated() {
-        return axios.post('http://localhost:8080/validateToken', { 'token': localStorage.getItem('token') })
+        return axios.post(apiURL + '/validateToken', { 'token': localStorage.getItem('token') });
     }
 
     sendConfirmationSMS(booking) {
-        return axios.post('http://localhost:8080/bookings/confirmation', booking)
+        return axios.post(apiURL + '/bookings/confirmation', booking);
     }
 }
 

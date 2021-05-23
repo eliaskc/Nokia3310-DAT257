@@ -26,7 +26,7 @@ import java.util.List;
  * Controller for the backend which acts as a RESTful API
  */
 @RestController
-@CrossOrigin(origins = "http://localhost:3000")
+@CrossOrigin(origins = "https://hamncafetgullholmen.herokuapp.com")
 public class BookingController {
     public static final String ACCOUNT_SID = "AC3d1bbee5d6e001f1ae2b4d4ad0e7e85f";
     public static final String AUTH_TOKEN = "3931c49d7ac3a2f4f508ab0f1158d325";
