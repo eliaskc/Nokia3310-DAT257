@@ -55,7 +55,7 @@ class BookingDataService {
     }
 
     addBookingTimes(date) {
-        return axios.post(apiURL + `/bookings/add/${date}`, {headers: header});
+        return axios.get(apiURL + `/bookings/add/${date}`, {headers: header});
     }
     
     getBookingsByDate(date) {
