@@ -67,12 +67,29 @@ public class BookingController {
     }
 
     /**
+     * Kolla ifall det finns några bokningar på datumet, om det gör det - skicka alert att det inte går att stänga dagen
+     * pga finns bokningar. Om det inte finns några bokningar läggs datumet till i en lista i backenden över stängda dagar
+     * när bokningarna hämtas samt försöker lägga till bokningar kollar funktionen först om datumet
+     * finns med i listan över stängda datum (kom ihåg att radera när 2 dagar gammal i cron)
+     * 
+     */
+
+    /**
      * Deletes specified booking if it exists
      * @return Responseentity describing for example if the deletion was succesful
      */
     @DeleteMapping("/bookings/id/{id}")
     public ResponseEntity<Void> deleteBooking(@PathVariable int id) {
         int success = databaseController.deleteBookingByID(id);
+        if (success != 0) {
+            return ResponseEntity.noContent().build();
+        }
+        return ResponseEntity.notFound().build();
+    }
+
+    @DeleteMapping("/bookings/delete/{date}")
+    public ResponseEntity<Void> deleteBookingTimes(@PathVariable Date date) {
+        int success = databaseController.deleteBookingTimes(date);
         if (success != 0) {
             return ResponseEntity.noContent().build();
         }
