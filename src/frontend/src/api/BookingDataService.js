@@ -10,7 +10,7 @@ const header = {'Authorization': 'Bearer ' + localStorage.getItem('token'), 'Con
 
 class BookingDataService {
     retrieveAllAvailableTimes(date, time, guests) {
-        return axios.get(apiURL + `availableTimes`, {params: { 'date': date, 'time': time, 'guests': guests}})
+        return axios.get(apiURL + `/availableTimes`, {params: { 'date': date, 'time': time, 'guests': guests}})
     }
 
     retrieveAllAvailableDays(guests) {
