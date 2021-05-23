@@ -9,12 +9,9 @@ import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import javax.xml.crypto.Data;
 
-import com.auth0.jwt.JWT;
-import com.auth0.jwt.algorithms.Algorithm;
-import com.auth0.jwt.exceptions.JWTCreationException;
-import com.auth0.jwt.exceptions.JWTVerificationException;
-import com.auth0.jwt.interfaces.DecodedJWT;
-import com.auth0.jwt.interfaces.JWTVerifier;
+import com.twilio.Twilio;
+import com.twilio.rest.api.v2010.account.Message;
+import com.twilio.type.PhoneNumber;
 
 import java.net.URI;
 import java.sql.Time;
@@ -31,8 +28,33 @@ import java.util.List;
 @RestController
 @CrossOrigin(origins = "http://localhost:3000")
 public class BookingController {
+    public static final String ACCOUNT_SID = "AC3d1bbee5d6e001f1ae2b4d4ad0e7e85f";
+    public static final String AUTH_TOKEN = "3931c49d7ac3a2f4f508ab0f1158d325";
+
     @Autowired
     private DatabaseController databaseController;
+
+    @PostMapping("/bookings/confirmation")
+    private ResponseEntity<?> SendConfirmationSMS(@RequestBody Booking booking){
+        Twilio.init(ACCOUNT_SID, AUTH_TOKEN);
+
+        String confirmationMsg = "Hej, " + booking.getGuestName() + ". Din bokning kl. " + booking.getStartTime() + ", " + booking.getBookingDate() + " är bekräftad. Tack!";
+
+        try {
+            Message message = Message.creator(
+                //To
+                new com.twilio.type.PhoneNumber(booking.getGuestTelNr()),
+                //From
+                new com.twilio.type.PhoneNumber("+46701926415"),
+                confirmationMsg)
+                    .create();
+            return ResponseEntity.ok(true);
+        } catch (Exception e){
+            System.out.println(e);
+            return ResponseEntity.ok(false);
+        }
+    }
+
 
     @GetMapping("/availableTimes")
     public List<Time> getAllAvailableTimes(@DateTimeFormat(pattern = "yyyy-MM-dd") LocalDate date, @DateTimeFormat(pattern = "HH:mm:ss") LocalTime time, int guests){

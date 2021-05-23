@@ -45,6 +45,7 @@ export default function Confirm(props) {
         } else {
             setLoading(true)
             BookingDataService.createBooking(booking).then(response => {
+                BookingDataService.sendConfirmationSMS(booking)
                 setLoading(false)
                 history.push('/done')
             }).catch(error => {

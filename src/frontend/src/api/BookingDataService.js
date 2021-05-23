@@ -12,11 +12,11 @@ class BookingDataService {
     }
 
     retrieveAllAvailableTimes(date, time, guests) {
-        return axios.get(`http://localhost:8080/availableTimes`, {params: { 'date': date, 'time': time, 'guests': guests}}, {headers: header})
+        return axios.get(`http://localhost:8080/availableTimes`, {params: { 'date': date, 'time': time, 'guests': guests}})
     }
 
     retrieveAllAvailableDays(guests) {
-        return axios.get(`http://localhost:8080/availableDays`, { params: { 'guests': guests}}, {headers: header})
+        return axios.get(`http://localhost:8080/availableDays`, { params: { 'guests': guests}})
     }
 
     retrieveBooking(id) {
@@ -40,7 +40,7 @@ class BookingDataService {
      * @param booking JSON object of a booking
      */
     createBooking(booking) {
-        return axios.post(`http://localhost:8080/bookings/create`, booking, {headers: header});
+        return axios.post(`http://localhost:8080/bookings/create`, booking);
     }
 
     /**
@@ -78,7 +78,11 @@ class BookingDataService {
     }
 
     isUserAuthenticated() {
-        return axios.post('http://localhost:8080/validateToken', { 'token': localStorage.getItem('token') }, {headers: header})
+        return axios.post('http://localhost:8080/validateToken', { 'token': localStorage.getItem('token') })
+    }
+
+    sendConfirmationSMS(booking) {
+        return axios.post('http://localhost:8080/bookings/confirmation', booking)
     }
 }
 
