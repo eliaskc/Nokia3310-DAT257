@@ -4,6 +4,7 @@ import { BrowserRouter as Router, Route, Switch } from 'react-router-dom'
 import Wizard from './Wizard'
 import LoginForm from './LoginForm'
 import UserAuth from './UserAuth'
+import DownloadInstructions from './DownloadInstructions'
 
 /**
  * Component for the Home/starting page 
@@ -45,8 +46,6 @@ function HomeComponent() {
                     <img src="/hamncafet_logo.png" alt="Hamncafét logga" className="main_logo" />
                 </a>
 
-                <Button className="add-button">Lägg till som app</Button>
-
                 <Router>
                     <Switch>
                         <Route exact path='/'>
@@ -82,9 +81,9 @@ function HomeComponent() {
                         <Route path='/guests'>
                             <Wizard />
                         </Route>
-
                     </Switch>
                 </Router>
+                <DownloadInstructions/>
             </header>
         </div>
     );

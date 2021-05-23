@@ -4,8 +4,7 @@ import BookingListComponent from './components/BookingOverview/BookingListCompon
 import HomeComponent from './components/HomeComponent'
 import './BookingApp.sass'
 import 'bootstrap/dist/css/bootstrap.min.css';
-import AddToHomeScreen from '@ideasio/add-to-homescreen-react';
-
+    
 /**
  * Container for the application
  * @returns 
