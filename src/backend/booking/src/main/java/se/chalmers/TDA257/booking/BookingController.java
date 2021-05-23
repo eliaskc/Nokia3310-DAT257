@@ -38,7 +38,7 @@ public class BookingController {
     private ResponseEntity<?> SendConfirmationSMS(@RequestBody Booking booking){
         Twilio.init(ACCOUNT_SID, AUTH_TOKEN);
 
-        String confirmationMsg = "Hej, " + booking.getGuestName() + ". Din bokning kl. " + booking.getStartTime() + ", " + booking.getBookingDate() + " är bekräftad. Tack!";
+        String confirmationMsg = "Hej, " + booking.getGuestName() + "! Din bokning kl. " + booking.getStartTime() + ", " + booking.getBookingDate() + " hos oss på Gullholmens Hamncafé är nu bekräftad. För att ändra eller ta bort din bokning kontakta oss på 030457007. No show debiteras med 100kr/person. Tack för din bokning! OBS, detta sms går inte att svara på.";
 
         try {
             Message message = Message.creator(
