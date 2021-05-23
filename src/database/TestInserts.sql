@@ -1,4 +1,4 @@
-//Test-inserts
+--Test-inserts
 INSERT INTO BookingsView VALUES (CURRENT_DATE, '17:00:00', '17:00:00',  1, 1, 'Dieter',  0761022445, 2, 'Allergiker');
 INSERT INTO BookingsView VALUES (CURRENT_DATE, '17:00:00', '17:00:00',  1, 1, 'Carina',  0761022440, 8);
 INSERT INTO BookingsView VALUES (CURRENT_DATE, '17:00:00', '17:00:00',  1, 1, 'Hasse',  0761022441, 8);
