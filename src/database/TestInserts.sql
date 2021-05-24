@@ -1,4 +1,11 @@
 --Test-inserts
+INSERT INTO BookingsView VALUES (CURRENT_DATE - INTERVAL '1 days', '17:00:00', '17:00:00', 1, 1, 'Ella', 0762893829, 5, 'Sitta vid fönster');
+INSERT INTO BookingsView VALUES (CURRENT_DATE - INTERVAL '1 days', '17:30:00', '17:30:00', 1, 1, 'Lars', 0762893829, 2, 'Bröllopsdag <3');
+INSERT INTO BookingsView VALUES (CURRENT_DATE - INTERVAL '1 days', '17:30:00', '17:30:00', 1, 1, 'Gordon', 0762893829, 1, 'Matrecensent!');
+INSERT INTO BookingsView VALUES (CURRENT_DATE - INTERVAL '1 days', '18:00:00', '18:00:00', 1, 1, 'Lisa', 0762893829, 5, '');
+INSERT INTO BookingsView VALUES (CURRENT_DATE - INTERVAL '1 days', '19:00:00', '19:00:00', 1, 1, 'Anna', 0762893829, 8, 'Hört att det är god mat hos er!');
+INSERT INTO BookingsView VALUES (CURRENT_DATE - INTERVAL '1 days', '19:00:00', '19:00:00', 1, 1, 'Leo', 0762893829, 3, 'Är stammis');
+
 INSERT INTO BookingsView VALUES (CURRENT_DATE, '17:00:00', '17:00:00',  1, 1, 'Dieter',  0761022445, 2, 'Allergiker');
 INSERT INTO BookingsView VALUES (CURRENT_DATE, '17:00:00', '17:00:00',  1, 1, 'Carina',  0761022440, 8);
 INSERT INTO BookingsView VALUES (CURRENT_DATE, '17:00:00', '17:00:00',  1, 1, 'Hasse',  0761022441, 8);
