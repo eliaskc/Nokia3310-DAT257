@@ -28,8 +28,8 @@ import java.util.List;
 @RestController
 @CrossOrigin(origins = "https://hamncafetgullholmen.herokuapp.com")
 public class BookingController {
-    public static final String ACCOUNT_SID = "AC3d1bbee5d6e001f1ae2b4d4ad0e7e85f";
-    public static final String AUTH_TOKEN = "3931c49d7ac3a2f4f508ab0f1158d325";
+    public static final String ACCOUNT_SID = System.getenv("ACCOUNT_SID");
+    public static final String AUTH_TOKEN = System.getenv("AUTH_TOKEN");
 
     @Autowired
     private DatabaseController databaseController;
