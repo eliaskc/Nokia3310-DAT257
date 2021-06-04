@@ -25,4 +25,6 @@ Strukturen i vår git är relativt simpel. I mappen **Project Scope** finns vår
 
 Våra dokument och deliverables finns samlade i vår Google Drive mapp länkad ovan.
 
+Våra individuella reflektioner finns i wikin för repot.
+
 Vår applikation går att testa på http://hamncafetgullholmen.herokuapp.com/
